@@ -1,0 +1,12 @@
+﻿[
+	{
+		"id": "1",
+		"task_type": "定时发送邮件",
+		"task_job_class": "com.infox.sysmgr.job.SchedulerEmail"
+	},
+	{
+		"id": "2",
+		"task_type": "定时备份数据库",
+		"task_job_class": "com.infox.sysmgr.job.SchedulerBackupDB"
+	}
+]

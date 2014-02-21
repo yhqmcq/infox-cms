@@ -1,0 +1,17 @@
+﻿
+form{margin:0px;padding:0px;}
+table { display: table; border-collapse: separate; border-spacing: 0px; }
+td,th { display: table-cell; vertical-align: inherit; }
+a{text-decoration: none}
+img{border:0px;}
+textarea.easyui-validatebox{font-size:13px;}
+.validatebox-text {background-attachment: scroll;background-clip: border-box;background-origin: padding-box;background-size: auto auto;border:1px solid #ddd;height: 19px;line-height: 17px;padding: 1px 3px 2px;}
+.panel-body  { overflow: hidden; }/*防止iframe滚动条 */
+.imgIcon{ width:16px; height:16px; padding:2px 0px 2px 16px; }
+
+
+
+
+
+
+
