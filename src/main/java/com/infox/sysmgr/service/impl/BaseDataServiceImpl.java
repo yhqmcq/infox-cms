@@ -23,7 +23,7 @@ public class BaseDataServiceImpl implements BaseDataService {
 		return jdsu.getJdbcTemplate();
 	}
 	
-	private String db;
+	private String db; 
 
 	public List<BaseTable> listTables() {
 		String sql = "select table_name,table_comment,engine,table_rows,auto_increment from tables where table_schema='"
