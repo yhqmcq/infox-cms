@@ -12,7 +12,7 @@
 		treeGrid = $("#t1").treegrid({
 			title: '组织机构管理',
 			method: "get",
-			url: yhq.basePath+"/sysmgr/org/treegrid.do",
+			url: siteUtil.basePath+"/sysmgr/org/treegrid.do",
 			idField: 'id',
 			treeField: 'fullname',
 			fit: true,
@@ -41,11 +41,11 @@
 	});
 	
 	function form_edit(form) {
-		var form_url = yhq.basePath+"/sysmgr/org/org_form.do" ;
+		var form_url = siteUtil.basePath+"/sysmgr/org/org_form.do" ;
 		if("E" == form) {
 			var node = treeGrid.treegrid('getSelected');
 			if (node) {
-				form_url = yhq.basePath+"/sysmgr/org/org_form.do?id="+node.id ;
+				form_url = siteUtil.basePath+"/sysmgr/org/org_form.do?id="+node.id ;
 			} else {
 				$.easyui.messager.show({ icon: "info", msg: "请选择一条记录！" });
 				return ;
@@ -72,7 +72,7 @@
 		if(node){
 			$.messager.confirm("您确定要进行该操作？<br/>该删除操作会将子菜单一并删除。", function (c) { 
 				if(c) {
-					$.post(yhq.basePath+"/sysmgr/org/delete.do", {id:node.id}, function(result) {
+					$.post(siteUtil.basePath+"/sysmgr/org/delete.do", {id:node.id}, function(result) {
 						if (result.status) {
 							treeGrid.treegrid('reload') ;
 							$.easyui.messager.show({ icon: "info", msg: "删除记录成功。" });

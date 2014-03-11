@@ -14,20 +14,24 @@ if (cookieMap.containsKey("themeName")) {
 	themeName = cookie.getValue();
 }
 %>
-
-<script type="text/javascript">var yhq = yhq || {};yhq.basePath = '<%=basePath%>';</script>
+<script src="<%=basePath%>/js/util/site.util.js" type="text/javascript"></script>
+<script type="text/javascript">siteUtil.basePath = '<%=basePath%>';</script>
 
 <link href="<%=basePath%>/js/plugins/easyui/jquery-easyui-theme/<%=themeName%>/easyui.css" rel="stylesheet" type="text/css" />
 <link href="<%=basePath%>/js/plugins/easyui/jquery-easyui-theme/icon.css" rel="stylesheet" type="text/css" />
 <link href="<%=basePath%>/js/plugins/easyui/icons/icon-all.css" rel="stylesheet" type="text/css" />
 
-<script src="<%=basePath%>/js/plugins/jquery/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="<%=basePath%>/js/plugins/jquery/jquery-1.11.0.min.js" type="text/javascript"></script>
 
 <script src="<%=basePath%>/js/plugins/easyui/jquery-easyui-1.3.5/jquery.easyui.min.js" type="text/javascript"></script>
 <script src="<%=basePath%>/js/plugins/easyui/jquery-easyui-1.3.5/locale/easyui-lang-zh_CN.js" type="text/javascript"></script>
 
 <script src="<%=basePath%>/js/util/jquery.jdirk.js" type="text/javascript"></script>
+<!-- 
+<script src="<%=basePath%>/js/plugins/easyui/release/jquery.jdirk.min.js"></script>
+ -->
 
+<!-- 
 <script src="<%=basePath%>/js/plugins/easyui/jeasyui-extensions/jeasyui.extensions.js" type="text/javascript"></script>
 <script src="<%=basePath%>/js/plugins/easyui/jeasyui-extensions/jeasyui.extensions.linkbutton.js" type="text/javascript"></script>
 <script src="<%=basePath%>/js/plugins/easyui/jeasyui-extensions/jeasyui.extensions.validatebox.js" type="text/javascript"></script>
@@ -46,11 +50,13 @@ if (cookieMap.containsKey("themeName")) {
 <script src="<%=basePath%>/js/plugins/easyui/jeasyui-extensions/jeasyui.extensions.combotree.js" type="text/javascript"></script>
 <script src="<%=basePath%>/js/plugins/easyui/jeasyui-extensions/jeasyui.extensions.tabs.js" type="text/javascript"></script>
 <script src="<%=basePath%>/js/plugins/easyui/jeasyui-extensions/jeasyui.extensions.theme.js" type="text/javascript"></script>
-<!--<script src="release/jeasyui.extensions.all.min.js"></script>-->
+ -->
+<script src="<%=basePath%>/js/plugins/easyui/release/jeasyui.extensions.all.min.js"></script>
 
-
+<!-- 
 <script src="<%=basePath%>/js/plugins/easyui/icons/jeasyui.icons.all.js" type="text/javascript"></script>
-<!--<script src="release/jeasyui.icons.all.min.js"></script>-->
+ -->
+<script src="<%=basePath%>/js/plugins/easyui/release/jeasyui.icons.all.min.js"></script>
 
 
 <script src="<%=basePath%>/js/plugins/easyui/jeasyui-extensions/jeasyui.extensions.icons.js" type="text/javascript"></script>
@@ -71,3 +77,4 @@ if (cookieMap.containsKey("themeName")) {
 <script type="text/javascript" src="<%=basePath%>/js/plugins/jquery.imgareaselect-0.9.10/scripts/jquery.imgareaselect.pack.js"></script>
 
 <script type="text/javascript" src="<%=basePath%>/js/plugins/plupload-2.1.1/js/plupload.full.min.js"></script>
+

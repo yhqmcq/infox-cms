@@ -1,5 +1,5 @@
 ﻿/**
-* jQuery EasyUI 1.3.4
+* jQuery EasyUI 1.3.5
 * Copyright (c) 2009-2013 www.jeasyui.com. All rights reserved.
 *
 * Licensed under the GPL or commercial licenses
@@ -75,18 +75,21 @@
         }
         var defaults = $.extend({}, $.messager.defaults, { title: "操作提醒", timeout: 4000, showType: "slide" });
         var position = {
-            topLeft: { right: "", left: 0, top: document.body.scrollTop + document.documentElement.scrollTop, bottom: "" },
-            topCenter: { right: "", top: document.body.scrollTop + document.documentElement.scrollTop, bottom: "" },
-            topRight: { left: "", right: 0, top: document.body.scrollTop + document.documentElement.scrollTop, bottom: "" },
-            centerLeft: { left: 0, right: "", bottom: "" },
-            center: { right: "", bottom: "" },
-            centerRight: { left: "", right: 0, bottom: "" },
-            bottomLeft: { left: 0, right: "", top: "", bottom: -document.body.scrollTop - document.documentElement.scrollTop },
-            bottomCenter: { right: "", top: "", bottom: -document.body.scrollTop - document.documentElement.scrollTop },
-            bottomRight: { left: "", right: 0, top: "", bottom: -document.body.scrollTop - document.documentElement.scrollTop }
+            topLeft: { showType: "show", right: "", left: 0, top: document.body.scrollTop + document.documentElement.scrollTop, bottom: "" },
+            topCenter: { showType: "slide", right: "", top: document.body.scrollTop + document.documentElement.scrollTop, bottom: "" },
+            topRight: { showType: "show", left: "", right: 0, top: document.body.scrollTop + document.documentElement.scrollTop, bottom: "" },
+            centerLeft: { showType: "fade", left: 0, right: "", bottom: "" },
+            center: { showType: "fade", right: "", bottom: "" },
+            centerRight: { showType: "fade", left: "", right: 0, bottom: "" },
+            bottomLeft: { showType: "show", left: 0, right: "", top: "", bottom: -document.body.scrollTop - document.documentElement.scrollTop },
+            bottomCenter: { showType: "slide", right: "", top: "", bottom: -document.body.scrollTop - document.documentElement.scrollTop },
+            bottomRight: { showType: "show", left: "", right: 0, top: "", bottom: -document.body.scrollTop - document.documentElement.scrollTop }
         };
         var opts = $.extend({}, defaults, options);
         opts.style = position[options.position] ? position[options.position] : position.topCenter;
+        if (opts.style.showType) {
+            opts.showType = opts.style.showType;
+        }
         var iconCls = icons[opts.icon] ? icons[opts.icon] : icons.info;
         opts.msg = "<div class='messager-icon " + iconCls + "'></div>" + "<div>" + opts.msg + "</div>";
         return _show(opts);
@@ -139,32 +142,6 @@
     //      function (title, message, callback)
     //  返回值：返回弹出的消息框 easyui-window 对象
     $.messager.solicit = function (title, msg, fn) {
-    	var options = $.extend({}, (arguments.length == 2) ? { title: defaults.title, msg: arguments[0], fn: arguments[1] }
-    	: { title: arguments[0], msg: arguments[1], fn: arguments[2] });
-    	var win = $.messager.confirm(options.title, options.msg, options.fn), opts = win.window("options"), onClose = opts.onClose;
-    	opts.onClose = function () {
-    		if ($.isFunction(onClose)) { onClose.apply(this, arguments); }
-    		if ($.isFunction(options.fn)) { options.fn.call(this, undefined); }
-    	};
-    	var button = win.find(">div.messager-button").empty();
-    	$("<a></a>").linkbutton({ text: "是" }).css("margin-left", "10px").click(function () {
-    		opts.onClose = onClose; win.window("close"); if ($.isFunction(options.fn)) { options.fn.call(this, true); }
-    	}).appendTo(button);
-    	$("<a></a>").linkbutton({ text: "否" }).css("margin-left", "10px").click(function () {
-    		opts.onClose = onClose; win.window("close"); if ($.isFunction(options.fn)) { options.fn.call(this, false); }
-    	}).appendTo(button);
-    	$("<a></a>").linkbutton({ text: "取消" }).css("margin-left", "10px").click(function () {
-    		opts.onClose = onClose; win.window("close"); if ($.isFunction(options.fn)) { options.fn.call(this, undefined); }
-    	}).appendTo(button);
-    	return win;
-    };
-    
-    //  增加 $.messager.solicit_ext 方法，该方法弹出一个包含三个按钮("编辑"、"下载" 和 "取消")的对话框，点击任意按钮或者关闭对话框时，执行指定的回调函数；
-    //      该函数提供如下重载方式：
-    //      function (message, callback)
-    //      function (title, message, callback)
-    //  返回值：返回弹出的消息框 easyui-window 对象
-    $.messager.solicit_ext = function (title, msg, fn) {
         var options = $.extend({}, (arguments.length == 2) ? { title: defaults.title, msg: arguments[0], fn: arguments[1] }
             : { title: arguments[0], msg: arguments[1], fn: arguments[2] });
         var win = $.messager.confirm(options.title, options.msg, options.fn), opts = win.window("options"), onClose = opts.onClose;
@@ -173,10 +150,10 @@
             if ($.isFunction(options.fn)) { options.fn.call(this, undefined); }
         };
         var button = win.find(">div.messager-button").empty();
-        $("<a></a>").linkbutton({ text: "编辑" }).css("margin-left", "10px").click(function () {
+        $("<a></a>").linkbutton({ text: "是" }).css("margin-left", "10px").click(function () {
             opts.onClose = onClose; win.window("close"); if ($.isFunction(options.fn)) { options.fn.call(this, true); }
         }).appendTo(button);
-        $("<a></a>").linkbutton({ text: "下载" }).css("margin-left", "10px").click(function () {
+        $("<a></a>").linkbutton({ text: "否" }).css("margin-left", "10px").click(function () {
             opts.onClose = onClose; win.window("close"); if ($.isFunction(options.fn)) { options.fn.call(this, false); }
         }).appendTo(button);
         $("<a></a>").linkbutton({ text: "取消" }).css("margin-left", "10px").click(function () {
@@ -266,6 +243,49 @@
 
     //  更改 jeasyui-combo 组件的非空验证提醒消息语言。
     $.extend($.fn.combo.defaults, { missingMessage: $.fn.validatebox.defaults.missingMessage });
+
+
+    //  基于当前页面 document 触发，当前页面嵌套的所有子级和父级页面均执行一个签名为 function (win, e) 事件触发函数；该方法提供如下参数：
+    //      eventName:
+    //      eventNamespace:
+    //      plugin:
+    //      callback: 一个签名为 function (win, e) 的函数，其中 win 表示所在 iframe 执行函数传入的 window 对象，e 表示最初触发该循环函数调用的事件对象。
+    coreEasyui.bindPageNestedFunc = function (eventName, eventNamespace, plugin, callback) {
+        if (arguments.length == 3) { callback = plugin; plugin = "jquery"; }
+        if (arguments.length == 4 && !plugin) { plugin = "jquery"; }
+        $(document).unbind("." + eventNamespace).bind(eventName + "." + eventNamespace, function (e) {
+            var doCall = function (win) { callback.call(win, win, e); },
+                doCallUp = function (win) {
+                    var p = win.parent;
+                    try {
+                        if (win != p && p.jQuery && p.jQuery.parser && p.jQuery.parser.plugins && p.jQuery.fn && p.jQuery.fn[plugin]) {
+                            doCall(p);
+                            doCallUp(p);
+                        }
+                    } catch (ex) { }
+                },
+                doCallDown = function (win) {
+                    var jq = win.jQuery;
+                    jq("iframe,iframe").each(function () {
+                        try {
+                            if (this.contentWindow && jq.util.isObject(this.contentWindow.document) && this.contentWindow.jQuery && this.contentWindow.jQuery.parser && this.contentWindow.jQuery.parser.plugins && this.contentWindow.jQuery.fn && this.contentWindow.jQuery.fn[plugin]) {
+                                doCall(this.contentWindow);
+                                doCallDown(this.contentWindow);
+                            }
+                        } catch (ex) { }
+                    });
+                },
+                doCallAll = function (win) {
+                    doCall(win);
+                    doCallUp(win);
+                    doCallDown(win);
+                };
+            doCallAll(window);
+        });
+    };
+
+
+
 
 
 
@@ -436,19 +456,19 @@
     };
 
     coreJquery.fn.currentDatagrid = function () {
-        var p = this.closest(".datagrid-wrap.panel-body"), dg = p.find(">.datagrid-view>eq(2)");
+        var p = this.closest(".datagrid-wrap.panel-body"), dg = p.find(">.datagrid-view>:eq(2)");
         while (p.length && !$.data(dg[0], "datagrid")) {
             p = p.parent().closest(".datagrid-wrap.panel-body");
-            dg = p.find(">.datagrid-view>eq(2)");
+            dg = p.find(">.datagrid-view>:eq(2)");
         }
         return dg;
     };
 
     coreJquery.fn.currentPropertygrid = function () {
-        var p = this.closest(".datagrid-wrap.panel-body"), pg = p.find(">.datagrid-view>eq(2)");
+        var p = this.closest(".datagrid-wrap.panel-body"), pg = p.find(">.datagrid-view>:eq(2)");
         while (p.length && !$.data(pg[0], "propertygrid")) {
             p = p.parent().closest(".datagrid-wrap.panel-body");
-            pg = p.find(">.datagrid-view>eq(2)");
+            pg = p.find(">.datagrid-view>:eq(2)");
         }
         return pg;
     };
@@ -460,10 +480,10 @@
     };
 
     coreJquery.fn.currentTreegrid = function () {
-        var p = this.closest(".datagrid-wrap.panel-body"), tg = p.find(">.datagrid-view>eq(2)");
+        var p = this.closest(".datagrid-wrap.panel-body"), tg = p.find(">.datagrid-view>:eq(2)");
         while (p.length && !$.data(tg[0], "treegrid")) {
             p = p.parent().closest(".datagrid-wrap.panel-body");
-            tg = p.find(">.datagrid-view>eq(2)");
+            tg = p.find(">.datagrid-view>:eq(2)");
         }
         return tg;
     };

@@ -46,7 +46,7 @@
 		var k = $('#loginTabs').tabs('getSelected').find('form input[name=kaptcha]').val() ;
 		tabsForm = $('#loginTabs').tabs('getSelected').find('form');//当前选中的tab
 		if(tabsForm.form('validate') && "" != k) {
-    		$.post(yhq.basePath+"/sysmgr/employee/doNotNeedSession_login.do", tabsForm.form("getData"), function(result) {
+    		$.post(siteUtil.basePath+"/sysmgr/employee/doNotNeedSession_login.do", tabsForm.form("getData"), function(result) {
     			if (result.status) {
     				$("#loginInfo").html('欢迎您：'+result.obj.emp.truename) ;
     				$("#loginDialog").dialog('close');
@@ -64,9 +64,9 @@
 	}
 	
 	function loginOut(b){
-    	$.post(yhq.basePath+"/sysmgr/employee/doNotNeedSession_logout.do", null, function(result) {
+    	$.post(siteUtil.basePath+"/sysmgr/employee/doNotNeedSession_logout.do", null, function(result) {
     		if ("exit"==b) {
-    			location.replace(yhq.basePath+'/index.jsp');
+    			location.replace(siteUtil.basePath+'/index.jsp');
     		} else {
     			$("#loginInfo").html('') ;
     			window.mainpage.online() ;
@@ -80,11 +80,11 @@
     	loginTabs.tabs('getSelected').find("#form-login input")[0].focus();
     	loginTabs.tabs('getSelected').find("#form-login input").val("");
     	var k= loginTabs.tabs('getSelected').find('form #kaptcha') ;
-    	k.attr('src',yhq.basePath+'/kaptcha.jpg?' + Math.floor(Math.random() * 100)).fadeIn() ;
+    	k.attr('src',siteUtil.basePath+'/kaptcha.jpg?' + Math.floor(Math.random() * 100)).fadeIn() ;
 		k.click(     
 	        function() {     
-			   k.attr('src',yhq.basePath+'/images/loading5.gif').fadeIn() ;
-	           $(this).hide().attr('src',yhq.basePath+'/kaptcha.jpg?' + Math.floor(Math.random() * 100)).fadeIn();     
+			   k.attr('src',siteUtil.basePath+'/images/loading5.gif').fadeIn() ;
+	           $(this).hide().attr('src',siteUtil.basePath+'/kaptcha.jpg?' + Math.floor(Math.random() * 100)).fadeIn();     
 	    });
     }
 	//表单晃动

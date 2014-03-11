@@ -5,16 +5,16 @@
 .col{width:95px;}
 </style>
 <script type="text/javascript">
-	var form_url = yhq.basePath+"/sysmgr/task/add.do" ;
+	var form_url = siteUtil.basePath+"/sysmgr/task/add.do" ;
 	
 	$(function() {
 		var p = $("#p").panel({
 	        title: "Cron表达式",iconCls: 'icon-standard-map',fit:true,
-	        href: yhq.basePath+"/common/page/task_cron.jsp",
+	        href: siteUtil.basePath+"/common/page/task_cron.jsp",
 	        iniframe: false
 	    });
 		var t = $("#task_type").combobox({
-			url: yhq.basePath+"/common/view-index-resource/task-job-data.json",
+			url: siteUtil.basePath+"/common/view-index-resource/task-job-data.json",
 			width: 157, valueField:'id',textField:'task_type',
 			panelHeight:'auto', editable:false, autoShowPanel: true,
 			onSelect: function(rec){
@@ -27,8 +27,8 @@
 		$.util.exec(function () {
 			//编辑，加载表单数据
 			if($('input[name=id]').val().length > 0) {
-				form_url = yhq.basePath+"/sysmgr/task/edit.do" ;
-				$.post(yhq.basePath+"/sysmgr/task/get.do", {id:$('input[name=id]').val()}, function(result) {
+				form_url = siteUtil.basePath+"/sysmgr/task/edit.do" ;
+				$.post(siteUtil.basePath+"/sysmgr/task/get.do", {id:$('input[name=id]').val()}, function(result) {
 					if (result.id != undefined) {
 						$('form').form('load', {
 							'id' : result.id,

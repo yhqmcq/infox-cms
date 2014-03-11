@@ -1,5 +1,5 @@
 ﻿/**
-* jQuery EasyUI 1.3.4
+* jQuery EasyUI 1.3.5
 * Copyright (c) 2009-2013 www.jeasyui.com. All rights reserved.
 *
 * Licensed under the GPL or commercial licenses
@@ -31,12 +31,13 @@
 
 
     function initTabsPanelPaddingTopLine(target) {
-        var tabs = $.util.parseJquery(target), opts = tabs.tabs("options"), position = opts.tabPosition;
+        var t = $(target), opts = $.data(target, "tabs").options, position = opts.tabPosition;
         if ($.isNumeric(opts.lineHeight) && opts.lineHeight > 0) {
             if (!$.array.contains(["top", "bottom", "left", "right"], position)) { position = "top"; }
-            tabs.children("div.tabs-panels").css("padding-" + position, opts.lineHeight.toString() + "px").children().children().css("border-" + position + "-width", "1px");
+            t.children("div.tabs-panels").css("padding-" + position, opts.lineHeight.toString() + "px").children().children().css("border-" + position + "-width", "1px");
         }
     };
+
 
     var _onContextMenu = $.fn.tabs.defaults.onContextMenu;
     var onContextMenu = function (e, title, index) {
@@ -131,7 +132,7 @@
     var _updateTab = $.fn.tabs.methods.update;
     function updateTab(target, param) {
         param = $.extend({ tab: null, options: null }, param);
-        var tabs = $.util.parseJquery(target), opts = tabs.tabs("options"),
+        var tabs = $(target), opts = $.data(target, "tabs").options,
             index = tabs.tabs("getTabIndex", param.tab),
             panelOpts = $.union({}, param.options, $.fn.tabs.extensions.panelOptions),
             tools = panelOpts.tools,
@@ -158,7 +159,7 @@
                 }
             };
         if (panelOpts.refreshable) {
-            if ($.array.likeArray(panelOpts.tools)) {
+            if ($.util.likeArrayNotString(panelOpts.tools)) {
                 panelOpts.tools = $.array.merge([], panelOpts.tools, refreshButton);
             } else {
                 panelOpts.tools = [refreshButton];
@@ -170,7 +171,7 @@
                 panelOpts.onLoad = function () {
                     if ($.isFunction(onLoad)) { onLoad.apply(this, arguments); }
                     $.util.exec(loading);
-                    $.util.parseJquery(this).panel("options").onLoad = onLoad;
+                    $(this).panel("options").onLoad = onLoad;
                 };
             }
         }
@@ -277,7 +278,7 @@
     };
 
     function getTabOption(target, which) {
-        var t = $.util.parseJquery(target), tab = tabs.tabs("getTab", which), tabOpts = tab.panel("options");
+        var t = $.util.parseJquery(target), tab = t.tabs("getTab", which), tabOpts = tab.panel("options");
         return tabOpts;
     };
 
@@ -314,7 +315,7 @@
         return $.array.merge($.array.range(panels, 0, index), $.array.range(panels, index + 1));
     };
 
-    function closableFinder (val) {
+    function closableFinder(val) {
         if ($.util.isJqueryObject(val) && val.length) {
             var state = $.data(val[0], "panel");
             return state && state.options && state.options.closable;
@@ -694,6 +695,25 @@
         }
     };
 
+    function refreshCurrentTab(target, iniframe) {
+        iniframe = iniframe && !$.util.isTopMost ? true : false;
+        var current = $.util.parseJquery(target),
+            currentTabs = current.currentTabs(),
+            index;
+        if (!iniframe && currentTabs.length) {
+            index = current.currentTabIndex();
+            if (index > -1) { currentTabs.tabs("refresh", index); }
+        } else {
+            var jq = $.util.parent.$;
+            current = jq.util.parseJquery($.util.currentFrame);
+            currentTabs = current.currentTabs();
+            if (currentTabs.length) {
+                index = current.currentTabIndex();
+                if (index > -1) { currentTabs.tabs("refresh", index); }
+            }
+        }
+    };
+
     $.fn.extend({
         //  扩展 jQuery 对象的实例方法；用于关闭当前对象所在的 easyui-tabs 当前选项卡(支持当前选项卡页面为 iframe 加载的情况)。
         //  该方法定义如下参数：
@@ -701,7 +721,15 @@
         //          如果当前页面为顶级页面，
         //          或者当前对象在 iframe 中但是不在当前iframe中的某个 easyui-tabs 内，则参数参数 inframe 无效。
         //  返回值：返回当前 jQuery 链式对象(实际上返回的 jQuery 对象中，所包含的元素已经被销毁，因为其容器 tab-panel 被关闭销毁了)。
-        closeCurrentTab: function (iniframe) { return this.each(function () { closeCurrentTab(this, iniframe); }); }
+        closeCurrentTab: function (iniframe) { return this.each(function () { closeCurrentTab(this, iniframe); }); },
+
+        //  扩展 jQuery 对象的实例方法；用于刷新当前对象所在的 easyui-tabs 当前选项卡(支持当前选项卡页面为 iframe 加载的情况)。
+        //  该方法定义如下参数：
+        //      iniframe: Boolean 类型值，表示是否为刷新当前对象所在的父级页面的选项卡；默认为 false。
+        //          如果当前页面为顶级页面，
+        //          或者当前对象在 iframe 中但是不在当前iframe中的某个 easyui-tabs 内，则参数参数 inframe 无效。
+        //  返回值：返回当前 jQuery 链式对象。
+        refreshCurrentTab: function (iniframe) { return this.each(function () { refreshCurrentTab(this, iniframe); }); }
     });
 
 

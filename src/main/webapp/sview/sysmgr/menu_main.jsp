@@ -14,7 +14,7 @@
 			width: 900,
 			height: 400,
 			method: "get",
-			url: yhq.basePath+"/sysmgr/menu/treegrid",
+			url: siteUtil.basePath+"/sysmgr/menu/treegrid",
 			//url: "treegrid-data.json",
 			idField: 'id',
 			treeField: 'name',
@@ -63,7 +63,7 @@
 	});
 	
 	function ondrop(target, source, point) {
-		$.post(yhq.basePath+"/sysmgr/menu/ondrop", {id:source.id, pid:(point=='top'||point=='bottom'?null:target.id)}, function(result) {
+		$.post(siteUtil.basePath+"/sysmgr/menu/ondrop", {id:source.id, pid:(point=='top'||point=='bottom'?null:target.id)}, function(result) {
 			if (result.status) {
 				treeGrid.treegrid('reload') ;
 				$.messager.show($.string.format("您刚才将节点 {0} 移向了节点 {1} 的 {2} 位置", source.name, target.name, point));
@@ -74,11 +74,11 @@
 	}
 	
 	function form_edit(form) {
-		var form_url = yhq.basePath+"/sysmgr/menu/menu_form" ;
+		var form_url = siteUtil.basePath+"/sysmgr/menu/menu_form" ;
 		if("E" == form) {
 			var node = treeGrid.treegrid('getSelected');
 			if (node) {
-				form_url = yhq.basePath+"/sysmgr/menu/menu_form?id="+node.id ;
+				form_url = siteUtil.basePath+"/sysmgr/menu/menu_form?id="+node.id ;
 			} else {
 				$.easyui.messager.show({ icon: "info", msg: "请选择一条记录！" });
 				return ;
@@ -105,7 +105,7 @@
 		if(node){
 			$.messager.confirm("您确定要进行该操作？<br/>该删除操作会将子菜单一并删除。", function (c) { 
 				if(c) {
-					$.post(yhq.basePath+"/sysmgr/menu/delete", {id:node.id}, function(result) {
+					$.post(siteUtil.basePath+"/sysmgr/menu/delete", {id:node.id}, function(result) {
 						if (result.status) {
 							$.easyui.parent.window.mainpage.refreshNavTab();
 							treeGrid.treegrid('reload') ;

@@ -6,7 +6,7 @@
 <%@ include file="/common/base/meta.jsp"%>
 <%@ include file="/common/base/script.jsp"%>
 <script type="text/javascript">
-	var action_url = yhq.basePath+"/sysmgr/filemanager/file_treelist.do" ;
+	var action_url = siteUtil.basePath+"/sysmgr/filemanager/file_treelist.do" ;
 	var t1 ;
 	var d1 ;
 	$(function() {
@@ -97,7 +97,7 @@
 				handler : function() {
 					var dirName = $(":input[name=dirName]").val() ;
 					if(dirName != "") {
-						$.post(yhq.basePath+"/sysmgr/filemanager/file_createDir.do", {path:currentPath(), dirName:dirName}, function(result) {
+						$.post(siteUtil.basePath+"/sysmgr/filemanager/file_createDir.do", {path:currentPath(), dirName:dirName}, function(result) {
 							if(result.status) {
 								treeFunc();enterFolder(currentPath()) ;cd.dialog("close");
 							} else {
@@ -120,7 +120,7 @@
 					for ( var i = 0; i < rows.length; i++) {
 						paths.push(currentPath()+"/"+rows[i].fileName);
 					}
-					$.post(yhq.basePath+"/sysmgr/filemanager/file_deleteff.do", {path : paths.join(',')}, function(result) {
+					$.post(siteUtil.basePath+"/sysmgr/filemanager/file_deleteff.do", {path : paths.join(',')}, function(result) {
 						if (result.status) {
 							treeFunc();enterFolder(currentPath()) ;
 							$.easyui.messager.show({ icon: "info", msg: "删除记录成功。" });
@@ -179,7 +179,7 @@
 			}
 			if(fileNames.length > 0 || undefined != filename){
 				window.location.target="_ablank" ; 
-				window.location.href=yhq.basePath+"/sysmgr/filemanager/download.do?path="+curpath+"&fileName="+(undefined==filename?fileNames.join(','):filename);
+				window.location.href=siteUtil.basePath+"/sysmgr/filemanager/download.do?path="+curpath+"&fileName="+(undefined==filename?fileNames.join(','):filename);
 			} else {
 				$.easyui.messager.show({ icon: "info", msg: "目录无法下载，请选择文件!" });
 			}
@@ -193,7 +193,7 @@
             title: "上传文件",
             width: 595, height: 395,
             topMost: false,
-            href: yhq.basePath+"/sysmgr/filemanager/upload.do?path="+currentPath(),
+            href: siteUtil.basePath+"/sysmgr/filemanager/upload.do?path="+currentPath(),
             iniframe: false,
             enableApplyButton: false,
             enableSaveButton: false,

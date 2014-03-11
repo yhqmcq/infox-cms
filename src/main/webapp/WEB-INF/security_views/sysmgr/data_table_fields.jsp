@@ -5,7 +5,7 @@
 	$(function() {
 		dataGrid = $("#d1").datagrid({
 			method: "post",
-			url: yhq.basePath+"/sysmgr/data/listfields.do?tableName=${tableName}",
+			url: siteUtil.basePath+"/sysmgr/data/listfields.do?tableName=${tableName}",
 			idField: 'id',
 			fit: true,
 			border: false,

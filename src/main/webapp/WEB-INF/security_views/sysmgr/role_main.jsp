@@ -13,7 +13,7 @@
 		treeGrid = $("#t1").treegrid({
 			title: '角色管理',
 			method: "get",
-			url: yhq.basePath+"/sysmgr/role/treegrid.do",
+			url: siteUtil.basePath+"/sysmgr/role/treegrid.do",
 			idField: 'id',
 			treeField: 'name',
 			fitColumns: false,
@@ -30,7 +30,7 @@
 			columns: [[
 			    { field: 'name', title: '名称(name)', width: 180, sortable: true },
 			    { field: 'showPermission', title: '关联', width: 40, align: 'center', formatter: function(value, row, index) {
-				    return $.string.format('<span style="cursor: pointer;" onclick="getRolePermission(\'{0}\')"><img src="{1}" title="浏览"/></span>',row.id ,yhq.basePath+'/images/icons/view.png') ;
+				    return $.string.format('<span style="cursor: pointer;" onclick="getRolePermission(\'{0}\')"><img src="{1}" title="浏览"/></span>',row.id ,siteUtil.basePath+'/images/icons/view.png') ;
 				}}
 			]],
 			enableHeaderClickMenu: false,
@@ -43,7 +43,7 @@
 			width: 900,
 			height: 400,
 			method: "get",
-			url: yhq.basePath+"/sysmgr/menu/treegrid.do",
+			url: siteUtil.basePath+"/sysmgr/menu/treegrid.do",
 			idField: 'id',
 			treeField: 'name',
 			fit: true,
@@ -86,7 +86,7 @@
 		});
 		if(selectionRole){
 			$.ajax({
-				url:yhq.basePath+"/sysmgr/role/set_grant.do",
+				url:siteUtil.basePath+"/sysmgr/role/set_grant.do",
 				data: "id="+selectionRole.id+"&menuIds="+(checkedIds.length==0?"":checkedIds),
 				success: function(result){
 					result = $.parseJSON(result);
@@ -106,7 +106,7 @@
 	}
 	
 	function getRolePermission(roleid) {
-		$.post(yhq.basePath+"/sysmgr/role/getPermission.do", {
+		$.post(siteUtil.basePath+"/sysmgr/role/getPermission.do", {
 			id : roleid
 		}, function(result) {
 			treeGrid2.treegrid('unselectAll');
@@ -124,11 +124,11 @@
 	}
 	
 	function form_edit(form) {
-		var form_url = yhq.basePath+"/sysmgr/role/role_form.do" ;
+		var form_url = siteUtil.basePath+"/sysmgr/role/role_form.do" ;
 		if("E" == form) {
 			var node = treeGrid.treegrid('getSelected');
 			if (node) {
-				form_url = yhq.basePath+"/sysmgr/role/role_form.do?id="+node.id ;
+				form_url = siteUtil.basePath+"/sysmgr/role/role_form.do?id="+node.id ;
 			} else {
 				$.easyui.messager.show({ icon: "info", msg: "请选择一条记录！" });
 				return ;
@@ -155,7 +155,7 @@
 		if(node){
 			$.messager.confirm("您确定要进行该操作？<br/>该删除操作会将子菜单一并删除。", function (c) { 
 				if(c) {
-					$.post(yhq.basePath+"/sysmgr/role/delete.do", {id:node.id}, function(result) {
+					$.post(siteUtil.basePath+"/sysmgr/role/delete.do", {id:node.id}, function(result) {
 						if (result.status) {
 							treeGrid.treegrid('reload') ;
 							$.easyui.messager.show({ icon: "info", msg: "删除记录成功。" });

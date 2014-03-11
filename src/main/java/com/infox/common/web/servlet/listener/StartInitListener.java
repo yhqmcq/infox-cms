@@ -18,9 +18,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.infox.common.util.Constants;
 import com.infox.common.web.page.LoginInfoSession;
-import com.infox.sysmgr.service.EmployeeOnlineServiceI;
 import com.infox.sysmgr.service.MenuServiceI;
-import com.infox.sysmgr.web.form.EmpOnlineForm;
 
 /**
  * 服务器启动初始化
@@ -108,15 +106,6 @@ public class StartInitListener implements ServletContextListener, HttpSessionLis
 			if (Constants.SESSION_INFO_NAME.equals(keyName)) {// 如果存入的属性是sessionInfo的话
 				LoginInfoSession sessionInfo = (LoginInfoSession) session.getAttribute(keyName);
 				if (sessionInfo != null) {
-					EmployeeOnlineServiceI empOnlineService = (EmployeeOnlineServiceI) ctx.getBean("employeeOnlineServiceImpl");
-					EmpOnlineForm online = new EmpOnlineForm();
-					online.setEmpid(sessionInfo.getEmp().getId()) ;
-					online.setType("1");// 登录
-					online.setIp(sessionInfo.getEmp().getIp()) ;
-					online.setAccount(sessionInfo.getEmp().getAccount());
-					online.setTruename(sessionInfo.getEmp().getTruename()) ;
-					online.setIp(sessionInfo.getEmp().getIp());
-					empOnlineService.add(online);
 				}
 				logger.info("用户登录成功，将用户会话存入Session[Key:"+keyName+" Account:"+sessionInfo.getEmp().getAccount()+" Name:"+sessionInfo.getEmp().getTruename()+"]");
 			}
@@ -138,15 +127,6 @@ public class StartInitListener implements ServletContextListener, HttpSessionLis
 				
 				LoginInfoSession sessionInfo = (LoginInfoSession) session.getAttribute(Constants.SESSION_INFO_NAME);
 				if (sessionInfo != null) {
-					EmployeeOnlineServiceI empOnlineService = (EmployeeOnlineServiceI) ctx.getBean("employeeOnlineServiceImpl");
-					EmpOnlineForm online = new EmpOnlineForm();
-					online.setEmpid(sessionInfo.getEmp().getId()) ;
-					online.setIp(sessionInfo.getEmp().getIp()) ;
-					online.setType("0");// 注销
-					online.setAccount(sessionInfo.getEmp().getAccount());
-					online.setTruename(sessionInfo.getEmp().getTruename()) ;
-					online.setIp(sessionInfo.getEmp().getIp());
-					empOnlineService.add(online);
 					
 					logger.info("用户会话失效，将用户从Session中移除[Account:"+sessionInfo.getEmp().getAccount()+" Name:"+sessionInfo.getEmp().getTruename()+"]");
 				}

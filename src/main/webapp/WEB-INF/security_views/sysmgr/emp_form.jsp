@@ -1,11 +1,11 @@
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <script type="text/javascript">
-	var form_url = yhq.basePath+"/sysmgr/employee/add.do" ;
+	var form_url = siteUtil.basePath+"/sysmgr/employee/add.do" ;
 	
 	$(function() {
 		$("#select1").combotree({
-			url : yhq.basePath+"/sysmgr/org/treegrid.do",
+			url : siteUtil.basePath+"/sysmgr/org/treegrid.do",
 			width:157, idFiled:'pid', textFiled:'fullname', editable: false,
 			lines:true, autoShowPanel: true,
 			onSelect:function(node){
@@ -15,8 +15,8 @@
 		
 		//编辑，加载表单数据
 		if($('input[name=id]').val().length > 0) {
-			form_url = yhq.basePath+"/sysmgr/employee/edit.do" ;
-			$.post(yhq.basePath+"/sysmgr/employee/get.do", {id:$('input[name=id]').val()}, function(result) {
+			form_url = siteUtil.basePath+"/sysmgr/employee/edit.do" ;
+			$.post(siteUtil.basePath+"/sysmgr/employee/get.do", {id:$('input[name=id]').val()}, function(result) {
 				if (result.id != undefined) {
 					$('form').form('load', {
 						'id' : result.id,

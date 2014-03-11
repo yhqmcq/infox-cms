@@ -4,7 +4,7 @@
 var count = 1;
 var interCall;
 function createProgress() {
-	$.post(yhq.basePath+"/sysmgr/data/backup_progress.do",{},function(data){
+	$.post(siteUtil.basePath+"/sysmgr/data/backup_progress.do",{},function(data){
 		if(data.tablename!=""){
 			//$("#progressContainer").append("正在备份表["+count+"]"+data.tablename + "<br>");
 			count++;

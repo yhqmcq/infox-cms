@@ -13,7 +13,7 @@
 		dataGrid = $("#d1").datagrid({
 			title: '用户授权',
 			method: "get",
-			url: yhq.basePath+"/sysmgr/employee/datagrid.do",
+			url: siteUtil.basePath+"/sysmgr/employee/datagrid.do",
 			idField: 'id',
 			fit: true,
 			border: false,
@@ -32,14 +32,14 @@
 			    }},
 			    { field: 'truename', title: '姓名(truename)', width: 130, sortable: true },
 			    { field: 'showPermission', title: '关联', width: 40, align: 'center', formatter: function(value, row, index) {
-				    return $.string.format('<span style="cursor: pointer;" onclick="getRolePermission(\'{0}\')"><img src="{1}" title="浏览"/></span>',row.id ,yhq.basePath+'/images/icons/view.png') ;
+				    return $.string.format('<span style="cursor: pointer;" onclick="getRolePermission(\'{0}\')"><img src="{1}" title="浏览"/></span>',row.id ,siteUtil.basePath+'/images/icons/view.png') ;
 				}}
 			]]
 	    });
 		treeGrid2 = $("#t2").treegrid({
 			title: '角色管理',
 			method: "get",
-			url: yhq.basePath+"/sysmgr/role/treegrid.do",
+			url: siteUtil.basePath+"/sysmgr/role/treegrid.do",
 			idField: 'id',
 			treeField: 'name',
 			fitColumns: false,
@@ -72,7 +72,7 @@
 		});
 		if(selectionUsers.length != 0 && selectionUsers != ""){
 			$.ajax({
-				url:yhq.basePath+"/sysmgr/employee/set_grant.do?d="+new Date().getTime(),
+				url:siteUtil.basePath+"/sysmgr/employee/set_grant.do?d="+new Date().getTime(),
 				data: "ids="+(checkedRoleIds.length==0?"":checkedRoleIds)+"&roleIds="+(checkedIds.length==0?"":checkedIds),
 				success: function(result){
 					result = $.parseJSON(result);
@@ -91,7 +91,7 @@
 	
 	function getRolePermission(roleid) {
 		dataGrid.datagrid('unselectAll');
-		$.post(yhq.basePath+"/sysmgr/employee/getPermission.do", {
+		$.post(siteUtil.basePath+"/sysmgr/employee/getPermission.do", {
 			id : roleid
 		}, function(result) {
 			treeGrid2.treegrid('unselectAll');

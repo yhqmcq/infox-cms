@@ -34,7 +34,7 @@ $(function(){
  * 浏览器版本检测
  */
 window.mainpage.browse = function() {
-	var lameIE = $.util.browser.msie && $.util.browser.version < 9;
+	var lameIE = $.util.browser.msie && $.util.browser.version > 8;
 	if(lameIE || lameIE==undefined) {
 		var $mask = $('#maskContainer-loading .datagrid-mask');
 		var $mask_msg = $('#maskContainer-loading .datagrid-mask-msg');
@@ -55,7 +55,7 @@ window.mainpage.browse = function() {
 			height: 90,
 			'z-index': 9999, //最顶层，用户才能点到链接
 			padding: '10px 10px 10px 60px', //覆盖原来的样式
-			background: '#ffc url("${ctx}/jquery-easyui/themes/default/images/messager_warning.gif") no-repeat scroll 10px 10px', //覆盖原来的样式
+			background: '#ffc url("'+siteUtil+'/jquery-easyui/themes/default/images/messager_warning.gif") no-repeat scroll 10px 10px', //覆盖原来的样式
 			left: ($.util.windowSize().width/4),
 			top: ($.util.windowSize().height/2),
 			margin: '10px 0px 0px 52.5px'

@@ -1,19 +1,19 @@
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <script type="text/javascript">
-	var form_url = yhq.basePath+"/sysmgr/role/add.do" ;
+	var form_url = siteUtil.basePath+"/sysmgr/role/add.do" ;
 	
 	$(function() {
 		$("#select1").combotree({
-			url : yhq.basePath+"/sysmgr/role/treegrid.do",
+			url : siteUtil.basePath+"/sysmgr/role/treegrid.do",
 			width:157, idFiled:'pid', textFiled:'name', editable: false,
 			lines:true, autoShowPanel: true
 	    });
 		
 		//编辑，加载表单数据
 		if($('input[name=id]').val().length > 0) {
-			form_url = yhq.basePath+"/sysmgr/role/edit.do" ;
-			$.post(yhq.basePath+"/sysmgr/role/get.do", {id:$('input[name=id]').val()}, function(result) {
+			form_url = siteUtil.basePath+"/sysmgr/role/edit.do" ;
+			$.post(siteUtil.basePath+"/sysmgr/role/get.do", {id:$('input[name=id]').val()}, function(result) {
 				if (result.id != undefined) {
 					$('form').form('load', {
 						'id' : result.id,

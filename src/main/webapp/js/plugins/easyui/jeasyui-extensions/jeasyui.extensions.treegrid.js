@@ -1,5 +1,5 @@
 ﻿/**
-* jQuery EasyUI 1.3.4
+* jQuery EasyUI 1.3.5
 * Copyright (c) 2009-2013 www.jeasyui.com. All rights reserved.
 *
 * Licensed under the GPL or commercial licenses
@@ -1449,10 +1449,8 @@
         initExtensions(t, opts);
         if (!opts.url) { return false; }
         param = $.fn.datagrid.extensions.parsePagingQueryParams(opts, param);
-        
-        var opts_url = (opts.url.indexOf("?")!=-1?opts.url+'&d='+new Date().getTime():opts.url+'?d='+new Date().getTime()) ;
         $.ajax({
-            type: opts.method, url: opts_url, data: param, dataType: "json",
+            type: opts.method, url: opts.url, data: param, dataType: "json",
             success: function (data) { $.fn.treegrid.extensions.clearFilterData(opts); success(data); },
             error: function () { error.apply(this, arguments); }
         });
@@ -1517,7 +1515,7 @@
         var isArray = $.array.likeArray(data) && !$.util.isString(data), rows = isArray ? data : data.rows;
         if (!rows.length) { return data; }
         var t = $.util.parseJquery(this), opts = t.treegrid("options");
-        rows = opts.smooth ? $.fn.tree.extensions.smoothConverter(rows, opts) : rows;
+        rows = opts.dataPlain ? $.fn.tree.extensions.dataPlainConverter(rows, opts) : rows;
         if (parent != null && parent != undefined) { return isArray ? rows : { total: rows.length, rows: rows }; }
         return isArray ? rows : { total: data.length || rows.length, rows: rows };
     };
@@ -1977,7 +1975,7 @@
         //  扩展 easyui-treegrid 的自定义属性，表示当前 easyui-treegrid 控件是否支持平滑数据格式。
         //  当支持平滑数据格式时，数据元素中不需要通过指定 children 来指定子节点，而是支持通过指定的 parentField 值所表示的列的值来指示其父级节点。
         //  Boolean 类型值，默认为 false。
-        smooth: false,
+        dataPlain: false,
 
         //  扩展 easyui-treegrid 的自定义属性，表示当前 easyui-treegrid 控件支持平滑数据格式时，程序用哪个 field 表示当前行数据的父级节点 idField 值
         //  String 类型值，默认为 "pid"。

@@ -12,7 +12,7 @@
 		dataGrid = $("#d1").datagrid({
 			title: '用户管理',
 			method: "post",
-			url: yhq.basePath+"/sysmgr/employee/datagrid.do",
+			url: siteUtil.basePath+"/sysmgr/employee/datagrid.do",
 			idField: 'id',
 			fit: true,
 			border: false,
@@ -53,11 +53,11 @@
 	});
 	
 	function form_edit(form) {
-		var form_url = yhq.basePath+"/sysmgr/employee/emp_form.do" ;
+		var form_url = siteUtil.basePath+"/sysmgr/employee/emp_form.do" ;
 		if("E" == form) {
 			var node = dataGrid.datagrid('getSelected');
 			if (node) {
-				form_url = yhq.basePath+"/sysmgr/employee/emp_form.do?id="+node.id ;
+				form_url = siteUtil.basePath+"/sysmgr/employee/emp_form.do?id="+node.id ;
 			} else {
 				$.easyui.messager.show({ icon: "info", msg: "请选择一条记录！" });
 				return ;
@@ -88,7 +88,7 @@
 					for ( var i = 0; i < rows.length; i++) {
 						ids.push(rows[i].id);
 					}
-					$.post(yhq.basePath+"/sysmgr/employee/delete.do", {ids : ids.join(',')}, function(result) {
+					$.post(siteUtil.basePath+"/sysmgr/employee/delete.do", {ids : ids.join(',')}, function(result) {
 						if (result.status) {
 							dataGrid.datagrid('clearSelections');dataGrid.datagrid('clearChecked');dataGrid.datagrid('reload') ;
 							$.easyui.messager.show({ icon: "info", msg: "删除记录成功。" });

@@ -6,7 +6,7 @@
 <%@ include file="/common/base/meta.jsp"%>
 <%@ include file="/common/base/script.jsp"%>
 <script type="text/javascript">
-	//var action_url = yhq.basePath+"/sysmgr/filemanager/tree_fileroot.do?path=/file_root" ;
+	//var action_url = siteUtil.basePath+"/sysmgr/filemanager/tree_fileroot.do?path=/file_root" ;
 	$(function() {
 		$("#t1").datagrid({
 	        title: 'test datagrid',

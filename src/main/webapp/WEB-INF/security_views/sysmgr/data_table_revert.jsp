@@ -5,7 +5,7 @@
 	$(function() {
 		dataGrid1 = $("#d1").datagrid({
 			method: "post",
-			url: yhq.basePath+"/sysmgr/data/databases.do?",
+			url: siteUtil.basePath+"/sysmgr/data/databases.do?",
 			idField: 'database',
 			fit: true,
 			border: false,
@@ -30,7 +30,7 @@
 		
 		dataGrid2 = $("#d2").datagrid({
 			method: "post",
-			url: yhq.basePath+"/sysmgr/data/backupFiles.do?",
+			url: siteUtil.basePath+"/sysmgr/data/backupFiles.do?",
 			idField: 'fileName',
 			fit: true,
 			border: false,
@@ -59,7 +59,7 @@
 		if(rows1.length > 0 && rows2.length > 0) {
 			$.messager.confirm("您确定要进行该操作？", function (c) { 
 				if(c) {
-					$.post(yhq.basePath+"/sysmgr/data/revert.do", {database: rows1[0].database, backupFileName: rows2[0].fileName}, function(result) {
+					$.post(siteUtil.basePath+"/sysmgr/data/revert.do", {database: rows1[0].database, backupFileName: rows2[0].fileName}, function(result) {
 						if (result.status) {
 							$.easyui.messager.show({ icon: "info", msg: "数据库恢复成功。" });
 						} else {
@@ -82,7 +82,7 @@
 					for ( var i = 0; i < rows.length; i++) {
 						fileNames.push(rows[i].fileName);
 					}
-					$.post(yhq.basePath+"/sysmgr/data/backup_del.do", {backupFileName: fileNames.join(',')}, function(result) {
+					$.post(siteUtil.basePath+"/sysmgr/data/backup_del.do", {backupFileName: fileNames.join(',')}, function(result) {
 						if (result.status) {
 							dataGrid2.datagrid('reload');
 							$.easyui.messager.show({ icon: "info", msg: "删除备份文件成功。" });
@@ -100,7 +100,7 @@
 	function downloadFile() {
 		var rows2 = dataGrid2.datagrid('getChecked');
 		if(rows2.length > 0) {
-			window.location.href=yhq.basePath+"/sysmgr/data/downBackUpFile.do?backupFileName="+rows2[0].fileName;
+			window.location.href=siteUtil.basePath+"/sysmgr/data/downBackUpFile.do?backupFileName="+rows2[0].fileName;
 		} else {
 			$.easyui.messager.show({ icon: "info", msg: "请选择要下载的备份文件!" });
 		}

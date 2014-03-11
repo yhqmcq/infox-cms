@@ -10,7 +10,7 @@
 	var dataGrid ;
 	$(function() {
 		dataGrid = $("#d1").datagrid({
-			url: yhq.basePath+"/sysmgr/emponline/datagrid.do",
+			url: siteUtil.basePath+"/sysmgr/emponline/datagrid.do",
 			title: '用户登录历史',
 			method: "post",
 			idField: 'id',
@@ -56,7 +56,7 @@
 					for ( var i = 0; i < rows.length; i++) {
 						ids.push(rows[i].id);
 					}
-					$.post(yhq.basePath+"/sysmgr/emponline/doNotNeedAuth_delete.do", {ids : ids.join(',')}, function(result) {
+					$.post(siteUtil.basePath+"/sysmgr/emponline/doNotNeedAuth_delete.do", {ids : ids.join(',')}, function(result) {
 						if (result.status) {
 							dataGrid.datagrid('clearSelections');dataGrid.datagrid('clearChecked');dataGrid.datagrid('reload') ;
 							$.easyui.messager.show({ icon: "info", msg: "删除记录成功。" });

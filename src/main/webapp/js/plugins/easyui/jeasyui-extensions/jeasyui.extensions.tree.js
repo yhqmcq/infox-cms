@@ -1,5 +1,5 @@
 ﻿/**
-* jQuery EasyUI 1.3.4
+* jQuery EasyUI 1.3.5
 * Copyright (c) 2009-2013 www.jeasyui.com. All rights reserved.
 *
 * Licensed under the GPL or commercial licenses
@@ -302,10 +302,8 @@
         initExtensions(t, opts);
         if (!opts.url) { return false; }
         param = parseQueryParams(opts, param);
-        
-        var opts_url = (opts.url.indexOf("?")!=-1?opts.url+'&d='+new Date().getTime():opts.url+'?d='+new Date().getTime()) ;
         $.ajax({
-            type: opts.method, url: opts_url, data: param, dataType: "json",
+            type: opts.method, url: opts.url, data: param, dataType: "json",
             success: function (data) { success(data); },
             error: function () { error.apply(this, arguments); }
         });
@@ -331,14 +329,14 @@
         data = $.array.likeArray(data) && !$.util.isString(data) ? data : [];
         if (!data.length) { return data; }
         var t = $.util.parseJquery(this), opts = t.tree("options");
-        return opts.smooth ? $.fn.tree.extensions.smoothConverter(data, opts) : data;
+        return opts.dataPlain ? $.fn.tree.extensions.dataPlainConverter(data, opts) : data;
     };
     /******************** initExtensions   End ********************/
 
-    $.fn.tree.extensions.smoothConverter = function (data, opts) {
+    $.fn.tree.extensions.dataPlainConverter = function (data, opts) {
         data = data || [];
         var ret = data, idField = opts.idField || "id", parentField = opts.parentField || "pid";
-        if (opts.smooth) {
+        if (opts.dataPlain) {
             var roots = $.array.filter(data, function (val) {
                 if (val[parentField] == null || val[parentField] == undefined) { return true; }
                 return !$.array.some(data, function (value) { return val[parentField] == value[idField]; });
@@ -367,6 +365,30 @@
         }
         return ret;
     };
+
+
+
+    $.fn.tree.extensions.cascadeToArray = function (data) {
+        if ($.util.isEmptyObjectOrNull(data)) { return []; }
+        if (!$.util.likeArrayNotString(data)) { data = [data]; }
+        var ret = [], getNodeArray = function (node) {
+            var tmp = $.extend({}, node), array = [tmp];
+            if (!tmp.children || (tmp.children && !$.util.likeArrayNotString(tmp.children))) {
+                return array;
+            }
+            $.each(tmp.children, function (i, n) {
+                $.array.merge(array, getNodeArray(n));
+            });
+            tmp.children = undefined;
+            return array;
+        };
+        $.each(data, function (i, n) {
+            $.array.merge(ret, getNodeArray(n));
+        });
+        return ret;
+    };
+
+
 
     var methods = $.fn.tree.extensions.methods = {
         //  扩展 easyui-tree 的自定义方法；判断制定的 tree-node 是否为根节点；该方法定义如下参数：
@@ -516,7 +538,7 @@
         //  扩展 easyui-tree 的自定义属性，表示当前 easyui-tree 控件是否支持平滑数据格式。
         //  当支持平滑数据格式时，数据元素中不需要通过指定 children 来指定子节点，而是支持通过 pid 属性来指示其父级节点。
         //  Boolean 类型值，默认为 false。
-        smooth: false,
+        dataPlain: false,
 
         //  扩展 easyui-tree 的自定义属性，表示当右键点击 tree-node 时，是否自动选择被点击的 tree-node 对象；
         //  Boolean 类型值，默认为 false；

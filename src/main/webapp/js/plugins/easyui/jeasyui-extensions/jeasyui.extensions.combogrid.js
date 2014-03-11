@@ -1,5 +1,5 @@
 ﻿/**
-* jQuery EasyUI 1.3.4
+* jQuery EasyUI 1.3.5
 * Copyright (c) 2009-2013 www.jeasyui.com. All rights reserved.
 *
 * Licensed under the GPL or commercial licenses
@@ -61,7 +61,12 @@
                 setValue: function (target, value) {
                     $.util.parseJquery(target).combogrid($.isArray(value) ? "setValues" : "setValue", value);
                 },
-                resize: function (target, width) { $(target).combogrid("resize"); }
+                resize: function (target, width) {
+                    $(target).combogrid("resize");
+                },
+                setFocus: function (target) {
+                    $(target).combogrid("textbox").focus();
+                }
             }
         });
     }

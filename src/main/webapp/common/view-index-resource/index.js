@@ -21,7 +21,7 @@
         $(navMenuList).find("a").attr("disabled", true);
         $.easyui.loading({ locale: westCenterLayout });
         var t = $(navMenuTree), root = $.extend({}, $.array.first(window.mainpage.navMenusData, function (val) { return val.id == id; }));
-        $.get(yhq.basePath+"/common/view-index-resource/nav-"+id+"-menu-data.json?d="+new Date().getTime(), function (menus) {
+        $.get(siteUtil.basePath+"/common/view-index-resource/nav-"+id+"-menu-data.json?d="+new Date().getTime(), function (menus) {
             root.children = menus;
             t.tree("loadData", [root]);
         }, "json");
@@ -31,7 +31,7 @@
     //callback:  为一个 Function 对象；表示家在完成菜单数据后调用的回调函数
     window.mainpage.loadNavMenus = function (callback) {
         var ul = $(navMenuList).empty();
-        $.get(yhq.basePath+"/common/view-index-resource/nav-menu-data.json?d="+new Date().getTime(), function (menus) {
+        $.get(siteUtil.basePath+"/common/view-index-resource/nav-menu-data.json?d="+new Date().getTime(), function (menus) {
             $.each(window.mainpage.navMenusData = menus, function (i, item) {
                 var li = $("<li></li>").appendTo(ul);
                 var pp = $("<div></div>").addClass("panel-header panel-header-noborder").appendTo(li);
@@ -156,7 +156,7 @@
     //menus:  为一个 Array 对象；数组中的每一个元素都是一个表示根节点菜单数据的 JSON-Object。
     window.mainpage.loadFavoMenus = function () {
         $.easyui.loading({ locale: westFavoLayout });
-        $(favoMenuTree).tree("load", yhq.basePath+"/common/view-index-resource/favo-menu-data.json");
+        $(favoMenuTree).tree("load", siteUtil.basePath+"/common/view-index-resource/favo-menu-data.json");
     };
 
     //初始化应用程序主界面左侧面板中“个人收藏”的数据。
@@ -565,7 +565,7 @@
      */
     window.mainpage.online = function() {
     	var o = $(online).datagrid({
-			url: yhq.basePath+"/sysmgr/emponline/doNotNeedSession_datagrid.do",
+			//url: siteUtil.basePath+"/sysmgr/emponline/doNotNeedSession_datagrid.do",
 			method: "post",
 			idField: "id",
 			rownumbers: true,

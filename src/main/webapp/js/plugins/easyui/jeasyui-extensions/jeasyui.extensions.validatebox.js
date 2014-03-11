@@ -1,5 +1,5 @@
 ﻿/**
-* jQuery EasyUI 1.3.4
+* jQuery EasyUI 1.3.5
 * Copyright (c) 2009-2013 www.jeasyui.com. All rights reserved.
 *
 * Licensed under the GPL or commercial licenses
@@ -157,7 +157,7 @@
             message: "输入的内容必须是合法的文件名(不能包含字符 \\/:*?\"<>|)."
         },
         //  必须是正确的 IP地址v4 格式
-        ipv4: {
+        ip: {
             validator: function (value) { return $.string.isIPv4(value); },
             message: "输入的内容必须是正确的 IP地址v4 格式."
         },
@@ -167,7 +167,7 @@
             message: "输入的内容必须是正确的 url 格式."
         },
         //  必须是正确的 IP地址v4 或 url 格式
-        ipv4url: {
+        ipurl: {
             validator: function (value) { return $.string.isUrlOrIPv4(value); },
             message: "输入的内容必须是正确的 IP地址v4 或 url 格式."
         },
@@ -301,7 +301,7 @@
                 }
                 t.blur(opts.promptBlur);
             }
-            if ($.string.isNullOrEmpty(t.val())) {
+            if ($.string.isNullOrEmpty(t.val()) && !$.string.isNullOrEmpty(opts.prompt)) {
                 $.util.exec(function () {
                     t.addClass("validatebox-prompt").val(opts.prompt);
                 });
@@ -311,7 +311,7 @@
 
     var _validate = $.fn.validatebox.methods.isValid;
     function validate(target) {
-        var t = $.util.parseJquery(target);
+        var t = $(target);
         if (t.hasClass("validatebox-prompt")) { t.removeClass("validatebox-prompt").val(""); }
         return _validate.call(t, t);
     };

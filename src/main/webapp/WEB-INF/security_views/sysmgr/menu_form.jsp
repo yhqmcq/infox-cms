@@ -1,11 +1,11 @@
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <script type="text/javascript">
-	var form_url = yhq.basePath+"/sysmgr/menu/add.do" ;
+	var form_url = siteUtil.basePath+"/sysmgr/menu/add.do" ;
 	
 	$(function() {
 		var s1 = $("#select1").combotree({
-			url : yhq.basePath+"/sysmgr/menu/treegrid.do",
+			url : siteUtil.basePath+"/sysmgr/menu/treegrid.do",
 			width:157, idFiled:'pid', textFiled:'name', editable: false,
 			disabled: true, required:false, lines:true, autoShowPanel: false
 	    });
@@ -30,8 +30,8 @@
 		
 		//编辑，加载表单数据
 		if($('input[name=id]').val().length > 0) {
-			form_url = yhq.basePath+"/sysmgr/menu/edit.do" ;
-			$.post(yhq.basePath+"/sysmgr/menu/get.do", {id:$('input[name=id]').val()}, function(result) {
+			form_url = siteUtil.basePath+"/sysmgr/menu/edit.do" ;
+			$.post(siteUtil.basePath+"/sysmgr/menu/get.do", {id:$('input[name=id]').val()}, function(result) {
 				if (result.id != undefined) {
 					$('form').form('load', {
 						'id' : result.id,

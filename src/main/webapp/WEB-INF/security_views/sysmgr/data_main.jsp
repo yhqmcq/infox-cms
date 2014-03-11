@@ -12,7 +12,7 @@
 		dataGrid = $("#d1").datagrid({
 			title: '数据备份管理',
 			method: "post",
-			url: yhq.basePath+"/sysmgr/data/datagrid.do",
+			url: siteUtil.basePath+"/sysmgr/data/datagrid.do",
 			idField: 'table_name',
 			fit: true,
 			border: false,
@@ -45,7 +45,7 @@
 	function revert() {
 		$.easyui.showDialog({
             title: "恢复数据",
-            href: yhq.basePath+"/sysmgr/data/data_revert.do",
+            href: siteUtil.basePath+"/sysmgr/data/data_revert.do",
             iniframe: false,width: 700, height: 450,
             topMost: true,
             autoVCenter: true,
@@ -58,7 +58,7 @@
 	function table_fields(tableName) {
 		$.easyui.showDialog({
             title: "表字段",
-            href: yhq.basePath+"/sysmgr/data/data_table_fields.do?tableName="+tableName,
+            href: siteUtil.basePath+"/sysmgr/data/data_table_fields.do?tableName="+tableName,
             iniframe: false,width: 800, height: 550,
             topMost: true,
             autoVCenter: true,
@@ -77,7 +77,7 @@
 			}
 			$.easyui.showDialog({
 	            title: "备份",
-	            href: yhq.basePath+"/sysmgr/data/backup.do?tableNames="+tableNames.join(','),
+	            href: siteUtil.basePath+"/sysmgr/data/backup.do?tableNames="+tableNames.join(','),
 	            iniframe: false,width: 300, height: 150,
 	            closable : false,
 	            topMost: true,

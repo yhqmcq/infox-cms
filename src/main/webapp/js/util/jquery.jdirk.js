@@ -9,7 +9,7 @@
 * jQuery Extensions Basic Library 基础函数工具包 v1.0 beta
 * jquery.jdirk.js
 * 二次开发 流云
-* 最近更新：2013-12-19
+* 最近更新：2013-01-09
 *
 * 依赖项：jquery-1.9.1.js late
 *
@@ -18,24 +18,33 @@
 */
 (function (window, $, undefined) {
 
-    //  定义 字符串对象(String) 扩展对象基元
-    var coreString = function () { return String.apply(this, arguments); };
-    //  定义 日期对象(Date) 扩展对象基元
-    var coreDate = function () { return Date.apply(this, arguments); };
-    //  定义 数值对象(Number) 扩展对象基元
-    var coreNumber = function () { return Number.apply(this, arguments); };
-    //  定义 数组对象(Array) 扩展对象基元
-    var coreArray = function () { return Array.apply(this, arguments); };
-    //  定义 布尔值对象(Boolean) 扩展对象基元
-    var coreBoolean = function () { return Boolean.apply(this, arguments); };
-    //  定义 通用工具方法 扩展对象基元
-    var coreUtil = function () { return Object.apply(this, arguments); };
-    //  定义 空值 集合基元
-    var coreNullable = {};
-    //  定义 jQuery 扩展对象基元
-    var coreJquery = function () { return $.apply(this, arguments); };
-    //  定义 HTML5 工具组件对象基元
-    var coreHtml5 = {};
+
+    var //  定义 字符串对象(String) 扩展对象基元
+        coreString = function () { return String.apply(this, arguments); },
+
+        //  定义 日期对象(Date) 扩展对象基元
+        coreDate = function () { return Date.apply(this, arguments); },
+
+        //  定义 数值对象(Number) 扩展对象基元
+        coreNumber = function () { return Number.apply(this, arguments); },
+
+        //  定义 数组对象(Array) 扩展对象基元
+        coreArray = function () { return Array.apply(this, arguments); },
+
+        //  定义 布尔值对象(Boolean) 扩展对象基元
+        coreBoolean = function () { return Boolean.apply(this, arguments); },
+
+        //  定义 通用工具方法 扩展对象基元
+        coreUtil = function () { return Object.apply(this, arguments); },
+
+        //  定义 空值 集合基元
+        coreNullable = {},
+
+        //  定义 jQuery 扩展对象基元
+        coreJquery = function () { return $.apply(this, arguments); },
+
+        //  定义 HTML5 工具组件对象基元
+        coreHtml5 = {};
 
     coreString.fn = coreString.prototype = {};
     coreDate.fn = coreDate.prototype = {};
@@ -68,9 +77,9 @@
         docElem = coreUtil.docElem = document.documentElement,
         history = coreUtil.history = window.history,
         parent = coreUtil.parent = window.parent,
-        top = coreUtil.top = window.top;
-    var $$ = coreJquery.emptyJquery = coreJquery.empty$ = coreJquery.$$ = coreUtil.emptyJquery = coreUtil.empty$ = coreUtil.$$ = $();
-    var version = "2013-10-22",
+        top = coreUtil.top = window.top,
+        $$ = coreJquery.emptyJquery = coreJquery.empty$ = coreJquery.$$ = coreUtil.emptyJquery = coreUtil.empty$ = coreUtil.$$ = $(),
+        version = "2013-01-09",
         core_array = [],
         core_trim = version.trim,
         core_push = core_array.push,
@@ -143,6 +152,21 @@
     //  测试对象是否是纯粹的对象（通过 "{}" 或者 "new Object" 创建的）。
     coreUtil.isPlainObject = $.isPlainObject;
 
+    //  判断对象是否为 "未定义" 值(即 undefined)。
+    coreUtil.isUndefined = function (obj) { return obj === undefined || typeof obj === "undefined"; };
+
+    //  判断对象是否为空(Null)值。
+    coreUtil.isNull = function (obj) { return obj === null; };
+
+    //  判断对象是否为 "未定义" 值(即 undefined)或空(Null)值。
+    coreUtil.isNullOrUndefined = function (obj) { return coreUtil.isUndefined(obj) || coreUtil.isNull(obj); };
+
+    //  测试对象不为 "未定义" 值(即 undefined)、空(Null)值、Boolean-False值、空字符串值或数字0中的任何一种。
+    coreUtil.isPositive = function (obj) { return obj ? true : false; };
+
+    //  判断对象是否为 "未定义" 值(即 undefined)、空(Null)值、Boolean-False值、空字符串值或数字0中的一种。
+    coreUtil.isNegative = function (obj) { return obj ? false : true; };
+
     //  测试对象是否是 jQuery 对象。
     coreUtil.isJqueryObject = function (obj) { return obj != null && obj != undefined && ((obj.jquery ? true : false) || obj.constructor === $$.constructor); };
 
@@ -167,6 +191,11 @@
         if (coreUtil.isWindow(obj)) { return false; }
         if (obj.nodeType === 1 && length) { return true; }
         return type === "array" || type !== "function" && coreUtil.isNumeric(length) && length >= 0;
+    };
+
+    //  检测一个对象是否为一个数组对象或者类似于数组对（具有数组的访问方式：具有 length 属性、且具有属性名为数字的索引访问器）且不是字符串
+    coreUtil.likeArrayNotString = function (obj) {
+        return coreUtil.likeArray(obj) && !coreUtil.isString(obj);
     };
 
     //  获取当前页面 url 参数。
@@ -472,6 +501,33 @@
         return compare.call(this, item1, item2);
     };
 
+
+
+
+    coreUtil.filterProperties = function (obj, propertieNames, excluding) {
+        propertieNames = coreUtil.likeArrayNotString(propertieNames) ? propertieNames : [];
+        var ret = {};
+        for (var k in obj) {
+            if (excluding ? coreArray.contains(propertieNames, k) : !coreArray.contains(propertieNames, k)) { ret[k] = obj[k]; }
+        }
+        return ret;
+    };
+
+    //  排除 JSON 对象指定名称列表的属性，并返回该 JSON 对象的一个新副本；该函数定义如下参数：
+    //      obj: 待操作的 JSON 对象；
+    //      propertieNames:需要从 obj 中排除的属性名称，为一个数组对象，数组中的每一项都是一个 String 类型值；
+    //  返回值：返回一个 JSON 对象，该对象包含 obj 中除 propertieNames 列表外的所有属性。
+    coreUtil.excludeProperties = function (obj, propertieNames) {
+        return coreUtil.filterProperties(obj, propertieNames, false);
+    };
+
+    //  提取 JSON 对象指定名称列表的属性，并返回该 JSON 对象的一个新副本；该函数定义如下参数：
+    //      obj: 待操作的 JSON 对象；
+    //      propertieNames:需要从 obj 中排除的属性名称，为一个数组对象，数组中的每一项都是一个 String 类型值；
+    //  返回值：返回一个 JSON 对象，该对象包含 obj 中 propertieNames 列表制定的所有属性。
+    coreUtil.extractProperties = function (obj, propertieNames) {
+        return coreUtil.filterProperties(obj, propertieNames, true);
+    };
 
 
 
@@ -927,7 +983,7 @@
         temp = temp.replace(/>/g, "&gt;");
         temp = temp.replace(/\'/g, "&apos;");
         temp = temp.replace(/\"/g, "&quot;");
-        temp = temp.replace(/\n/g, "<br>");
+        temp = temp.replace(/\n/g, "<br />");
         temp = temp.replace(/\ /g, "&nbsp;");
         temp = temp.replace(/\t/g, "&nbsp;&nbsp;&nbsp;&nbsp;");
         return temp;
@@ -972,7 +1028,9 @@
     coreString.prototype.toNumeric = function () { return coreString.toNumeric(this); };
 
     //  将字符串对象转换成 对象(Object) 值
-    coreString.toObject = function (str) { return JSON.parse(str); };
+    coreString.toObject = function (data) {
+        return eval("(" + $.trim(data + "") + ")");
+    };
     coreString.prototype.toObject = function () { return coreString.toObject(this); };
 
     coreString.toJSONString = function (str) {
@@ -1058,6 +1116,9 @@
 
     //  检测一个对象是否为一个数组对象或者类似于数组对象，同 coreUtil.likeArray
     coreArray.likeArray = coreUtil.likeArray;
+
+    //  同 coreUtil.likeArrayNotString
+    coreArray.likeArrayNotString = coreUtil.likeArrayNotString;
 
     //  判断传入的 数组 是否为 Null 或者为空数组。
     coreArray.isNullOrEmpty = function (array) { return !coreArray.likeArray(array) || !array.length; };
@@ -2212,10 +2273,10 @@
 
     //  返回当前日期对象的格式化字符值；该函数定义如下参数：
     //      date:   要进行格式化的日期对象
-    //      format: 返回字符串格式定义
+    //      format: 返回字符串格式定义；如果该参数不传入，则默认值为 "yyyy-MM-dd"
     coreDate.format = function (date, format) {
         if (!coreUtil.isDate(date)) { return null; };
-        format = coreString.isNullOrWhiteSpace(format) ? format : "yyyy-MM-dd";
+        format = coreUtil.isEmptyObjectOrNull(format) ? "yyyy-MM-dd" : format;
         switch (typeof date) {
             case "string":
                 date = new Date(date.replace(/-/, "/"));
@@ -2954,6 +3015,29 @@
 
 
 
+    //  禁用页面的 window.console 脚本功能；
+    //  返回值：无返回值。
+    coreUtil.disableConsole = function () {
+        try {
+            var _console = window.console;
+            if (Object.defineProperties) {
+                Object.defineProperties(window, "console", {
+                    get: function () {
+                        if (_console._commandLineAPI) {
+                            throw "抱歉, 为了用户安全, 本站已禁用 console 脚本功能";
+                        }
+                        return _console;
+                    },
+                    set: function (val) {
+                        return _console = val;
+                    }
+                });
+            }
+        } catch (e) { }
+    };
+
+
+
     //  下段代码提供 javascript 控制浏览器 进入/退出 全屏模式的 API。
     var fullScreen = {
         supports: false, eventName: "", prefix: "", prefixes: "webkit moz o ms khtml".split(" "),
@@ -3005,6 +3089,20 @@
         });
     };
     coreJquery.prototype.cancelFullScreen = function () { return coreJquery.cancelFullScreen(this); };
+    coreUtil.toggleFullScreen = coreJquery.toggleFullScreen = function (selector) {
+        if (selector == null || selector == undefined) { selector = document.documentElement; }
+        selector = coreUtil.parseJquery(selector);
+        return selector.each(function () {
+            if (fullScreen.supports) {
+                if (coreUtil.isFullScreen()) {
+                    fullScreen.cancelFullScreen(this);
+                } else {
+                    fullScreen.requestFullScreen(this);
+                }
+            }
+        });
+    };
+    coreJquery.prototype.toggleFullScreen = function () { return coreJquery.toggleFullScreen(this); };
     coreUtil.supportsFullScreen = fullScreen.supports;
     coreUtil.fullScreenEventName = fullScreen.eventName;
     coreUtil.fullScreen = fullScreen;
@@ -3016,7 +3114,7 @@
     //  元素闪动的默认时间间隔（毫秒）；该属性仅限于被方法 coreUtil.shine 调用；
     coreUtil.shineInterval = 100;
     //  元素闪动的默认次数；该属性仅限于被方法 coreUtil.shine 调用；
-    coreUtil.shineTimes = 10;
+    coreUtil.shineTimes = 8;
     //  使元素闪动
     coreUtil.shine = coreJquery.shine = function (selector, interval, times) {
         if (selector == null || selector == undefined) { return selector; }
@@ -3035,6 +3133,23 @@
         return selector;
     };
     coreJquery.prototype.shine = function (interval, times) { return coreJquery.shine(this, interval, times); };
+
+
+
+    coreUtil.addFavorites = function (url, title) {
+        var favo = { url: window.location.href, title: document.title };
+        if (arguments.length == 1) { $.extend(favo, url); }
+        if (arguments.length > 1) { $.extend(favo, { url: url, title: title }); }
+        if (window.external && coreUtil.isFunction(window.external.AddFavorite)) {
+            window.external.AddFavorite(favo.url, favo.title);
+        } else {
+            window.alert("请按 Ctrl + D 为您的浏览器添加 收藏/书签!");
+        }
+    };
+
+
+
+
 
     //  用一个或多个其他对象来扩展一个对象，返回被扩展的对象；该函数定义如下参数：
     //      deep:   可选；如果设为 true，则递归合并；

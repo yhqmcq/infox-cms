@@ -53,8 +53,6 @@ public class EmployeeEntity implements Serializable{
 	
 	private String orgname ;
 	
-	private String onlineState = "0" ;
-	
 	private OrganizationEntity org ;
 	
 	private Set<RoleEntity> roles = new HashSet<RoleEntity>(0) ;
@@ -68,15 +66,7 @@ public class EmployeeEntity implements Serializable{
 	public void setRoles(Set<RoleEntity> roles) {
 		this.roles = roles;
 	}
-
-	public String getOnlineState() {
-		return onlineState;
-	}
-
-	public void setOnlineState(String onlineState) {
-		this.onlineState = onlineState;
-	}
-
+	
 	@Id
 	public String getId() {
 		return id;
