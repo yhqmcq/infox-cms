@@ -1,14 +1,41 @@
 ﻿
 form{margin:0px;padding:0px;}
-table { display: table; border-collapse: separate; border-spacing: 0px; }
-td,th { display: table-cell; vertical-align: inherit; }
-a{text-decoration: none}
+a{text-decoration: none; color: #236FD4;}
 img{border:0px;}
 textarea.easyui-validatebox{font-size:13px;}
 .validatebox-text {background-attachment: scroll;background-clip: border-box;background-origin: padding-box;background-size: auto auto;border:1px solid #ddd;height: 19px;line-height: 17px;padding: 1px 3px 2px;}
+.datagrid-toolbar .searchbox{vertical-align: middle;}
 .panel-body  { overflow: hidden; }/*防止iframe滚动条 */
 .imgIcon{ width:16px; height:16px; padding:2px 0px 2px 16px; }
 
+.form_base{
+	display: block;
+	width:99%;
+	margin:0 auto;
+	margin-bottom: 5px;
+}
+.form_base table{
+	background-color: #ddd;
+   	width: 100%;
+   	border-spacing: 1px;
+   	margin-top: 5px;
+}
+.form_base table tr{
+	background-color: #eee;
+}
+.form_base table th{
+	background-color: #e3e3e3;
+	text-align:right ;
+	height:30px;
+}
+.form_base table td{
+	background-color: #FFFFFF;
+   	padding: 5px;
+}
+
+#tab_box th,#tab_box td{
+	padding:10px 0px 5px 5px;
+}
 
 
 

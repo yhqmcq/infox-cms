@@ -62,34 +62,35 @@
 
 <form id="form" class="easyui-form">
 	<input type="hidden" name="id" value="${id}" />
-	<table id="tab_box">
-		<tr>
-			<th>机构名称：</th>
-			<td><input name="fullname" class="easyui-validatebox" type="text" data-options="required: true,prompt: '机构名称'" /></td>
-			<th>机构代码：</th>
-			<td><input name="code" class="easyui-validatebox" type="text" data-options="required: true,prompt: '机构代码'" /></td>
-		</tr>
-		<tr>
-			<th>英文名称：</th>
-			<td><input name="ename" class="easyui-validatebox" type="text" data-options="" /></td>
-			<th>机构简称：</th>
-			<td><input name="sname" class="easyui-validatebox" type="text" data-options="" /></td>
-		</tr>
-		<tr>
-			<th>电话：</th>
-			<td><input name="tel" class="easyui-validatebox" type="text" data-options="" /></td>
-			<th>传真：</th>
-			<td><input name="fax" class="easyui-validatebox" type="text" data-options="" /></td>
-		</tr>
-		<tr>
-			<th>上级机构：</th>
-			<td><input id="select1" name="pid" /><input name="pname" id="pname"  type="hidden"/></td>
-		</tr>
-		<tr>
-			<td colspan="4">
-				<textarea class="easyui-validatebox" name="description" style="width:465px;height:100px;"></textarea>
-			</td>
-		</tr>
-	</table>
-	
+	<div class="form_base">
+		<table>
+			<tr>
+				<th>机构名称：</th>
+				<td><input name="fullname" class="easyui-validatebox" type="text" data-options="required: true,prompt: '机构名称'" /></td>
+				<th>机构代码：</th>
+				<td><input name="code" class="easyui-validatebox" type="text" data-options="required: true,prompt: '机构代码'" /></td>
+			</tr>
+			<tr>
+				<th>英文名称：</th>
+				<td><input name="ename" class="easyui-validatebox" type="text" data-options="" /></td>
+				<th>机构简称：</th>
+				<td><input name="sname" class="easyui-validatebox" type="text" data-options="" /></td>
+			</tr>
+			<tr>
+				<th>电话：</th>
+				<td><input name="tel" class="easyui-validatebox" type="text" data-options="" /></td>
+				<th>传真：</th>
+				<td><input name="fax" class="easyui-validatebox" type="text" data-options="" /></td>
+			</tr>
+			<tr>
+				<th>上级机构：</th>
+				<td colspan="3"><input id="select1" name="pid" /><input name="pname" id="pname"  type="hidden"/></td>
+			</tr>
+			<tr>
+				<td colspan="4">
+					<textarea class="easyui-validatebox" name="description" style="width:98.4%;height:100px;"></textarea>
+				</td>
+			</tr>
+		</table>
+	</div>
 </form>

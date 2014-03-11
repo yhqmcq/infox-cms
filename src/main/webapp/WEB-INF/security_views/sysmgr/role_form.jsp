@@ -54,18 +54,19 @@
 
 <form id="form" class="easyui-form">
 	<input type="hidden" name="id" value="${id}" />
-	<table id="tab_box">
-		<tr>
-			<th>角色名称：</th>
-			<td><input name="name" class="easyui-validatebox" type="text" data-options="required: true, prompt: '菜单名称'" /></td>
-			<th>上级角色：</th>
-			<td><input id="select1" name="pid" /></td>
-		</tr>
-		<tr>
-			<td colspan="4">
-				<textarea class="easyui-validatebox" name="description" style="width:465px;height:100px;"></textarea>
-			</td>
-		</tr>
-	</table>
-	
+	<div class="form_base">
+		<table>
+			<tr>
+				<th>角色名称：</th>
+				<td><input name="name" class="easyui-validatebox" type="text" data-options="required: true, prompt: '菜单名称'" /></td>
+				<th>上级角色：</th>
+				<td><input id="select1" name="pid" /></td>
+			</tr>
+			<tr>
+				<td colspan="4">
+					<textarea class="easyui-validatebox" name="description" style="width:98.4%;height:100px;"></textarea>
+				</td>
+			</tr>
+		</table>
+	</div>
 </form>

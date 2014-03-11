@@ -69,6 +69,7 @@ if (cookieMap.containsKey("themeName")) {
 <script src="<%=basePath%>/js/plugins/easyui/jeasyui-extensions/jquery-easyui-portal/jquery.portal.js" type="text/javascript"></script>
 <link href="<%=basePath%>/js/plugins/easyui/jeasyui-extensions/jquery-easyui-portal/portal.css" rel="stylesheet" type="text/css" />
 
+<script src="<%=basePath%>/js/plugins/easyui/datagrid-detailview.js" type="text/javascript"></script>
 <script src="<%=basePath%>/js/plugins/easyui/my-ext/my-easyui-ext.js" type="text/javascript"></script>
 <script src="<%=basePath%>/js/plugins/other/jquery-jrumble.js" type="text/javascript"></script>
 <link href="<%=basePath%>/common/view-index-resource/base.css" rel="stylesheet" />
@@ -78,3 +79,6 @@ if (cookieMap.containsKey("themeName")) {
 
 <script type="text/javascript" src="<%=basePath%>/js/plugins/plupload-2.1.1/js/plupload.full.min.js"></script>
 
+<script type="text/javascript" charset="utf-8" src="<%=basePath%>/js/plugins/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=basePath%>/js/plugins/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=basePath%>/js/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>

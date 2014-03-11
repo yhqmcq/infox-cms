@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : mysql
-Source Server Version : 50518
+Source Server Version : 50522
 Source Host           : localhost:3306
 Source Database       : infox
 
 Target Server Type    : MYSQL
-Target Server Version : 50518
+Target Server Version : 50522
 File Encoding         : 65001
 
-Date: 2014-02-21 13:53:53
+Date: 2014-03-11 23:21:01
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -69,6 +69,28 @@ CREATE TABLE `infox_sysmgr_emp_online` (
 -- ----------------------------
 -- Records of infox_sysmgr_emp_online
 -- ----------------------------
+INSERT INTO `infox_sysmgr_emp_online` VALUES ('4028368144535cb50144535cb5e20000', 'admin', '684340', '127.0.0.1', '2014-02-21 15:33:08', '超级管理员', '1');
+INSERT INTO `infox_sysmgr_emp_online` VALUES ('4028368144535cb5014453601f6d0001', 'admin', '684340', '127.0.0.1', '2014-02-21 15:36:52', '超级管理员', '0');
+INSERT INTO `infox_sysmgr_emp_online` VALUES ('402836814453900f014453900f450000', 'admin', '684340', '127.0.0.1', '2014-02-21 16:29:13', '超级管理员', '1');
+INSERT INTO `infox_sysmgr_emp_online` VALUES ('402836814453900f01445390c0540001', 'admin', '684340', '127.0.0.1', '2014-02-21 16:29:59', '超级管理员', '0');
+INSERT INTO `infox_sysmgr_emp_online` VALUES ('40283681445397010144539701040000', 'admin', '684340', '127.0.0.1', '2014-02-21 16:36:49', '超级管理员', '1');
+INSERT INTO `infox_sysmgr_emp_online` VALUES ('4028368144539701014453aab86e0001', 'admin', '684340', '127.0.0.1', '2014-02-21 16:58:21', '超级管理员', '0');
+INSERT INTO `infox_sysmgr_emp_online` VALUES ('4028368144539701014453acffd80002', 'admin', '684340', '127.0.0.1', '2014-02-21 17:00:50', '超级管理员', '1');
+INSERT INTO `infox_sysmgr_emp_online` VALUES ('4028368144539701014453ad1d2e0003', 'admin', '684340', '127.0.0.1', '2014-02-21 17:00:58', '超级管理员', '1');
+INSERT INTO `infox_sysmgr_emp_online` VALUES ('4028368144539701014453b30f1e0004', 'admin', '684340', '127.0.0.1', '2014-02-21 17:07:27', '超级管理员', '1');
+INSERT INTO `infox_sysmgr_emp_online` VALUES ('402836814453bdd0014453bdd00f0000', 'admin', '684340', '127.0.0.1', '2014-02-21 17:19:12', '超级管理员', '1');
+INSERT INTO `infox_sysmgr_emp_online` VALUES ('402836814454459901445445993b0000', 'admin', '684340', '127.0.0.1', '2014-02-21 19:47:31', '超级管理员', '1');
+INSERT INTO `infox_sysmgr_emp_online` VALUES ('40283681445445990144545b5b0f0001', 'admin', '684340', '127.0.0.1', '2014-02-21 20:11:17', '超级管理员', '0');
+INSERT INTO `infox_sysmgr_emp_online` VALUES ('402836814454af11014454af115a0000', 'admin', '684340', '127.0.0.1', '2014-02-21 21:42:43', '超级管理员', '1');
+INSERT INTO `infox_sysmgr_emp_online` VALUES ('402836814454b428014454b428020000', 'admin', '684340', '127.0.0.1', '2014-02-21 21:48:16', '超级管理员', '1');
+INSERT INTO `infox_sysmgr_emp_online` VALUES ('40283681445f049b01445f049b9d0000', 'admin', '684340', '127.0.0.1', '2014-02-23 21:52:21', '超级管理员', '1');
+INSERT INTO `infox_sysmgr_emp_online` VALUES ('40283681445f049b01445f1140690001', 'admin', '684340', '127.0.0.1', '2014-02-23 22:06:10', '超级管理员', '1');
+INSERT INTO `infox_sysmgr_emp_online` VALUES ('40283681445f205801445f20584f0000', 'admin', '684340', '127.0.0.1', '2014-02-23 22:22:39', '超级管理员', '1');
+INSERT INTO `infox_sysmgr_emp_online` VALUES ('4028818544b18a270144b18a27810000', 'admin', '684340', '127.0.0.1', '2014-03-11 22:27:05', '超级管理员', '1');
+INSERT INTO `infox_sysmgr_emp_online` VALUES ('4028818544b1924e0144b1924e650000', 'admin', '684340', '127.0.0.1', '2014-03-11 22:35:59', '超级管理员', '1');
+INSERT INTO `infox_sysmgr_emp_online` VALUES ('4028818544b1924e0144b1938f800001', 'admin', '684340', '127.0.0.1', '2014-03-11 22:37:21', '超级管理员', '1');
+INSERT INTO `infox_sysmgr_emp_online` VALUES ('4028818544b1924e0144b19d99c70002', 'admin', '684340', '127.0.0.1', '2014-03-11 22:48:19', '超级管理员', '0');
+INSERT INTO `infox_sysmgr_emp_online` VALUES ('4028818544b1924e0144b19e166b0003', 'admin', '684340', '127.0.0.1', '2014-03-11 22:48:51', '超级管理员', '1');
 INSERT INTO `infox_sysmgr_emp_online` VALUES ('40288483445297730144529773a00000', 'admin', '684340', '本地', '2014-02-21 11:57:41', '超级管理员', '1');
 INSERT INTO `infox_sysmgr_emp_online` VALUES ('402884834452a4e3014452a4e34c0000', 'admin', '684340', '本地', '2014-02-21 12:12:21', '超级管理员', '1');
 INSERT INTO `infox_sysmgr_emp_online` VALUES ('402884834452a4e3014452a504e30002', 'admin', '684340', '本地', '2014-02-21 12:12:30', '超级管理员', '1');
@@ -107,6 +129,9 @@ CREATE TABLE `infox_sysmgr_emp_role` (
 -- ----------------------------
 -- Records of infox_sysmgr_emp_role
 -- ----------------------------
+INSERT INTO `infox_sysmgr_emp_role` VALUES ('948364', '043242');
+INSERT INTO `infox_sysmgr_emp_role` VALUES ('948364', '242319');
+INSERT INTO `infox_sysmgr_emp_role` VALUES ('948364', '436405');
 INSERT INTO `infox_sysmgr_emp_role` VALUES ('948364', '684340');
 
 -- ----------------------------
@@ -137,13 +162,12 @@ CREATE TABLE `infox_sysmgr_menu` (
 -- ----------------------------
 -- Records of infox_sysmgr_menu
 -- ----------------------------
-INSERT INTO `infox_sysmgr_menu` VALUES ('068671', null, '2014-02-13 10:39:25', null, 'sysmgr/employee/emp_grant_main.do', 'icon-standard-arrow-undo', '2014-02-13 10:39:25', null, '用户授权', '1', null, null, 'F', '876715', 'Y');
+INSERT INTO `infox_sysmgr_menu` VALUES ('068671', null, '2014-03-11 22:39:05', null, 'sysmgr/employee/emp_grant_main.do', 'icon-standard-arrow-undo', '2014-03-11 22:39:05', null, '用户授权', '1', null, null, 'F', '876715', 'Y');
 INSERT INTO `infox_sysmgr_menu` VALUES ('136992', null, '2014-02-17 23:03:40', null, 'sysmgr/data/data_main.do', 'icon-standard-database-save', '2014-02-17 23:03:40', null, '数据备份', '1', null, null, 'F', '876715', 'Y');
 INSERT INTO `infox_sysmgr_menu` VALUES ('200025', null, '2014-02-13 10:31:53', null, 'sysmgr/task/task_main.do', 'icon-standard-clock-red', '2014-02-13 10:31:53', null, '定时作业', '1', null, null, 'F', '876715', 'Y');
 INSERT INTO `infox_sysmgr_menu` VALUES ('229865', null, '2014-02-21 12:21:23', null, 'sysmgr/org/org_main.do', 'icon-standard-chart-organisation', '2014-02-21 12:21:23', null, '组织管理', '1', null, null, 'F', '876715', 'Y');
 INSERT INTO `infox_sysmgr_menu` VALUES ('547345', null, '2014-02-21 12:21:57', null, 'sysmgr/employee/emp_main.do', 'icon-hamburg-my-account', '2014-02-21 12:21:57', null, '用户管理', '1', null, null, 'F', '876715', 'Y');
 INSERT INTO `infox_sysmgr_menu` VALUES ('675303', null, '2014-02-18 14:50:50', null, 'sysmgr/filemanager/file_main.do', 'icon-standard-folder-database', '2014-02-18 14:50:50', null, '文件管理', '1', null, null, 'F', '876715', 'Y');
-INSERT INTO `infox_sysmgr_menu` VALUES ('784026', null, '2014-02-17 23:13:29', null, 'sysmgr/emponline/online_main.do', 'icon-standard-star', '2014-02-17 23:13:29', null, '登陆历史', '1', null, null, 'F', '876715', 'Y');
 INSERT INTO `infox_sysmgr_menu` VALUES ('837844', null, '2014-02-13 10:39:12', null, 'druid/druid.do', 'icon-standard-database-link', '2014-02-13 10:39:12', null, 'Druid监控', '1', null, null, 'F', '876715', 'Y');
 INSERT INTO `infox_sysmgr_menu` VALUES ('863930', null, '2014-02-13 10:39:16', null, 'sysmgr/menu/menu_main.do', 'icon-standard-application-side-boxes', '2014-02-13 10:39:16', null, '资源管理', '1', null, null, 'F', '876715', 'Y');
 INSERT INTO `infox_sysmgr_menu` VALUES ('876715', null, '2014-02-10 21:28:13', null, '', 'icon-standard-application-xp-terminal', '2014-02-10 21:28:13', null, '系统管理', '1', null, null, 'R', null, 'Y');
@@ -178,6 +202,8 @@ CREATE TABLE `infox_sysmgr_org` (
 -- Records of infox_sysmgr_org
 -- ----------------------------
 INSERT INTO `infox_sysmgr_org` VALUES ('365852', '121', '2014-02-15 11:13:07', null, '', '12', '', '12', null, '2014-02-15 11:13:07', null, '', '', '', null);
+INSERT INTO `infox_sysmgr_org` VALUES ('656287', '23432', '2014-02-21 21:51:00', null, '', '4', '4', '324', null, '2014-02-21 21:51:00', null, '12', '324223', '234234', '365852');
+INSERT INTO `infox_sysmgr_org` VALUES ('761655', '324324', '2014-02-21 21:50:51', null, '', '324', '24234', '3424', null, '2014-02-21 21:50:51', null, '12', '234', '234', '365852');
 
 -- ----------------------------
 -- Table structure for `infox_sysmgr_role`
@@ -251,4 +277,4 @@ CREATE TABLE `infox_sysmgr_task` (
 -- ----------------------------
 -- Records of infox_sysmgr_task
 -- ----------------------------
-INSERT INTO `infox_sysmgr_task` VALUES ('954465', '2014-02-18 13:15:21', '', '', '* * 21 * * ? ', '4028848344436aa80144436b7c240001', 'Y', 'com.infox.sysmgr.job.SchedulerBackupDB', '数据库备份', '数据库备份', '2', '定时备份数据库');
+INSERT INTO `infox_sysmgr_task` VALUES ('954465', '2014-02-21 21:43:55', '', '', '1 1 20 * * ? ', '4028848344436aa80144436b7c240001', 'Y', 'com.infox.sysmgr.job.SchedulerBackupDB', '数据库备份', '数据库备份', '2', '定时备份数据库');

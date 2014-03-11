@@ -30,9 +30,12 @@ div.hidden { display: none; }
 .nav-menu { padding-left: 10px; }
 .nav-menu-icon {padding:1px; padding-left: 25px; background-position: left center; }
 
-#tab_box th,#tab_box td{
-	padding:10px 0px 5px 5px;
+.top-bar-left img {
+	position: absolute;
+	left: 10px;
+	top: 7px;
 }
+
 #login_box{
 	width:100%;
 	margin-top:10px;
