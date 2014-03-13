@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.infox.common.dao.BaseDaoI;
-import com.infox.common.util.RandomUtils;
 import com.infox.sysmgr.entity.CompanyEntity;
 import com.infox.sysmgr.service.CompanyServiceI;
 import com.infox.sysmgr.web.form.CompanyForm;
