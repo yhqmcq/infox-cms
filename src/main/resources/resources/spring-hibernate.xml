@@ -42,9 +42,4 @@
 	<!-- 注解方式配置事物 -->
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
-	<!-- 加入JdbcDaoSupport支持 -->
-	<bean id="jdbcDaoSupportUtil" class="com.infox.common.dao.JdbcDaoSupportUtil">
-		<property name="dataSource" ref="c3p0_dataSource" />
-	</bean>
-
 </beans>
