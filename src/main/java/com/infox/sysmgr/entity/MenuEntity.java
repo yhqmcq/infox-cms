@@ -19,6 +19,8 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
+import com.infox.common.util.RandomUtils;
+
 @Entity
 @Table(name = "INFOX_SYSMGR_MENU")
 @DynamicUpdate(true)
@@ -95,7 +97,10 @@ public class MenuEntity implements Serializable {
 
 	@Id
 	public String getId() {
-		return id;
+		if (this.id != null) {
+			return this.id;
+		}
+		return RandomUtils.generateNumber(6);
 	}
 
 	public void setId(String id) {

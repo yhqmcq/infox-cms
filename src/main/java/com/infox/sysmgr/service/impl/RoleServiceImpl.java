@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.infox.common.dao.BaseDaoI;
-import com.infox.common.util.RandomUtils;
 import com.infox.common.web.page.DataGrid;
 import com.infox.sysmgr.entity.MenuEntity;
 import com.infox.sysmgr.entity.RoleEntity;
@@ -34,7 +33,6 @@ public class RoleServiceImpl implements RoleServiceI {
 		RoleEntity entity = new RoleEntity();
 
 		BeanUtils.copyProperties(form, entity);
-		entity.setId(RandomUtils.generateNumber(6)) ;
 		
 		if (form.getPid() != null && !form.getPid().equalsIgnoreCase("")) {
 			entity.setRole(this.basedaoRole.get(RoleEntity.class, form.getPid()));

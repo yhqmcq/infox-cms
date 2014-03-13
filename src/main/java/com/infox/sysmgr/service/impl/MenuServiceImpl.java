@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.infox.common.dao.BaseDaoI;
 import com.infox.common.util.FileUtil;
-import com.infox.common.util.RandomUtils;
 import com.infox.sysmgr.entity.MenuEntity;
 import com.infox.sysmgr.service.MenuServiceI;
 import com.infox.sysmgr.web.form.MenuForm;
@@ -31,7 +30,6 @@ public class MenuServiceImpl implements MenuServiceI {
 	public void add(MenuForm form) throws Exception {
 		MenuEntity entity = new MenuEntity() ;
 		BeanUtils.copyProperties(form, entity) ;
-		entity.setId(RandomUtils.generateNumber(6)) ;
 		
 		if(null != form.getPid() && !"".equals(form.getPid())){
 			entity.setMenu(this.basedaoMenu.get(MenuEntity.class, form.getPid())) ;

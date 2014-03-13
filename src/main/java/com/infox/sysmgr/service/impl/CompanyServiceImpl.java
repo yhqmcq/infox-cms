@@ -29,7 +29,6 @@ public class CompanyServiceImpl implements CompanyServiceI {
 		
 		CompanyEntity entity = new CompanyEntity();
 		BeanUtils.copyProperties(form, entity, new String[] { "created", "lastmod" });
-		entity.setId(RandomUtils.generateNumber(6)) ;
 		
 		if(form.getPid() != null && !"".equalsIgnoreCase(form.getPid())) {
 			entity.setOrg(this.basedaoOrg.get(CompanyEntity.class, form.getPid())) ;

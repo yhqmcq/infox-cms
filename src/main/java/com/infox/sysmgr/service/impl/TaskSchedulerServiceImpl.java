@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.infox.common.dao.BaseDaoI;
 import com.infox.common.quartz.SchedulerUtil;
-import com.infox.common.util.RandomUtils;
 import com.infox.common.util.UUIDHexGenerator;
 import com.infox.common.web.page.DataGrid;
 import com.infox.sysmgr.entity.TaskEntity;
@@ -37,7 +36,6 @@ public class TaskSchedulerServiceImpl implements TaskSchedulerServiceI {
 			
 			TaskEntity entity = new TaskEntity() ;
 			BeanUtils.copyProperties(form, entity) ;
-			entity.setId(RandomUtils.generateNumber(6)) ;
 			this.basedaoTask.save(entity) ;
 		} catch (Exception e) {
 			throw new Exception(e.getMessage()) ;

@@ -17,6 +17,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+
+import com.infox.common.util.RandomUtils;
 /**
  * @程序编写者：杨浩泉
  * @日期：2013-6-4
@@ -56,7 +58,10 @@ public class RoleEntity implements Serializable {
 
 	@Id
 	public String getId() {
-		return id;
+		if (this.id != null) {
+			return this.id;
+		}
+		return RandomUtils.generateNumber(6);
 	}
 
 	public void setId(String id) {

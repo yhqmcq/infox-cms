@@ -14,12 +14,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.infox.common.dao.BaseDaoI;
-import com.infox.common.util.RandomUtils;
 import com.infox.common.web.page.DataGrid;
 import com.infox.common.web.page.LoginInfoSession;
+import com.infox.sysmgr.entity.CompanyEntity;
 import com.infox.sysmgr.entity.EmployeeEntity;
 import com.infox.sysmgr.entity.MenuEntity;
-import com.infox.sysmgr.entity.CompanyEntity;
 import com.infox.sysmgr.entity.RoleEntity;
 import com.infox.sysmgr.service.EmployeeServiceI;
 import com.infox.sysmgr.web.form.EmployeeForm;
@@ -44,7 +43,6 @@ public class EmployeeServiceImpl implements EmployeeServiceI {
 	public void add(EmployeeForm form) throws Exception {
 		EmployeeEntity entity = new EmployeeEntity();
 		BeanUtils.copyProperties(form, entity);
-		entity.setId(RandomUtils.generateNumber(6)) ;
 		if (form.getOrgid() != null && !"".equalsIgnoreCase(form.getOrgid())) {
 			entity.setOrg(this.basedaoOrg.get(CompanyEntity.class, form.getOrgid()));
 		}
