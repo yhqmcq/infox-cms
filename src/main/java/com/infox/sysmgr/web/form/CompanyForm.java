@@ -1,36 +1,16 @@
-package com.infox.sysmgr.entity;
+package com.infox.sysmgr.web.form;
 
-import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
-
-@Entity
-@Table(name = "INFOX_SYSMGR_ORG")
-@DynamicUpdate(true)
-@DynamicInsert(true)
-public class OrganizationEntity implements Serializable {
+public class CompanyForm {
 	
-	private static final long serialVersionUID = 1L;
-
 	private String id ;
 	
-	/** 组织名称 */
+	/** 名称 */
 	private String fullname ;
 	
-	/** 组织编码 */
+	/** 编码 */
 	private String code ;
 	
 	/** 英文名称 */
@@ -39,9 +19,6 @@ public class OrganizationEntity implements Serializable {
 	/** 简称 */
 	private String sname ;
 
-	/** 组织图标 */
-	private String iconCls ;
-	
 	/** 电话 */
 	private String tel;
 	
@@ -57,57 +34,19 @@ public class OrganizationEntity implements Serializable {
 	/** 修改者 */
 	private String modifyer ;
 	
-	/** 父组织名称 */
-	private String pname ;
-	
 	private Date created = new Date() ;
 	
-	private Date lastmod = new Date() ;
+	private Date lastmod = new Date();
 	
-	private OrganizationEntity org ;
+	private String pname ;
 	
-	private Set<OrganizationEntity> orgs = new HashSet<OrganizationEntity>() ;
-	
-	private Set<EmployeeEntity> users = new HashSet<EmployeeEntity>() ;
-	
-	@OneToMany(mappedBy = "org", fetch = FetchType.LAZY)
-	@OrderBy("created desc")
-	public Set<EmployeeEntity> getUsers() {
-		return users;
-	}
-
-	public void setUsers(Set<EmployeeEntity> users) {
-		this.users = users;
-	}
-
-	@ManyToOne
-	@JoinColumn(name = "ORG_PID")
-	public OrganizationEntity getOrg() {
-		return org;
-	}
-
-	public void setOrg(OrganizationEntity org) {
-		this.org = org;
-	}
-
-	@OneToMany(mappedBy = "org", fetch = FetchType.LAZY)
-	@OrderBy("created desc")
-	public Set<OrganizationEntity> getOrgs() {
-		return orgs;
-	}
-
-	public void setOrgs(Set<OrganizationEntity> orgs) {
-		this.orgs = orgs;
-	}
-
-	@Id
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
+	private String text;
+	private String state ;// open,closed
+	private boolean checked = false;
+	private Object attributes;
+	private List<CompanyForm> children;
+	private String iconCls;
+	private String pid;
 
 	public String getFullname() {
 		return fullname;
@@ -117,20 +56,77 @@ public class OrganizationEntity implements Serializable {
 		this.fullname = fullname;
 	}
 
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
-
 	public String getPname() {
 		return pname;
 	}
 
 	public void setPname(String pname) {
 		this.pname = pname;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
+
+	public Object getAttributes() {
+		return attributes;
+	}
+
+	public void setAttributes(Object attributes) {
+		this.attributes = attributes;
+	}
+
+	public List<CompanyForm> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<CompanyForm> children) {
+		this.children = children;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public String getPid() {
+		return pid;
+	}
+
+	public void setPid(String pid) {
+		this.pid = pid;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public String getEname() {
@@ -212,5 +208,5 @@ public class OrganizationEntity implements Serializable {
 	public void setLastmod(Date lastmod) {
 		this.lastmod = lastmod;
 	}
-	
+
 }

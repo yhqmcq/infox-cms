@@ -12,38 +12,38 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.infox.common.util.Constants;
 import com.infox.common.web.BaseController;
 import com.infox.common.web.page.Json;
-import com.infox.sysmgr.service.OrganizationServiceI;
-import com.infox.sysmgr.web.form.OrganizationForm;
+import com.infox.sysmgr.service.CompanyServiceI;
+import com.infox.sysmgr.web.form.CompanyForm;
 
 @Controller
-@RequestMapping("/sysmgr/org")
-public class Organization extends BaseController {
+@RequestMapping("/sysmgr/company")
+public class Company extends BaseController {
 	
 	@Autowired
-	private OrganizationServiceI orgservice ;
+	private CompanyServiceI orgservice ;
 	
-	@RequestMapping("/org_main.do")
-	public String org_main() throws Exception {
-		return Constants.SYSTEM + "org_main" ;
+	@RequestMapping("/company_main.do")
+	public String company_main() throws Exception {
+		return Constants.SYSTEM + "company_main" ;
 	}
 	
-	@RequestMapping("/org_form.do")
-	public String org_form(OrganizationForm form, HttpServletRequest request) throws Exception {
+	@RequestMapping("/company_form.do")
+	public String company_form(CompanyForm form, HttpServletRequest request) throws Exception {
 		if(null != form.getId() && !"".equals(form.getId())) {
 			request.setAttribute("id", form.getId()) ;
 		}
-		return Constants.SYSTEM + "org_form" ;
+		return Constants.SYSTEM + "company_form" ;
 	}
 	
 	@RequestMapping("/get.do")
 	@ResponseBody
-	public OrganizationForm get(OrganizationForm form, HttpServletRequest request) throws Exception {
+	public CompanyForm get(CompanyForm form, HttpServletRequest request) throws Exception {
 		return this.orgservice.get(form.getId()) ;
 	}
 	
 	@RequestMapping("/add.do")
 	@ResponseBody
-	public Json add(OrganizationForm form) throws Exception {
+	public Json add(CompanyForm form) throws Exception {
 		Json json = new Json() ;
 		try {
 			this.orgservice.add(form) ;
@@ -56,7 +56,7 @@ public class Organization extends BaseController {
 	
 	@RequestMapping("/edit.do")
 	@ResponseBody
-	public Json edit(OrganizationForm form) throws Exception {
+	public Json edit(CompanyForm form) throws Exception {
 		Json json = new Json() ;
 		try {
 			this.orgservice.edit(form) ;
@@ -82,8 +82,8 @@ public class Organization extends BaseController {
 	
 	@RequestMapping("/treegrid.do")
 	@ResponseBody
-	public List<OrganizationForm> treegrid(OrganizationForm form ,String mode) throws Exception {
-		return this.orgservice.org_treegrid(form ,mode) ;
+	public List<CompanyForm> treegrid(CompanyForm form ,String mode) throws Exception {
+		return this.orgservice.treegrid(form ,mode) ;
 	}
 
 }
