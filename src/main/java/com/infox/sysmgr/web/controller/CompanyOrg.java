@@ -17,7 +17,7 @@ import com.infox.sysmgr.web.form.CompanyForm;
 
 @Controller
 @RequestMapping("/sysmgr/company")
-public class Company extends BaseController {
+public class CompanyOrg extends BaseController {
 	
 	@Autowired
 	private CompanyServiceI orgservice ;

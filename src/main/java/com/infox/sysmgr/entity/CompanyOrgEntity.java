@@ -23,7 +23,7 @@ import com.infox.common.util.RandomUtils;
 @Table(name = "INFOX_SYSMGR_COMPANY")
 @DynamicUpdate(true)
 @DynamicInsert(true)
-public class CompanyEntity implements Serializable {
+public class CompanyOrgEntity implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -36,7 +36,7 @@ public class CompanyEntity implements Serializable {
 	private String code ;
 	
 	/** 英文名称 */
-	private String ename ;
+	private String ename ; 
 	
 	/** 简称 */
 	private String sname ;
@@ -66,9 +66,9 @@ public class CompanyEntity implements Serializable {
 	
 	private Date lastmod = new Date() ;
 	
-	private CompanyEntity org ;
+	private CompanyOrgEntity org ;
 	
-	private Set<CompanyEntity> orgs = new HashSet<CompanyEntity>() ;
+	private Set<CompanyOrgEntity> orgs = new HashSet<CompanyOrgEntity>() ;
 	
 	private Set<EmployeeEntity> emps = new HashSet<EmployeeEntity>() ;
 	
@@ -84,21 +84,21 @@ public class CompanyEntity implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "ORG_PID")
-	public CompanyEntity getOrg() {
+	public CompanyOrgEntity getOrg() {
 		return org;
 	}
 
-	public void setOrg(CompanyEntity org) {
+	public void setOrg(CompanyOrgEntity org) {
 		this.org = org;
 	}
 
 	@OneToMany(mappedBy = "org", fetch = FetchType.LAZY)
 	@OrderBy("created desc")
-	public Set<CompanyEntity> getOrgs() {
+	public Set<CompanyOrgEntity> getOrgs() {
 		return orgs;
 	}
 
-	public void setOrgs(Set<CompanyEntity> orgs) {
+	public void setOrgs(Set<CompanyOrgEntity> orgs) {
 		this.orgs = orgs;
 	}
 

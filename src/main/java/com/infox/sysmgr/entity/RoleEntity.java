@@ -46,7 +46,7 @@ public class RoleEntity implements Serializable {
 	
 	private String iconCls ;
 	
-	private RoleEntity role ;
+	private RoleEntity role ; 
 	
 	private Set<RoleEntity> roles = new HashSet<RoleEntity>(0) ;
 	

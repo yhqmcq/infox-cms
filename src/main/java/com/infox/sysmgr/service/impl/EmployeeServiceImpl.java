@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.infox.common.dao.BaseDaoI;
 import com.infox.common.web.page.DataGrid;
 import com.infox.common.web.page.LoginInfoSession;
-import com.infox.sysmgr.entity.CompanyEntity;
+import com.infox.sysmgr.entity.CompanyOrgEntity;
 import com.infox.sysmgr.entity.EmployeeEntity;
 import com.infox.sysmgr.entity.MenuEntity;
 import com.infox.sysmgr.entity.RoleEntity;
@@ -31,7 +31,7 @@ public class EmployeeServiceImpl implements EmployeeServiceI {
 	private BaseDaoI<EmployeeEntity> basedaoEmployee;
 
 	@Autowired
-	private BaseDaoI<CompanyEntity> basedaoOrg;
+	private BaseDaoI<CompanyOrgEntity> basedaoOrg;
 
 	@Autowired
 	private BaseDaoI<RoleEntity> basedaoRole;
@@ -44,7 +44,7 @@ public class EmployeeServiceImpl implements EmployeeServiceI {
 		EmployeeEntity entity = new EmployeeEntity();
 		BeanUtils.copyProperties(form, entity);
 		if (form.getOrgid() != null && !"".equalsIgnoreCase(form.getOrgid())) {
-			entity.setOrg(this.basedaoOrg.get(CompanyEntity.class, form.getOrgid()));
+			entity.setOrg(this.basedaoOrg.get(CompanyOrgEntity.class, form.getOrgid()));
 		}
 		this.basedaoEmployee.save(entity);
 	}
@@ -61,7 +61,7 @@ public class EmployeeServiceImpl implements EmployeeServiceI {
 		BeanUtils.copyProperties(form, entity ,new String[]{"creater"});
 
 		if (form.getOrgid() != null && !"".equalsIgnoreCase(form.getOrgid())) {
-			entity.setOrg(this.basedaoOrg.get(CompanyEntity.class, form.getOrgid()));
+			entity.setOrg(this.basedaoOrg.get(CompanyOrgEntity.class, form.getOrgid()));
 		}
 
 		this.basedaoEmployee.update(entity);
