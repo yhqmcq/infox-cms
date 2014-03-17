@@ -19,7 +19,7 @@ import com.infox.common.web.page.LoginInfoSession;
 import com.infox.sysmgr.entity.OrgEntity;
 import com.infox.sysmgr.entity.EmployeeEntity;
 import com.infox.sysmgr.entity.MenuEntity;
-import com.infox.sysmgr.entity.RoleEntity;
+import com.infox.sysmgr.entity.Role1Entity;
 import com.infox.sysmgr.service.EmployeeServiceI;
 import com.infox.sysmgr.web.form.EmployeeForm;
 
@@ -34,7 +34,7 @@ public class EmployeeServiceImpl implements EmployeeServiceI {
 	private BaseDaoI<OrgEntity> basedaoOrg;
 
 	@Autowired
-	private BaseDaoI<RoleEntity> basedaoRole;
+	private BaseDaoI<Role1Entity> basedaoRole;
 	
 	@Autowired
 	private BaseDaoI<MenuEntity> basedaoMenu;
@@ -164,16 +164,16 @@ public class EmployeeServiceImpl implements EmployeeServiceI {
 	public void set_grant(EmployeeForm form) throws Exception {
 
 		if (form.getIds() != null && !"".equalsIgnoreCase(form.getIds())) {
-			List<RoleEntity> roles = new ArrayList<RoleEntity>();
+			List<Role1Entity> roles = new ArrayList<Role1Entity>();
 			if (form.getRoleIds() != null && form.getRoleIds().length() > 0) {
 				for (String roleId : form.getRoleIds().split(",")) {
-					roles.add(this.basedaoRole.get(RoleEntity.class, roleId));
+					roles.add(this.basedaoRole.get(Role1Entity.class, roleId));
 				}
 			}
 			for (String id : form.getIds().split(",")) {
 				if (id != null && !id.equalsIgnoreCase("")) {
 					EmployeeEntity t = this.basedaoEmployee.get(EmployeeEntity.class, id);
-					t.setRoles(new HashSet<RoleEntity>(roles));
+					t.setRoles(new HashSet<Role1Entity>(roles));
 				}
 			}
 		}
@@ -189,12 +189,12 @@ public class EmployeeServiceImpl implements EmployeeServiceI {
 
 		if (t != null) {
 			BeanUtils.copyProperties(t, r);
-			Set<RoleEntity> s = t.getRoles();
+			Set<Role1Entity> s = t.getRoles();
 			if (s != null && !s.isEmpty()) {
 				boolean b = false;
 				String ids = "";
 				String names = "";
-				for (RoleEntity tr : s) {
+				for (Role1Entity tr : s) {
 					if (b) {
 						ids += ",";
 						names += ",";
@@ -243,9 +243,9 @@ public class EmployeeServiceImpl implements EmployeeServiceI {
 			params.put("id", id);
 			EmployeeEntity t = this.basedaoEmployee.get("from EmployeeEntity t join fetch t.roles role join fetch role.menus menu where t.id = :id", params);
 			if (t != null) {
-				Set<RoleEntity> roles = t.getRoles();
+				Set<Role1Entity> roles = t.getRoles();
 				if (roles != null && !roles.isEmpty()) {
-					for (RoleEntity role : roles) {
+					for (Role1Entity role : roles) {
 						Set<MenuEntity> menus = role.getMenus();
 						if (menus != null && !menus.isEmpty()) {
 							for (MenuEntity resource : menus) {

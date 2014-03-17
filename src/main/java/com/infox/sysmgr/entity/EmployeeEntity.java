@@ -20,7 +20,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import com.infox.common.util.RandomUtils;
 
 @Entity
-@Table(name = "INFOX_SYSMGR_EMP")
+@Table(name = "INFOX_SYSMGR_EMP1")
 @DynamicUpdate(true)
 @DynamicInsert(true)
 public class EmployeeEntity implements Serializable{
@@ -57,15 +57,15 @@ public class EmployeeEntity implements Serializable{
 	
 	private OrgEntity org ;
 	
-	private Set<RoleEntity> roles = new HashSet<RoleEntity>(0) ;
+	private Set<Role1Entity> roles = new HashSet<Role1Entity>(0) ;
 	
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "INFOX_SYSMGR_EMP_ROLE", joinColumns = { @JoinColumn(name = "EMP_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "ROLE_ID", nullable = false, updatable = false) })
-	public Set<RoleEntity> getRoles() {
+	public Set<Role1Entity> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Set<RoleEntity> roles) {
+	public void setRoles(Set<Role1Entity> roles) {
 		this.roles = roles;
 	}
 	

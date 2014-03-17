@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.infox.common.dao.BaseDaoI;
 import com.infox.common.web.page.DataGrid;
 import com.infox.sysmgr.entity.MenuEntity;
-import com.infox.sysmgr.entity.RoleEntity;
+import com.infox.sysmgr.entity.Role1Entity;
 import com.infox.sysmgr.service.RoleServiceI;
 import com.infox.sysmgr.web.form.RoleForm;
 
@@ -24,31 +24,31 @@ import com.infox.sysmgr.web.form.RoleForm;
 public class RoleServiceImpl implements RoleServiceI {
 
 	@Autowired
-	private BaseDaoI<RoleEntity> basedaoRole;
+	private BaseDaoI<Role1Entity> basedaoRole;
 	@Autowired
 	private BaseDaoI<MenuEntity> basedaoMenu;
 
 	@Override
 	public void add(RoleForm form) throws Exception {
-		RoleEntity entity = new RoleEntity();
+		Role1Entity entity = new Role1Entity();
 
 		BeanUtils.copyProperties(form, entity);
 		
 		if (form.getPid() != null && !form.getPid().equalsIgnoreCase("")) {
-			entity.setRole(this.basedaoRole.get(RoleEntity.class, form.getPid()));
+			entity.setRole(this.basedaoRole.get(Role1Entity.class, form.getPid()));
 		}
 		this.basedaoRole.save(entity);
 	}
 
 	@Override
 	public void delete(String id) throws Exception {
-		RoleEntity t = basedaoRole.get(RoleEntity.class, id);
+		Role1Entity t = basedaoRole.get(Role1Entity.class, id);
 		del(t);
 	}
 
-	private void del(RoleEntity entity) {
+	private void del(Role1Entity entity) {
 		if (entity.getRoles() != null && entity.getRoles().size() > 0) {
-			for (RoleEntity r : entity.getRoles()) {
+			for (Role1Entity r : entity.getRoles()) {
 				del(r);
 			}
 		}
@@ -58,7 +58,7 @@ public class RoleServiceImpl implements RoleServiceI {
 	@Override
 	public void edit(RoleForm form) throws Exception {
 
-		RoleEntity entity = basedaoRole.get(RoleEntity.class, form.getId());
+		Role1Entity entity = basedaoRole.get(Role1Entity.class, form.getId());
 		if (entity != null) {
 			BeanUtils.copyProperties(form, entity ,new String[]{"creater"});
 
@@ -67,10 +67,10 @@ public class RoleServiceImpl implements RoleServiceI {
 			}
 
 			if (form.getPid() != null && !form.getPid().equalsIgnoreCase("")) {
-				entity.setRole(basedaoRole.get(RoleEntity.class, form.getPid()));
+				entity.setRole(basedaoRole.get(Role1Entity.class, form.getPid()));
 			}
 			if (form.getPid() != null && !form.getPid().equalsIgnoreCase("")) {// 说明前台选中了上级资源
-				RoleEntity pt = basedaoRole.get(RoleEntity.class, form.getPid());
+				Role1Entity pt = basedaoRole.get(Role1Entity.class, form.getPid());
 				isChildren(entity, pt);// 说明要将当前资源修改到当前资源的子/孙子资源下
 				entity.setRole(pt);
 			} else {
@@ -79,7 +79,7 @@ public class RoleServiceImpl implements RoleServiceI {
 		}
 	}
 
-	private boolean isChildren(RoleEntity t, RoleEntity pt) {
+	private boolean isChildren(Role1Entity t, Role1Entity pt) {
 		if (pt != null && pt.getRole() != null) {
 			if (pt.getRole().getId().equalsIgnoreCase(t.getId())) {
 				pt.setRole(null);
@@ -96,7 +96,7 @@ public class RoleServiceImpl implements RoleServiceI {
 		RoleForm r = new RoleForm();
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("id", id);
-		RoleEntity t = basedaoRole.get("select distinct t from RoleEntity t left join fetch t.menus menu where t.id = :id", params);
+		Role1Entity t = basedaoRole.get("select distinct t from Role1Entity t left join fetch t.menus menu where t.id = :id", params);
 		if (t != null) {
 			BeanUtils.copyProperties(t, r);
 			if (t.getRole() != null) {
@@ -133,11 +133,11 @@ public class RoleServiceImpl implements RoleServiceI {
 		return datagrid;
 	}
 
-	private List<RoleForm> changeModel(List<RoleEntity> entity) {
+	private List<RoleForm> changeModel(List<Role1Entity> entity) {
 		List<RoleForm> roleforms = new ArrayList<RoleForm>();
 
 		if (null != entity && entity.size() > 0) {
-			for (RoleEntity i : entity) {
+			for (Role1Entity i : entity) {
 				RoleForm uf = new RoleForm();
 				BeanUtils.copyProperties(i, uf);
 				roleforms.add(uf);
@@ -146,10 +146,10 @@ public class RoleServiceImpl implements RoleServiceI {
 		return roleforms;
 	}
 
-	private List<RoleEntity> find(RoleForm form) {
+	private List<Role1Entity> find(RoleForm form) {
 		Map<String, Object> params = new HashMap<String, Object>();
 
-		String hql = "select t from RoleEntity t where 1=1";
+		String hql = "select t from Role1Entity t where 1=1";
 		hql = addWhere(hql, form, params) + addOrdeby(form);
 		return this.basedaoRole.find(hql, params, form.getPage(), form.getRows());
 	}
@@ -165,7 +165,7 @@ public class RoleServiceImpl implements RoleServiceI {
 	public Long total(RoleForm form) {
 		Map<String, Object> params = new HashMap<String, Object>();
 
-		String hql = "select count(*) from RoleEntity t where 1=1";
+		String hql = "select count(*) from Role1Entity t where 1=1";
 
 		hql = addWhere(hql, form, params);
 
@@ -186,12 +186,12 @@ public class RoleServiceImpl implements RoleServiceI {
 	@Override
 	public List<RoleForm> role_treegrid(RoleForm roleform) throws Exception {
 		List<RoleForm> rl = new ArrayList<RoleForm>();
-		List<RoleEntity> tl = null;
+		List<Role1Entity> tl = null;
 
-		tl = basedaoRole.find("select distinct t from RoleEntity t left join fetch t.menus menu order by t.seq");
+		tl = basedaoRole.find("select distinct t from Role1Entity t left join fetch t.menus menu order by t.seq");
 
 		if (tl != null && tl.size() > 0) {
-			for (RoleEntity t : tl) {
+			for (Role1Entity t : tl) {
 				RoleForm r = new RoleForm();
 				BeanUtils.copyProperties(t, r);
 				r.setIconCls("ext_group");
@@ -226,16 +226,16 @@ public class RoleServiceImpl implements RoleServiceI {
 	
 	@Override
 	public List<RoleForm> treegrid(RoleForm form ,String mode) throws Exception {
-		String hql = "select t from RoleEntity t where t.role is null" ;
-		List<RoleEntity> orgs = this.basedaoRole.find(hql) ;
+		String hql = "select t from Role1Entity t where t.role is null" ;
+		List<Role1Entity> orgs = this.basedaoRole.find(hql) ;
 		List<RoleForm> rolesform = new ArrayList<RoleForm>() ;
-		for (RoleEntity menuEntity : orgs) {
+		for (Role1Entity menuEntity : orgs) {
 			rolesform.add(recursiveNode(menuEntity ,mode)) ;
 		}
 		return rolesform ;
 	}
 	
-	public RoleForm recursiveNode(RoleEntity entity ,String mode) {
+	public RoleForm recursiveNode(Role1Entity entity ,String mode) {
 		RoleForm mf = new RoleForm() ;
 		BeanUtils.copyProperties(entity, mf) ;
 		
@@ -244,9 +244,9 @@ public class RoleServiceImpl implements RoleServiceI {
 		if(null != entity.getRoles() && entity.getRoles().size() > 0) {
 			mf.setState("closed") ;
 			
-			Set<RoleEntity> rs = entity.getRoles() ;
+			Set<Role1Entity> rs = entity.getRoles() ;
 			List<RoleForm> children = new ArrayList<RoleForm>();
-			for (RoleEntity menuEntity : rs) {
+			for (Role1Entity menuEntity : rs) {
 				
 				//combotree方式显示
 				if("combotree".equalsIgnoreCase(mode)) {
@@ -269,7 +269,7 @@ public class RoleServiceImpl implements RoleServiceI {
 	@Override
 	public void set_grant(RoleForm form) throws Exception {
 		
-		RoleEntity roleEntity = this.basedaoRole.get(RoleEntity.class, form.getId()) ;
+		Role1Entity Role1Entity = this.basedaoRole.get(Role1Entity.class, form.getId()) ;
 		
 		if(form.getMenuIds() != null && !"".equalsIgnoreCase(form.getIds())) {
 			String ids = "";
@@ -282,9 +282,9 @@ public class RoleServiceImpl implements RoleServiceI {
 				}
 				ids += "'" + id + "'";
 			}
-			roleEntity.setMenus(new HashSet<MenuEntity>(this.basedaoMenu.find("select distinct t from MenuEntity t where t.id in (" + ids + ")"))) ;
+			Role1Entity.setMenus(new HashSet<MenuEntity>(this.basedaoMenu.find("select distinct t from MenuEntity t where t.id in (" + ids + ")"))) ;
 		} else {
-			roleEntity.setMenus(null) ;
+			Role1Entity.setMenus(null) ;
 		}
 		
 	}
@@ -294,7 +294,7 @@ public class RoleServiceImpl implements RoleServiceI {
 		
 		RoleForm r = new RoleForm() ;
 		
-		RoleEntity t = this.basedaoRole.get("select distinct t from RoleEntity t left join fetch t.menus menu where t.id = '" + form.getId()+"'") ;
+		Role1Entity t = this.basedaoRole.get("select distinct t from Role1Entity t left join fetch t.menus menu where t.id = '" + form.getId()+"'") ;
 		
 		if (t != null) {
 			BeanUtils.copyProperties(t, r);

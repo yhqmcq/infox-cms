@@ -12,23 +12,23 @@ import org.hibernate.annotations.DynamicUpdate;
 import com.infox.common.util.RandomUtils;
 
 /**
- * 角色表，基本权限的集合。无上级与下级之分
+ * 权限组表，将一模块的中的所有权限划分一个权限组中，可以通过权限组授予用户权限
  * 创建者： 杨浩泉
  * 创建时间： 2014-3-17 下午9:21:03
  * 版本号： v1.0
  */
 @Entity
-@Table(name = "INFOX_SYSMGR_PERMIT_ROLE")
+@Table(name = "INFOX_SYSMGR_PERMIT_GROUP")
 @DynamicUpdate(true)
 @DynamicInsert(true)
-public class RoleEntity {
+public class PermitGroupEntity {
 
 	private String id ;
 	
 	private String name ;
-	
-	private Date created = new Date() ;
 
+	private Date created = new Date() ;
+	
 	@Id
 	public String getId() {
 		if (this.id != null) {
