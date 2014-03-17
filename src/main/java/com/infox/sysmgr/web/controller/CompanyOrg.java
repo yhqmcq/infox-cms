@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.infox.common.util.Constants;
 import com.infox.common.web.BaseController;
 import com.infox.common.web.page.Json;
-import com.infox.sysmgr.service.CompanyServiceI;
+import com.infox.sysmgr.service.CompanyOrServiceI;
 import com.infox.sysmgr.web.form.CompanyForm;
 
 @Controller
@@ -20,7 +20,7 @@ import com.infox.sysmgr.web.form.CompanyForm;
 public class CompanyOrg extends BaseController {
 	
 	@Autowired
-	private CompanyServiceI orgservice ;
+	private CompanyOrServiceI orgservice ;
 	
 	@RequestMapping("/company_main.do")
 	public String company_main() throws Exception {

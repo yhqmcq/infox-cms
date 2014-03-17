@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.infox.sysmgr.web.form.CompanyForm;
 
-public interface CompanyServiceI {
+public interface CompanyOrServiceI {
 	
 	public void add(CompanyForm form) throws Exception ;
 	

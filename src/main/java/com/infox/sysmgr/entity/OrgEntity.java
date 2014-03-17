@@ -20,10 +20,10 @@ import org.hibernate.annotations.DynamicUpdate;
 import com.infox.common.util.RandomUtils;
 
 @Entity
-@Table(name = "INFOX_SYSMGR_COMPANY")
+@Table(name = "INFOX_SYSMGR_COMPANYorg")
 @DynamicUpdate(true)
 @DynamicInsert(true)
-public class CompanyOrgEntity implements Serializable {
+public class OrgEntity implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -66,9 +66,9 @@ public class CompanyOrgEntity implements Serializable {
 	
 	private Date lastmod = new Date() ;
 	
-	private CompanyOrgEntity org ;
+	private OrgEntity org ;
 	
-	private Set<CompanyOrgEntity> orgs = new HashSet<CompanyOrgEntity>() ;
+	private Set<OrgEntity> orgs = new HashSet<OrgEntity>() ;
 	
 	private Set<EmployeeEntity> emps = new HashSet<EmployeeEntity>() ;
 	
@@ -84,21 +84,21 @@ public class CompanyOrgEntity implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "ORG_PID")
-	public CompanyOrgEntity getOrg() {
+	public OrgEntity getOrg() {
 		return org;
 	}
 
-	public void setOrg(CompanyOrgEntity org) {
+	public void setOrg(OrgEntity org) {
 		this.org = org;
 	}
 
 	@OneToMany(mappedBy = "org", fetch = FetchType.LAZY)
 	@OrderBy("created desc")
-	public Set<CompanyOrgEntity> getOrgs() {
+	public Set<OrgEntity> getOrgs() {
 		return orgs;
 	}
 
-	public void setOrgs(Set<CompanyOrgEntity> orgs) {
+	public void setOrgs(Set<OrgEntity> orgs) {
 		this.orgs = orgs;
 	}
 

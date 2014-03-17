@@ -12,25 +12,25 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.infox.common.dao.BaseDaoI;
-import com.infox.sysmgr.entity.CompanyOrgEntity;
-import com.infox.sysmgr.service.CompanyServiceI;
+import com.infox.sysmgr.entity.OrgEntity;
+import com.infox.sysmgr.service.CompanyOrServiceI;
 import com.infox.sysmgr.web.form.CompanyForm;
 
 @Service
 @Transactional
-public class CompanyServiceImpl implements CompanyServiceI {
+public class CompanyOrServiceImpl implements CompanyOrServiceI {
 
 	@Autowired
-	private BaseDaoI<CompanyOrgEntity> basedaoOrg;
+	private BaseDaoI<OrgEntity> basedaoOrg;
 
 	@Override
 	public void add(CompanyForm form) throws Exception {
 		
-		CompanyOrgEntity entity = new CompanyOrgEntity();
+		OrgEntity entity = new OrgEntity();
 		BeanUtils.copyProperties(form, entity, new String[] { "created", "lastmod" });
 		
 		if(form.getPid() != null && !"".equalsIgnoreCase(form.getPid())) {
-			entity.setOrg(this.basedaoOrg.get(CompanyOrgEntity.class, form.getPid())) ;
+			entity.setOrg(this.basedaoOrg.get(OrgEntity.class, form.getPid())) ;
 		}
 
 		this.basedaoOrg.save(entity);
@@ -38,14 +38,14 @@ public class CompanyServiceImpl implements CompanyServiceI {
 
 	@Override
 	public void delete(String id) throws Exception {
-		CompanyOrgEntity t = this.basedaoOrg.get(CompanyOrgEntity.class, id);
+		OrgEntity t = this.basedaoOrg.get(OrgEntity.class, id);
 		del(t);
 	}
 
-	private void del(CompanyOrgEntity entity) {
+	private void del(OrgEntity entity) {
 
 		if (entity.getOrgs() != null && entity.getOrgs().size() > 0) {
-			for (CompanyOrgEntity r : entity.getOrgs()) {
+			for (OrgEntity r : entity.getOrgs()) {
 				del(r);
 			}
 		}
@@ -55,16 +55,16 @@ public class CompanyServiceImpl implements CompanyServiceI {
 	@Override
 	public void edit(CompanyForm form) throws Exception {
 		
-		CompanyOrgEntity entity = this.basedaoOrg.get(CompanyOrgEntity.class, form.getId());
+		OrgEntity entity = this.basedaoOrg.get(OrgEntity.class, form.getId());
 		
 		if(entity != null) {
 			BeanUtils.copyProperties(form, entity ,new String[]{"creater"});
 			
 			if (form.getPid() != null && !form.getPid().equalsIgnoreCase("")) {
-				entity.setOrg(basedaoOrg.get(CompanyOrgEntity.class, form.getPid()));
+				entity.setOrg(basedaoOrg.get(OrgEntity.class, form.getPid()));
 			}
 			if (form.getPid() != null && !form.getPid().equalsIgnoreCase("")) {// 说明前台选中了上级资源
-				CompanyOrgEntity pt = basedaoOrg.get(CompanyOrgEntity.class, form.getPid());
+				OrgEntity pt = basedaoOrg.get(OrgEntity.class, form.getPid());
 				isChildren(entity, pt);// 说明要将当前资源修改到当前资源的子/孙子资源下
 				entity.setOrg(pt);
 			} else {
@@ -80,7 +80,7 @@ public class CompanyServiceImpl implements CompanyServiceI {
 	 * @param pt 要修改到的节点
 	 * @return
 	 */
-	private boolean isChildren(CompanyOrgEntity entity, CompanyOrgEntity pt) {
+	private boolean isChildren(OrgEntity entity, OrgEntity pt) {
 		if (pt != null && pt.getOrg() != null) {
 			if (pt.getOrg().getId().equalsIgnoreCase(entity.getId())) {
 				pt.setOrg(null);
@@ -97,7 +97,7 @@ public class CompanyServiceImpl implements CompanyServiceI {
 	public CompanyForm get(String id) throws Exception {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("id", id);
-		CompanyOrgEntity entity = this.basedaoOrg.get("from CompanyEntity t where t.id = :id", params);
+		OrgEntity entity = this.basedaoOrg.get("from CompanyEntity t where t.id = :id", params);
 		
 		CompanyForm r = new CompanyForm();
 		
@@ -114,18 +114,18 @@ public class CompanyServiceImpl implements CompanyServiceI {
 	public List<CompanyForm> treegrid(CompanyForm form ,String mode) throws Exception {
 		String hql = "select t from CompanyEntity t where t.org is null order by created desc" ;
 		
-		List<CompanyOrgEntity> entitys = this.basedaoOrg.find(hql) ;
+		List<OrgEntity> entitys = this.basedaoOrg.find(hql) ;
 		
 		List<CompanyForm> orgsform = new ArrayList<CompanyForm>() ;
 		
-		for (CompanyOrgEntity menuEntity : entitys) {
+		for (OrgEntity menuEntity : entitys) {
 			orgsform.add(recursiveNode(menuEntity ,mode)) ;
 		}
 		
 		return orgsform ;
 	}
 	
-	public CompanyForm recursiveNode(CompanyOrgEntity me ,String mode) {
+	public CompanyForm recursiveNode(OrgEntity me ,String mode) {
 		CompanyForm mf = new CompanyForm() ;
 		BeanUtils.copyProperties(me, mf) ;
 		
@@ -135,9 +135,9 @@ public class CompanyServiceImpl implements CompanyServiceI {
 		if(null != me.getOrgs() && me.getOrgs().size() > 0) {
 			mf.setState("closed") ;
 			
-			Set<CompanyOrgEntity> rs = me.getOrgs() ;
+			Set<OrgEntity> rs = me.getOrgs() ;
 			List<CompanyForm> children = new ArrayList<CompanyForm>();
-			for (CompanyOrgEntity menuEntity : rs) {
+			for (OrgEntity menuEntity : rs) {
 				
 				//combotree方式显示
 				if("combotree".equalsIgnoreCase(mode)) {
