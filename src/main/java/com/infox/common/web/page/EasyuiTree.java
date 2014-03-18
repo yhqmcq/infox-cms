@@ -7,7 +7,7 @@ import java.util.List;
  * @author Administrator
  *
  */
-public class Tree<T> {
+public class EasyuiTree<T> {
 
 	private String id ;
 	
@@ -19,8 +19,28 @@ public class Tree<T> {
 	
 	private Object attributes ;
 	
+	private String iconCls;
+	
+	private String pid;
+	
 	private List<T> children ;
 	
+
+	public String getIconCls() {
+		return iconCls;
+	}
+
+	public void setIconCls(String iconCls) {
+		this.iconCls = iconCls;
+	}
+
+	public String getPid() {
+		return pid;
+	}
+
+	public void setPid(String pid) {
+		this.pid = pid;
+	}
 
 	public String getId() {
 		return id;

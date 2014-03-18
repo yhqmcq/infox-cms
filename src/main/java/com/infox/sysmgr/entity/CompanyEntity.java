@@ -40,6 +40,18 @@ public class CompanyEntity {
 	
 	private CompanyEntity company ;
 	
+	private DeptEntity dept ;
+	
+	@OneToMany
+	@JoinColumn(name="COMPANY_ID")
+	public DeptEntity getDept() {
+		return dept;
+	}
+
+	public void setDept(DeptEntity dept) {
+		this.dept = dept;
+	}
+
 	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
 	@OrderBy("created desc")
 	public Set<CompanyEntity> getCompanys() {

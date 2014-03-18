@@ -2,13 +2,13 @@ package com.infox.sysmgr.web.form;
 
 import java.util.Date;
 
-import com.infox.common.web.page.Tree;
+import com.infox.common.web.page.EasyuiTree;
 
 /**
  * @author Administrator
  *
  */
-public class MenuForm extends Tree<MenuForm> {
+public class MenuForm extends EasyuiTree<MenuForm> {
 	
 	private String id ;
 	

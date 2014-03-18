@@ -6,6 +6,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -34,6 +35,18 @@ public class UserEntity {
 	
 	private UserDetailEntity user_detail ;
 	
+	private DeptEntity dept ;
+	
+	@ManyToOne
+	@JoinColumn(name="DEPT_ID")
+	public DeptEntity getDept() {
+		return dept;
+	}
+
+	public void setDept(DeptEntity dept) {
+		this.dept = dept;
+	}
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="DETAIL_ID")
 	public UserDetailEntity getUser_detail() {

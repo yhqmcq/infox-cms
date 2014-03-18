@@ -35,11 +35,36 @@ public class DeptEntity {
 	private String name ;
 	
 	private Date created = new Date() ;
-
+	
 	private Set<DeptEntity> depts = new HashSet<DeptEntity>(0) ;
 	
 	private DeptEntity dept ;
 	
+	private CompanyEntity company ;
+	
+	private UserEntity user ;
+	
+	
+	@ManyToOne
+	@JoinColumn(name = "USER_ID")
+	public UserEntity getUser() {
+		return user;
+	}
+
+	public void setUser(UserEntity user) {
+		this.user = user;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "COMPANY_ID")
+	public CompanyEntity getCompany() {
+		return company;
+	}
+
+	public void setCompany(CompanyEntity company) {
+		this.company = company;
+	}
+
 	@OneToMany(mappedBy = "dept", fetch = FetchType.LAZY)
 	@OrderBy("created desc")
 	public Set<DeptEntity> getDepts() {

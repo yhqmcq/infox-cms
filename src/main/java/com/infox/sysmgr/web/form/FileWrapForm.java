@@ -4,9 +4,9 @@ import java.io.File;
 import java.util.Comparator;
 import java.util.Locale;
 
-import com.infox.common.web.page.Tree;
+import com.infox.common.web.page.EasyuiTree;
 
-public class FileWrapForm extends Tree<FileWrapForm> {
+public class FileWrapForm extends EasyuiTree<FileWrapForm> {
 	
 	/** 文件名称 */
 	private String fileName ;
