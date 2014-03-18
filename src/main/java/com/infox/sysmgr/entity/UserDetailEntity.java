@@ -1,11 +1,7 @@
 package com.infox.sysmgr.entity;
 
-import java.util.Date;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -15,41 +11,30 @@ import org.hibernate.annotations.DynamicUpdate;
 import com.infox.common.util.RandomUtils;
 
 /**
- * 员工信息基本表
+ * 员工信息详细表
  * 创建者： 杨浩泉
- * 创建时间： 2014-3-17 下午9:20:27
+ * 创建时间： 2014-3-17 下午9:22:03
  * 版本号： v1.0
  */
 @Entity
-@Table(name = "INFOX_SYSMGR_EMP")
+@Table(name = "INFOX_SYSMGR_USER_DETAIL")
 @DynamicUpdate(true)
 @DynamicInsert(true)
-public class EmpEntity {
+public class UserDetailEntity {
 
 	private String id ;
 	
 	private String name ;
+
+	private UserEntity user ;
 	
-	private Date created = new Date() ;
-	
-	private EmpDetailEntity emp_detail ;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="DETAIL_ID")
-	public EmpDetailEntity getEmp_detail() {
-		return emp_detail;
+	@OneToOne(mappedBy="user_detail")
+	public UserEntity getUser() {
+		return user;
 	}
 
-	public void setEmp_detail(EmpDetailEntity emp_detail) {
-		this.emp_detail = emp_detail;
-	}
-
-	public Date getCreated() {
-		return created;
-	}
-
-	public void setCreated(Date created) {
-		this.created = created;
+	public void setUser(UserEntity user) {
+		this.user = user;
 	}
 
 	@Id
