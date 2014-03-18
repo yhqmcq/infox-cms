@@ -13,7 +13,7 @@ import com.infox.common.util.Constants;
 import com.infox.common.web.BaseController;
 import com.infox.common.web.page.Json;
 import com.infox.sysmgr.service.CompanyOrServiceI;
-import com.infox.sysmgr.web.form.CompanyForm;
+import com.infox.sysmgr.web.form.Company1Form;
 
 @Controller
 @RequestMapping("/sysmgr/company")
@@ -28,7 +28,7 @@ public class CompanyOrg extends BaseController {
 	}
 	
 	@RequestMapping("/company_form.do")
-	public String company_form(CompanyForm form, HttpServletRequest request) throws Exception {
+	public String company_form(Company1Form form, HttpServletRequest request) throws Exception {
 		if(null != form.getId() && !"".equals(form.getId())) {
 			request.setAttribute("id", form.getId()) ;
 		}
@@ -37,13 +37,13 @@ public class CompanyOrg extends BaseController {
 	
 	@RequestMapping("/get.do")
 	@ResponseBody
-	public CompanyForm get(CompanyForm form, HttpServletRequest request) throws Exception {
+	public Company1Form get(Company1Form form, HttpServletRequest request) throws Exception {
 		return this.orgservice.get(form.getId()) ;
 	}
 	
 	@RequestMapping("/add.do")
 	@ResponseBody
-	public Json add(CompanyForm form) throws Exception {
+	public Json add(Company1Form form) throws Exception {
 		Json json = new Json() ;
 		try {
 			this.orgservice.add(form) ;
@@ -56,7 +56,7 @@ public class CompanyOrg extends BaseController {
 	
 	@RequestMapping("/edit.do")
 	@ResponseBody
-	public Json edit(CompanyForm form) throws Exception {
+	public Json edit(Company1Form form) throws Exception {
 		Json json = new Json() ;
 		try {
 			this.orgservice.edit(form) ;
@@ -82,7 +82,7 @@ public class CompanyOrg extends BaseController {
 	
 	@RequestMapping("/treegrid.do")
 	@ResponseBody
-	public List<CompanyForm> treegrid(CompanyForm form ,String mode) throws Exception {
+	public List<Company1Form> treegrid(Company1Form form ,String mode) throws Exception {
 		return this.orgservice.treegrid(form ,mode) ;
 	}
 

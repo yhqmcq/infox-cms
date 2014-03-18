@@ -5,7 +5,7 @@ import java.util.List;
 import com.infox.common.web.page.DataGrid;
 import com.infox.sysmgr.web.form.RoleForm;
 
-public interface RoleServiceI {
+public interface Role1ServiceI {
 	
 	public void add(RoleForm form) throws Exception ;
 	

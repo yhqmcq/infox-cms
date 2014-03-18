@@ -16,12 +16,12 @@ import com.infox.common.dao.BaseDaoI;
 import com.infox.common.web.page.DataGrid;
 import com.infox.sysmgr.entity.MenuEntity;
 import com.infox.sysmgr.entity.Role1Entity;
-import com.infox.sysmgr.service.RoleServiceI;
+import com.infox.sysmgr.service.Role1ServiceI;
 import com.infox.sysmgr.web.form.RoleForm;
 
 @Service
 @Transactional
-public class RoleServiceImpl implements RoleServiceI {
+public class RoleServiceImpl implements Role1ServiceI {
 
 	@Autowired
 	private BaseDaoI<Role1Entity> basedaoRole;

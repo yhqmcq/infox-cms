@@ -1,9 +1,13 @@
 package com.infox.sysmgr.entity;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
@@ -12,7 +16,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import com.infox.common.util.RandomUtils;
 
 /**
- * 系统模块表
+ * 系统模块表（资源表）
  * 创建者： 杨浩泉
  * 创建时间： 2014-3-17 下午9:21:03
  * 版本号： v1.0
@@ -25,10 +29,56 @@ public class ModuleEntity {
 
 	private String id ;
 	
-	private String name ;
+	/** 模块名称 */
+	private String moduleName ;
+	
+	/** 模块之(sys_user) */
+	private String moduleValue ;
+	
+	/** 资源链接地址 */
+	private String linkUrl ;
+	
+	private String description ;
+	
+	/** 类型（类别、菜单、操作） */
+	private String type ;
+	
+	/** 排序 */
+	private Integer seq ;
+	
+	/** 是否启用 */
+	private String disused ;
+	
+	/** 菜单图标 */
+	private String iconCls ;
+	
+	/** tree{open,closed} */
+	private String state ;
 
 	private Date created = new Date() ;
 	
+	private Set<ActionEntity> actions = new HashSet<ActionEntity>(0) ;
+	
+	private Set<RolePermitEntity> role_permits = new HashSet<RolePermitEntity>(0) ;
+	
+	@OneToMany
+	@JoinColumn(name="MODULE_ID")
+	public Set<ActionEntity> getActions() {
+		return actions;
+	}
+
+	public Date getCreated() {
+		return created;
+	}
+
+	public String getDisused() {
+		return disused;
+	}
+
+	public String getIconCls() {
+		return iconCls;
+	}
+
 	@Id
 	public String getId() {
 		if (this.id != null) {
@@ -37,24 +87,91 @@ public class ModuleEntity {
 		return RandomUtils.generateNumber(6);
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public String getLinkUrl() {
+		return linkUrl;
+	}
+	
+
+	public String getDescription() {
+		return description;
 	}
 
-	public String getName() {
-		return name;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public String getModuleName() {
+		return moduleName;
 	}
 
-	public Date getCreated() {
-		return created;
+	public String getModuleValue() {
+		return moduleValue;
+	}
+
+	@OneToMany
+	@JoinColumn(name="MODULE_ID")
+	public Set<RolePermitEntity> getRole_permits() {
+		return role_permits;
+	}
+
+	public Integer getSeq() {
+		return seq;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setActions(Set<ActionEntity> actions) {
+		this.actions = actions;
 	}
 
 	public void setCreated(Date created) {
 		this.created = created;
+	}
+
+	public void setDisused(String disused) {
+		this.disused = disused;
+	}
+
+	public void setIconCls(String iconCls) {
+		this.iconCls = iconCls;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public void setLinkUrl(String linkUrl) {
+		this.linkUrl = linkUrl;
+	}
+
+	public void setModuleName(String moduleName) {
+		this.moduleName = moduleName;
+	}
+
+	public void setModuleValue(String moduleValue) {
+		this.moduleValue = moduleValue;
+	}
+
+	public void setRole_permits(Set<RolePermitEntity> role_permits) {
+		this.role_permits = role_permits;
+	}
+
+	public void setSeq(Integer seq) {
+		this.seq = seq;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 }

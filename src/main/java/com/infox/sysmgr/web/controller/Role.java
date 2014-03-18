@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.infox.common.util.Constants;
 import com.infox.common.web.BaseController;
 import com.infox.common.web.page.Json;
-import com.infox.sysmgr.service.RoleServiceI;
+import com.infox.sysmgr.service.Role1ServiceI;
 import com.infox.sysmgr.web.form.RoleForm;
 
 @Controller
@@ -20,7 +20,7 @@ import com.infox.sysmgr.web.form.RoleForm;
 public class Role extends BaseController{
 	
 	@Autowired
-	private RoleServiceI roleservice ;
+	private Role1ServiceI roleservice ;
 	
 	@RequestMapping("/role_main.do")
 	public String role_main() throws Exception {

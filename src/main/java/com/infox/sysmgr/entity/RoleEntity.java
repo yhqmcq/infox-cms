@@ -1,9 +1,13 @@
 package com.infox.sysmgr.entity;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
@@ -18,16 +22,31 @@ import com.infox.common.util.RandomUtils;
  * 版本号： v1.0
  */
 @Entity
-@Table(name = "INFOX_SYSMGR_PERMIT_ROLE")
+@Table(name = "INFOX_SYSMGR_ROLE")
 @DynamicUpdate(true)
 @DynamicInsert(true)
 public class RoleEntity {
 
 	private String id ;
 	
-	private String name ;
+	private String roleName ;
+	
+	private String roleDescription ;
 	
 	private Date created = new Date() ;
+	
+	private Set<RolePermitEntity> permits = new HashSet<RolePermitEntity>(0) ;
+	
+	
+	@OneToMany
+	@JoinColumn(name="ROLE_ID")
+	public Set<RolePermitEntity> getPermits() {
+		return permits;
+	}
+
+	public void setPermits(Set<RolePermitEntity> permits) {
+		this.permits = permits;
+	}
 
 	@Id
 	public String getId() {
@@ -41,20 +60,28 @@ public class RoleEntity {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public Date getCreated() {
 		return created;
 	}
 
 	public void setCreated(Date created) {
 		this.created = created;
+	}
+
+	public String getRoleName() {
+		return roleName;
+	}
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+
+	public String getRoleDescription() {
+		return roleDescription;
+	}
+
+	public void setRoleDescription(String roleDescription) {
+		this.roleDescription = roleDescription;
 	}
 	
 }

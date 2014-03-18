@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.infox.common.dao.BaseDaoI;
 import com.infox.sysmgr.entity.OrgEntity;
 import com.infox.sysmgr.service.CompanyOrServiceI;
-import com.infox.sysmgr.web.form.CompanyForm;
+import com.infox.sysmgr.web.form.Company1Form;
 
 @Service
 @Transactional
@@ -24,7 +24,7 @@ public class CompanyOrServiceImpl implements CompanyOrServiceI {
 	private BaseDaoI<OrgEntity> basedaoOrg;
 
 	@Override
-	public void add(CompanyForm form) throws Exception {
+	public void add(Company1Form form) throws Exception {
 		
 		OrgEntity entity = new OrgEntity();
 		BeanUtils.copyProperties(form, entity, new String[] { "created", "lastmod" });
@@ -53,7 +53,7 @@ public class CompanyOrServiceImpl implements CompanyOrServiceI {
 	}
 
 	@Override
-	public void edit(CompanyForm form) throws Exception {
+	public void edit(Company1Form form) throws Exception {
 		
 		OrgEntity entity = this.basedaoOrg.get(OrgEntity.class, form.getId());
 		
@@ -94,12 +94,12 @@ public class CompanyOrServiceImpl implements CompanyOrServiceI {
 
 
 	@Override
-	public CompanyForm get(String id) throws Exception {
+	public Company1Form get(String id) throws Exception {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("id", id);
 		OrgEntity entity = this.basedaoOrg.get("from CompanyEntity t where t.id = :id", params);
 		
-		CompanyForm r = new CompanyForm();
+		Company1Form r = new Company1Form();
 		
 		if(null != entity) {
 			BeanUtils.copyProperties(entity, r);
@@ -111,12 +111,12 @@ public class CompanyOrServiceImpl implements CompanyOrServiceI {
 	}
 
 	@Override
-	public List<CompanyForm> treegrid(CompanyForm form ,String mode) throws Exception {
+	public List<Company1Form> treegrid(Company1Form form ,String mode) throws Exception {
 		String hql = "select t from CompanyEntity t where t.org is null order by created desc" ;
 		
 		List<OrgEntity> entitys = this.basedaoOrg.find(hql) ;
 		
-		List<CompanyForm> orgsform = new ArrayList<CompanyForm>() ;
+		List<Company1Form> orgsform = new ArrayList<Company1Form>() ;
 		
 		for (OrgEntity menuEntity : entitys) {
 			orgsform.add(recursiveNode(menuEntity ,mode)) ;
@@ -125,8 +125,8 @@ public class CompanyOrServiceImpl implements CompanyOrServiceI {
 		return orgsform ;
 	}
 	
-	public CompanyForm recursiveNode(OrgEntity me ,String mode) {
-		CompanyForm mf = new CompanyForm() ;
+	public Company1Form recursiveNode(OrgEntity me ,String mode) {
+		Company1Form mf = new Company1Form() ;
 		BeanUtils.copyProperties(me, mf) ;
 		
 		//combotree方式显示
@@ -136,16 +136,16 @@ public class CompanyOrServiceImpl implements CompanyOrServiceI {
 			mf.setState("closed") ;
 			
 			Set<OrgEntity> rs = me.getOrgs() ;
-			List<CompanyForm> children = new ArrayList<CompanyForm>();
+			List<Company1Form> children = new ArrayList<Company1Form>();
 			for (OrgEntity menuEntity : rs) {
 				
 				//combotree方式显示
 				if("combotree".equalsIgnoreCase(mode)) {
-						CompanyForm tn = recursiveNode(menuEntity ,mode) ;
+						Company1Form tn = recursiveNode(menuEntity ,mode) ;
 						BeanUtils.copyProperties(menuEntity ,tn) ;
 						children.add(tn);
 				} else {
-					CompanyForm tn = recursiveNode(menuEntity ,mode) ;
+					Company1Form tn = recursiveNode(menuEntity ,mode) ;
 					BeanUtils.copyProperties(menuEntity ,tn) ;
 					children.add(tn);
 				}

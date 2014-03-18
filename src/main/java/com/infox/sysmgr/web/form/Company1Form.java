@@ -3,7 +3,7 @@ package com.infox.sysmgr.web.form;
 import java.util.Date;
 import java.util.List;
 
-public class CompanyForm {
+public class Company1Form {
 	
 	private String id ;
 	
@@ -44,7 +44,7 @@ public class CompanyForm {
 	private String state ;// open,closed
 	private boolean checked = false;
 	private Object attributes;
-	private List<CompanyForm> children;
+	private List<Company1Form> children;
 	private String iconCls;
 	private String pid;
 
@@ -88,11 +88,11 @@ public class CompanyForm {
 		this.attributes = attributes;
 	}
 
-	public List<CompanyForm> getChildren() {
+	public List<Company1Form> getChildren() {
 		return children;
 	}
 
-	public void setChildren(List<CompanyForm> children) {
+	public void setChildren(List<Company1Form> children) {
 		this.children = children;
 	}
 

@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
@@ -25,9 +27,23 @@ public class ActionEntity {
 
 	private String id ;
 	
-	private String name ;
+	private String actionName ;
+	
+	private String actionValue ;
 
 	private Date created = new Date() ;
+	
+	private ModuleEntity module ;
+	
+	@ManyToOne
+	@JoinColumn(name="MODULE_ID")
+	public ModuleEntity getModule() {
+		return module;
+	}
+
+	public void setModule(ModuleEntity module) {
+		this.module = module;
+	}
 	
 	@Id
 	public String getId() {
@@ -41,12 +57,20 @@ public class ActionEntity {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getActionName() {
+		return actionName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setActionName(String actionName) {
+		this.actionName = actionName;
+	}
+
+	public String getActionValue() {
+		return actionValue;
+	}
+
+	public void setActionValue(String actionValue) {
+		this.actionValue = actionValue;
 	}
 
 	public Date getCreated() {
