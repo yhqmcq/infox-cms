@@ -4,14 +4,11 @@
 	var form_url = siteUtil.basePath+"/sysmgr/userAction/add.do" ;
 	
 	$(function() {
-	/* 	$("#select1").combotree({
-			url : siteUtil.basePath+"/sysmgr/org/treegrid.do",
-			width:157, idFiled:'pid', textFiled:'fullname', editable: false,
-			lines:true, autoShowPanel: true,
-			onSelect:function(node){
-		 		$("#orgname").val(node.text);
-		 	}
-	    }); */
+		$("#select1").combotree({
+			url : siteUtil.basePath+"/sysmgr/companyAction/treegrid.do",
+			width:157, idFiled:'pid', textFiled:'name', editable: false,
+			lines:true, autoShowPanel: true
+	    });
 		
 		//编辑，加载表单数据
 		if($('input[name=id]').val().length > 0) {
@@ -90,7 +87,7 @@
 						panelHeight:'auto', editable:false" />
 				</td>
 				<th>机构：</th>
-				<td><input id="select1" name="orgid" /><input name="orgname" id="orgname"  type="hidden"/></td>
+				<td><input id="select1" name="dept_id" /></td>
 			</tr>
 		</table>
 	</div>

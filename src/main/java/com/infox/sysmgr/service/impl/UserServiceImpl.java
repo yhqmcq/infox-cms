@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserServiceI {
 		Json j = new Json();
 		try {
 			UserEntity entity = new UserEntity();
-			BeanUtils.copyProperties(form, entity, new String[] { "created" });
+			BeanUtils.copyProperties(form, entity, new String[] { "id" });
 
 			if (form.getDept_id() != null && !"".equalsIgnoreCase(form.getDept_id())) {
 				entity.setDept(this.basedaoCompany.get(CompanyEntity.class, form.getDept_id()));
