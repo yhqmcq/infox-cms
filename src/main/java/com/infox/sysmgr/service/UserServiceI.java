@@ -8,11 +8,13 @@ public interface UserServiceI {
 
 	public Json add(UserForm form) ;
 	
-	public Json delete(String id) ;
+	public Json delete(UserForm form) ;
 	
 	public Json edit(UserForm form) ;
 	
 	public UserForm get(String id) ;
+	
+	public UserForm get(UserForm form) ;
 	
 	public DataGrid datagrid(UserForm form) ;
 }

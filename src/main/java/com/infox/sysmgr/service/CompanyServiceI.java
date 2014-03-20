@@ -15,6 +15,6 @@ public interface CompanyServiceI {
 	
 	public CompanyForm get(String id) ;
 	
-	public List<CompanyForm> treegrid(CompanyForm form ,String mode) ;
+	public List<CompanyForm> treegrid(CompanyForm form) ;
 	
 }

@@ -37,6 +37,17 @@ public class RoleEntity {
 	
 	private Set<RolePermitEntity> permits = new HashSet<RolePermitEntity>(0) ;
 	
+	private Set<UserPermitEntity> user_permit = new HashSet<UserPermitEntity>(0) ;
+	
+	@OneToMany
+	@JoinColumn(name="ROLE_ID")
+	public Set<UserPermitEntity> getUser_permit() {
+		return user_permit;
+	}
+
+	public void setUser_permit(Set<UserPermitEntity> user_permit) {
+		this.user_permit = user_permit;
+	}
 	
 	@OneToMany
 	@JoinColumn(name="ROLE_ID")

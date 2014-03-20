@@ -1,12 +1,15 @@
 package com.infox.sysmgr.entity;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -35,16 +38,28 @@ public class UserEntity {
 	
 	private UserDetailEntity user_detail ;
 	
-	private DeptEntity dept ;
+	private CompanyEntity dept ;
+	
+	private Set<UserPermitEntity> user_permit = new HashSet<UserPermitEntity>(0) ;
 	
 	@ManyToOne
 	@JoinColumn(name="DEPT_ID")
-	public DeptEntity getDept() {
+	public CompanyEntity getDept() {
 		return dept;
 	}
 
-	public void setDept(DeptEntity dept) {
+	public void setDept(CompanyEntity dept) {
 		this.dept = dept;
+	}
+
+	@OneToMany
+	@JoinColumn(name="USER_ID")
+	public Set<UserPermitEntity> getUser_permit() {
+		return user_permit;
+	}
+
+	public void setUser_permit(Set<UserPermitEntity> user_permit) {
+		this.user_permit = user_permit;
 	}
 
 	@OneToOne(cascade = CascadeType.ALL)

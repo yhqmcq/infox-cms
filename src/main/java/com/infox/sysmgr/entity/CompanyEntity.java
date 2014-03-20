@@ -19,10 +19,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import com.infox.common.util.RandomUtils;
 
 /**
- * 公司表（有上下级之分）
- * 创建者： 杨浩泉
- * 创建时间： 2014-3-17 下午9:21:03
- * 版本号： v1.0
+ * 公司表（有上下级之分） 创建者： 杨浩泉 创建时间： 2014-3-17 下午9:21:03 版本号： v1.0
  */
 @Entity
 @Table(name = "INFOX_SYSMGR_COMPANY")
@@ -30,26 +27,38 @@ import com.infox.common.util.RandomUtils;
 @DynamicInsert(true)
 public class CompanyEntity {
 
-	private String id ;
-	
-	private String name ;
-	
-	private Date created = new Date() ;
+	private String id;
 
-	private Set<CompanyEntity> companys = new HashSet<CompanyEntity>(0) ;
-	
-	private CompanyEntity company ;
-	
-	private DeptEntity dept ;
-	
+	private String name;
+
+	private Date created = new Date();
+
+	private Set<CompanyEntity> companys = new HashSet<CompanyEntity>(0);
+
+	private CompanyEntity company;
+
+	private Set<UserEntity> depts = new HashSet<UserEntity>();
+
+	private Set<UserPermitEntity> user_permit = new HashSet<UserPermitEntity>(0);
+
 	@OneToMany
-	@JoinColumn(name="COMPANY_ID")
-	public DeptEntity getDept() {
-		return dept;
+	@JoinColumn(name = "DEPT_ID")
+	public Set<UserPermitEntity> getUser_permit() {
+		return user_permit;
 	}
 
-	public void setDept(DeptEntity dept) {
-		this.dept = dept;
+	public void setUser_permit(Set<UserPermitEntity> user_permit) {
+		this.user_permit = user_permit;
+	}
+
+	@OneToMany
+	@JoinColumn(name = "DEPT_ID")
+	public Set<UserEntity> getDepts() {
+		return depts;
+	}
+
+	public void setDepts(Set<UserEntity> depts) {
+		this.depts = depts;
 	}
 
 	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
@@ -99,5 +108,5 @@ public class CompanyEntity {
 	public void setCreated(Date created) {
 		this.created = created;
 	}
-	
+
 }

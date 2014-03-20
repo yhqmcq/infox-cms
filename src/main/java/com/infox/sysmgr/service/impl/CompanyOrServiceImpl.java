@@ -112,7 +112,7 @@ public class CompanyOrServiceImpl implements CompanyOrServiceI {
 
 	@Override
 	public List<Company1Form> treegrid(Company1Form form ,String mode) throws Exception {
-		String hql = "select t from CompanyEntity t where t.org is null order by created desc" ;
+		String hql = "select t from CompanyEntity t where t.company is null order by created desc" ;
 		
 		List<OrgEntity> entitys = this.basedaoOrg.find(hql) ;
 		

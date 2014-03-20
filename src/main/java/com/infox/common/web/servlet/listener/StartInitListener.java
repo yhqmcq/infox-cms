@@ -18,7 +18,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.infox.common.util.Constants;
 import com.infox.common.web.page.LoginInfoSession;
-import com.infox.sysmgr.service.MenuServiceI;
+import com.infox.sysmgr.service.ModuleServiceI;
 
 /**
  * 服务器启动初始化
@@ -81,7 +81,7 @@ public class StartInitListener implements ServletContextListener, HttpSessionLis
 	 */
 	public void generateMenus(ServletContextEvent evt) {
 		logger.info("#######[启动初始化]######生成系统导航菜单") ;
-		MenuServiceI ms = (MenuServiceI) ctx.getBean("menuServiceImpl");
+		ModuleServiceI ms = (ModuleServiceI) ctx.getBean("moduleServiceImpl");
 		try {
 			ms.exportMenusAll(evt.getServletContext()) ;
 		} catch (Exception e) {

@@ -1,6 +1,7 @@
 package com.infox.sysmgr.web.form;
 
 import java.util.Date;
+import java.util.List;
 
 import com.infox.common.web.page.EasyuiTree;
 
@@ -10,12 +11,19 @@ public class DeptForm extends EasyuiTree<DeptForm> {
 	
 	private String name ;
 	
-	private Date created = new Date() ;
+	private List<DeptForm> depts ;
 	
-	private String pname ;
+	private Date created = new Date() ;
 	
 	private String company_id ;
 	
+	public List<DeptForm> getDepts() {
+		return depts;
+	}
+
+	public void setDepts(List<DeptForm> depts) {
+		this.depts = depts;
+	}
 
 	public String getCompany_id() {
 		return company_id;
@@ -48,15 +56,5 @@ public class DeptForm extends EasyuiTree<DeptForm> {
 	public void setCreated(Date created) {
 		this.created = created;
 	}
-
-	public String getPname() {
-		return pname;
-	}
-
-	public void setPname(String pname) {
-		this.pname = pname;
-	}
-	
-	
 
 }

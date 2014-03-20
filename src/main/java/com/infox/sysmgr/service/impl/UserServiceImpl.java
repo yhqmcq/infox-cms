@@ -15,7 +15,6 @@ import com.infox.common.dao.BaseDaoI;
 import com.infox.common.web.page.DataGrid;
 import com.infox.common.web.page.Json;
 import com.infox.sysmgr.entity.CompanyEntity;
-import com.infox.sysmgr.entity.DeptEntity;
 import com.infox.sysmgr.entity.UserEntity;
 import com.infox.sysmgr.service.UserServiceI;
 import com.infox.sysmgr.web.form.UserForm;
@@ -28,9 +27,6 @@ public class UserServiceImpl implements UserServiceI {
 	private BaseDaoI<UserEntity> basedaoUser;
 	
 	@Autowired
-	private BaseDaoI<DeptEntity> basedaoDept;
-	
-	@Autowired
 	private BaseDaoI<CompanyEntity> basedaoCompany;
 
 	@Override
@@ -41,7 +37,7 @@ public class UserServiceImpl implements UserServiceI {
 			BeanUtils.copyProperties(form, entity, new String[] { "created" });
 
 			if (form.getDept_id() != null && !"".equalsIgnoreCase(form.getDept_id())) {
-				entity.setDept(this.basedaoDept.get(DeptEntity.class, form.getDept_id()));
+				entity.setDept(this.basedaoCompany.get(CompanyEntity.class, form.getDept_id()));
 			}
 			this.basedaoUser.save(entity);
 			
@@ -54,13 +50,18 @@ public class UserServiceImpl implements UserServiceI {
 	}
 
 	@Override
-	public Json delete(String id) {
+	public Json delete(UserForm form) {
 		Json j = new Json();
 		try {
-			UserEntity o = this.basedaoUser.get(UserEntity.class, id);
-			this.basedaoUser.delete(o) ;
-			j.setMsg("删除成功！") ;
-			j.setStatus(true) ;
+			if(null != form.getIds() && !"".equals(form.getIds())) {
+				String[] ids = form.getIds().split(",") ;
+				for (String id : ids) {
+					UserEntity o = this.basedaoUser.get(UserEntity.class, id);
+					this.basedaoUser.delete(o) ;
+				}
+				j.setMsg("删除成功！") ;
+				j.setStatus(true) ;
+			}
 		} catch (BeansException e) {
 			j.setMsg("删除失败！") ;
 		}
@@ -78,7 +79,7 @@ public class UserServiceImpl implements UserServiceI {
 				BeanUtils.copyProperties(form, entity ,new String[]{"created"});
 				
 				if (form.getDept_id() != null && !form.getDept_id().equalsIgnoreCase("")) {// 说明前台选中了上级资源
-					entity.setDept(this.basedaoDept.get(DeptEntity.class, form.getDept_id()));
+					entity.setDept(this.basedaoCompany.get(CompanyEntity.class, form.getDept_id()));
 				} else {
 					entity.setDept(null);// 前台没有选中上级资源，所以就置空
 				}
@@ -95,7 +96,7 @@ public class UserServiceImpl implements UserServiceI {
 
 	@Override
 	public UserForm get(String id) {
-
+		
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("id", id);
 		UserEntity entity = this.basedaoUser.get("select t from UserEntity t where t.id = :id", params);
@@ -109,6 +110,22 @@ public class UserServiceImpl implements UserServiceI {
 			}
 		}
 		return form ;
+	}
+	
+	@Override
+	public UserForm get(UserForm form) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		String hql = "select t from UserEntity t where 1=1";
+		hql = addWhere(hql, form, params) + addOrdeby(form);
+		
+		UserEntity entity = this.basedaoUser.get(hql, params) ;
+		if(null != entity) {
+			UserForm pform = new UserForm();
+			BeanUtils.copyProperties(entity, pform);
+			return pform;
+		} else {
+			return null ;
+		}
 	}
 
 	@Override

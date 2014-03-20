@@ -12,7 +12,9 @@
 </head>
 
 <body style="padding: 0px; margin: 0px;">
+	<!-- 
 	<jsp:include page="login_dialog.jsp" />
+	 -->
     
 	<div id="mainLayout" class="easyui-layout hidden" data-options="fit: true">
 	

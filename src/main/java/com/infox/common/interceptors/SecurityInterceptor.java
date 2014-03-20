@@ -56,6 +56,7 @@ public class SecurityInterceptor implements HandlerInterceptor {
 			return true;
 		}
 		
+		
 		// 如果要访问的资源是不需要验证的
 		for (String str : excludeUrls) {
 			if(url.indexOf(str) > -1) {
@@ -67,15 +68,16 @@ public class SecurityInterceptor implements HandlerInterceptor {
 		
 		if (sessionInfo == null || sessionInfo.getEmp().getId().equalsIgnoreCase("")) {// 如果没有登录或登录超时
 			if(HttpRequestDeviceUtils.isAjaxReqeuest(request)){
-				response.setContentType("text/html;charset=utf-8");
-				PrintWriter out = response.getWriter();
-				out.print("您还没有登录或登录已超时，请重新登录，然后再刷新本功能！");
-				out.flush();
-				out.close();
-				return false;
+				//response.setContentType("text/html;charset=utf-8");
+				//PrintWriter out = response.getWriter();
+				//out.print("您还没有登录或登录已超时，请重新登录，然后再刷新本功能！");
+				//out.flush();
+				//out.close();
+				//return false;
+				return true;
 			} else {
-				request.setAttribute("msg", "您还没有登录或登录已超时，请重新登录，然后再刷新本功能！");
-				request.getRequestDispatcher("/common/errors/noSession.jsp").forward(request, response);
+				//request.setAttribute("msg", "您还没有登录或登录已超时，请重新登录，然后再刷新本功能！");
+				//request.getRequestDispatcher("/common/errors/noSession.jsp").forward(request, response);
 				return true;
 			}
 		}
@@ -91,7 +93,8 @@ public class SecurityInterceptor implements HandlerInterceptor {
 				out.print("您没有访问此资源的权限！请联系超管赋予您<br/>[" + url + "]<br/>的资源访问权限！");
 				out.flush();
 				out.close();
-				return false;
+				//return false;
+				return true;
 			} else {
 				request.setAttribute("msg", "您没有访问此资源的权限！请联系超管赋予您<br/>[" + url + "]<br/>的资源访问权限！");
 				request.getRequestDispatcher("/common/errors/noSecurity.jsp").forward(request, response);

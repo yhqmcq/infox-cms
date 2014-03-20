@@ -30,7 +30,7 @@ public class CompanyServiceImpl implements CompanyServiceI {
 		Json j = new Json();
 		try {
 			CompanyEntity entity = new CompanyEntity();
-			BeanUtils.copyProperties(form, entity, new String[] { "created" });
+			BeanUtils.copyProperties(form, entity, new String[] { "id" });
 
 			if (form.getPid() != null && !"".equalsIgnoreCase(form.getPid())) {
 				entity.setCompany(this.basedaoCompany.get(CompanyEntity.class, form.getPid()));
@@ -136,43 +136,35 @@ public class CompanyServiceImpl implements CompanyServiceI {
 	}
 
 	@Override
-	public List<CompanyForm> treegrid(CompanyForm form, String mode) {
-		String hql = "select t from CompanyEntity t where t.org is null order by created desc" ;
+	public List<CompanyForm> treegrid(CompanyForm form) {
+		String hql = "select t from CompanyEntity t where t.company is null order by created desc" ;
 		
 		List<CompanyEntity> entitys = this.basedaoCompany.find(hql) ;
 		
 		List<CompanyForm> companysform = new ArrayList<CompanyForm>() ;
 		
-		for (CompanyEntity menuEntity : entitys) {
-			companysform.add(recursiveNode(menuEntity ,mode)) ;
+		for (CompanyEntity companyEntity : entitys) {
+			companysform.add(recursiveNode(companyEntity)) ;
 		}
 		return companysform ;
 	}
 	
-	public CompanyForm recursiveNode(CompanyEntity me ,String mode) {
+	public CompanyForm recursiveNode(CompanyEntity entity) {
 		CompanyForm mf = new CompanyForm() ;
-		BeanUtils.copyProperties(me, mf) ;
+		BeanUtils.copyProperties(entity, mf) ;
 		
-		//combotree方式显示
-		mf.setText(me.getName()) ;
+		mf.setText(entity.getName()) ;	//combotree方式显示
 		
-		if(null != me.getCompanys() && me.getCompanys().size() > 0) {
+		if(null != entity.getCompanys() && entity.getCompanys().size() > 0) {
 			mf.setState("closed") ;
 			
-			Set<CompanyEntity> rs = me.getCompanys() ;
+			Set<CompanyEntity> rs = entity.getCompanys() ;
 			List<CompanyForm> children = new ArrayList<CompanyForm>();
-			for (CompanyEntity menuEntity : rs) {
+			for (CompanyEntity companyEntity : rs) {
 				
-				//combotree方式显示
-				if("combotree".equalsIgnoreCase(mode)) {
-						CompanyForm tn = recursiveNode(menuEntity ,mode) ;
-						BeanUtils.copyProperties(menuEntity ,tn) ;
-						children.add(tn);
-				} else {
-					CompanyForm tn = recursiveNode(menuEntity ,mode) ;
-					BeanUtils.copyProperties(menuEntity ,tn) ;
-					children.add(tn);
-				}
+				CompanyForm tn = recursiveNode(companyEntity) ;
+				BeanUtils.copyProperties(companyEntity ,tn) ;
+				children.add(tn);
 			}
 			
 			mf.setChildren(children) ;

@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -57,9 +58,46 @@ public class ModuleEntity {
 
 	private Date created = new Date() ;
 	
+	private Set<ModuleEntity> modules = new HashSet<ModuleEntity>() ;
+	
+	private ModuleEntity module ;
+	
 	private Set<ActionEntity> actions = new HashSet<ActionEntity>(0) ;
 	
 	private Set<RolePermitEntity> role_permits = new HashSet<RolePermitEntity>(0) ;
+	
+	private Set<UserPermitEntity> user_permit = new HashSet<UserPermitEntity>(0) ;
+	
+
+	@OneToMany
+	@JoinColumn(name="MODULE_PID")
+	public Set<ModuleEntity> getModules() {
+		return modules;
+	}
+
+	public void setModules(Set<ModuleEntity> modules) {
+		this.modules = modules;
+	}
+
+	@ManyToOne
+	@JoinColumn(name="MODULE_PID")
+	public ModuleEntity getModule() {
+		return module;
+	}
+
+	public void setModule(ModuleEntity module) {
+		this.module = module;
+	}
+
+	@OneToMany
+	@JoinColumn(name="MODULE_ID")
+	public Set<UserPermitEntity> getUser_permit() {
+		return user_permit;
+	}
+
+	public void setUser_permit(Set<UserPermitEntity> user_permit) {
+		this.user_permit = user_permit;
+	}
 	
 	@OneToMany
 	@JoinColumn(name="MODULE_ID")
