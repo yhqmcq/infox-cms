@@ -5,9 +5,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
@@ -29,34 +31,35 @@ public class RoleEntity {
 
 	private String id ;
 	
-	private String roleName ;
+	private String name ;
 	
-	private String roleDescription ;
+	private String description ;
 	
 	private Date created = new Date() ;
 	
-	private Set<RolePermitEntity> permits = new HashSet<RolePermitEntity>(0) ;
+	private Set<UserEntity> users = new HashSet<UserEntity>(0) ;
 	
-	private Set<UserPermitEntity> user_permit = new HashSet<UserPermitEntity>(0) ;
+	private Set<ModuleEntity> modules = new HashSet<ModuleEntity>(0) ;
 	
-	@OneToMany
-	@JoinColumn(name="ROLE_ID")
-	public Set<UserPermitEntity> getUser_permit() {
-		return user_permit;
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "INFOX_SYSMGR_ROLE_MODULE", joinColumns = { @JoinColumn(name = "ROLE_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "MODULE_ID", nullable = false, updatable = false) })
+	public Set<ModuleEntity> getModules() {
+		return modules;
 	}
 
-	public void setUser_permit(Set<UserPermitEntity> user_permit) {
-		this.user_permit = user_permit;
-	}
-	
-	@OneToMany
-	@JoinColumn(name="ROLE_ID")
-	public Set<RolePermitEntity> getPermits() {
-		return permits;
+	public void setModules(Set<ModuleEntity> modules) {
+		this.modules = modules;
 	}
 
-	public void setPermits(Set<RolePermitEntity> permits) {
-		this.permits = permits;
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "INFOX_SYSMGR_USER_ROLE_PERMIT", joinColumns = { @JoinColumn(name = "ROLE_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "USER_ID", nullable = false, updatable = false) })
+	public Set<UserEntity> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<UserEntity> users) {
+		this.users = users;
 	}
 
 	@Id
@@ -79,20 +82,21 @@ public class RoleEntity {
 		this.created = created;
 	}
 
-	public String getRoleName() {
-		return roleName;
+	public String getName() {
+		return name;
 	}
 
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getRoleDescription() {
-		return roleDescription;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setRoleDescription(String roleDescription) {
-		this.roleDescription = roleDescription;
+	public void setDescription(String description) {
+		this.description = description;
 	}
+
 	
 }

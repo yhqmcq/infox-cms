@@ -37,7 +37,6 @@
 	        	ondrop(target, source, point) ;
 	        },
 	        autoBindDblClickRow: true
-
 	    });
 	});
 	

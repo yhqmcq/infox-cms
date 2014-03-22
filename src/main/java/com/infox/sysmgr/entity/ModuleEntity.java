@@ -64,11 +64,6 @@ public class ModuleEntity {
 	
 	private Set<ActionEntity> actions = new HashSet<ActionEntity>(0) ;
 	
-	private Set<RolePermitEntity> role_permits = new HashSet<RolePermitEntity>(0) ;
-	
-	private Set<UserPermitEntity> user_permit = new HashSet<UserPermitEntity>(0) ;
-	
-
 	@OneToMany
 	@JoinColumn(name="MODULE_PID")
 	public Set<ModuleEntity> getModules() {
@@ -89,15 +84,6 @@ public class ModuleEntity {
 		this.module = module;
 	}
 
-	@OneToMany
-	@JoinColumn(name="MODULE_ID")
-	public Set<UserPermitEntity> getUser_permit() {
-		return user_permit;
-	}
-
-	public void setUser_permit(Set<UserPermitEntity> user_permit) {
-		this.user_permit = user_permit;
-	}
 	
 	@OneToMany
 	@JoinColumn(name="MODULE_ID")
@@ -146,12 +132,6 @@ public class ModuleEntity {
 		return moduleValue;
 	}
 
-	@OneToMany
-	@JoinColumn(name="MODULE_ID")
-	public Set<RolePermitEntity> getRole_permits() {
-		return role_permits;
-	}
-
 	public Integer getSeq() {
 		return seq;
 	}
@@ -194,10 +174,6 @@ public class ModuleEntity {
 
 	public void setModuleValue(String moduleValue) {
 		this.moduleValue = moduleValue;
-	}
-
-	public void setRole_permits(Set<RolePermitEntity> role_permits) {
-		this.role_permits = role_permits;
 	}
 
 	public void setSeq(Integer seq) {

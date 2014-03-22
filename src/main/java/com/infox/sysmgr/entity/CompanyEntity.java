@@ -42,17 +42,6 @@ public class CompanyEntity {
 
 	private Set<UserEntity> depts = new HashSet<UserEntity>();
 
-	private Set<UserPermitEntity> user_permit = new HashSet<UserPermitEntity>(0);
-
-	@OneToMany
-	@JoinColumn(name = "DEPT_ID")
-	public Set<UserPermitEntity> getUser_permit() {
-		return user_permit;
-	}
-
-	public void setUser_permit(Set<UserPermitEntity> user_permit) {
-		this.user_permit = user_permit;
-	}
 
 	@OneToMany
 	@JoinColumn(name = "DEPT_ID")

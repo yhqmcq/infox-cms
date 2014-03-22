@@ -6,10 +6,12 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -45,8 +47,18 @@ public class UserEntity {
 	
 	private CompanyEntity dept ;
 	
-	private Set<UserPermitEntity> user_permit = new HashSet<UserPermitEntity>(0) ;
+	private Set<RoleEntity> roles = new HashSet<RoleEntity>(0) ;
 	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "INFOX_SYSMGR_USER_ROLE_PERMIT", joinColumns = { @JoinColumn(name = "USER_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "ROLE_ID", nullable = false, updatable = false) })
+	public Set<RoleEntity> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<RoleEntity> roles) {
+		this.roles = roles;
+	}
+
 	@ManyToOne
 	@JoinColumn(name="DEPT_ID")
 	public CompanyEntity getDept() {
@@ -57,15 +69,6 @@ public class UserEntity {
 		this.dept = dept;
 	}
 
-	@OneToMany
-	@JoinColumn(name="USER_ID")
-	public Set<UserPermitEntity> getUser_permit() {
-		return user_permit;
-	}
-
-	public void setUser_permit(Set<UserPermitEntity> user_permit) {
-		this.user_permit = user_permit;
-	}
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="DETAIL_ID")

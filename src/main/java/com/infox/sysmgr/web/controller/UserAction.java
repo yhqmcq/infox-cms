@@ -40,9 +40,15 @@ public class UserAction extends BaseController {
 		return this.userService.get(form.getId()) ;
 	}
 	
-	@RequestMapping("/user_grant_main.do")
-	public String user_grant_main(){
-		return  Constants.SYSTEM + "user_grant" ;
+	@RequestMapping("/user_permit_main.do")
+	public String user_permit_main(){
+		return  Constants.SYSTEM + "user_permit" ;
+	}
+	
+	@RequestMapping("/set_permit.do")
+	@ResponseBody
+	public Json set_permit(UserForm form) throws Exception {
+		return this.userService.set_permit(form) ;
 	}
 	
 	@RequestMapping("/add.do")
@@ -67,6 +73,12 @@ public class UserAction extends BaseController {
 	@ResponseBody
 	public DataGrid datagrid(UserForm form){
 		return this.userService.datagrid(form) ;
+	}
+	
+	@RequestMapping("/getPermission.do")
+	@ResponseBody
+	public UserForm getPermission(UserForm form) throws Exception {
+		return this.userService.getPermission(form) ;
 	}
 	
 }

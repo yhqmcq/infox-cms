@@ -29,6 +29,26 @@ public class UserForm extends PageHelper {
 	
 	private String dept_name ;
 	
+	private String roleIds ;
+	
+	private String roleNames ;
+	
+	public String getRoleNames() {
+		return roleNames;
+	}
+
+	public void setRoleNames(String roleNames) {
+		this.roleNames = roleNames;
+	}
+
+	public String getRoleIds() {
+		return roleIds;
+	}
+
+	public void setRoleIds(String roleIds) {
+		this.roleIds = roleIds;
+	}
+
 	public String getDept_name() {
 		return dept_name;
 	}

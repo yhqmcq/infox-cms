@@ -17,4 +17,8 @@ public interface UserServiceI {
 	public UserForm get(UserForm form) ;
 	
 	public DataGrid datagrid(UserForm form) ;
+	
+	public Json set_permit(UserForm form) ;
+	
+	public UserForm getPermission(UserForm form) ;
 }

@@ -2,8 +2,10 @@ package com.infox.sysmgr.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
@@ -15,6 +17,7 @@ import com.infox.common.dao.BaseDaoI;
 import com.infox.common.web.page.DataGrid;
 import com.infox.common.web.page.Json;
 import com.infox.sysmgr.entity.CompanyEntity;
+import com.infox.sysmgr.entity.RoleEntity;
 import com.infox.sysmgr.entity.UserDetailEntity;
 import com.infox.sysmgr.entity.UserEntity;
 import com.infox.sysmgr.service.UserServiceI;
@@ -29,6 +32,10 @@ public class UserServiceImpl implements UserServiceI {
 	
 	@Autowired
 	private BaseDaoI<CompanyEntity> basedaoCompany;
+	
+	@Autowired
+	private BaseDaoI<RoleEntity> basedaoRole;
+	
 
 	@Override
 	public Json add(UserForm form) {
@@ -159,6 +166,27 @@ public class UserServiceImpl implements UserServiceI {
 	}
 
 	@Override
+	public Json set_permit(UserForm form) {
+		Json j = new Json();
+		if (form.getIds() != null && !"".equalsIgnoreCase(form.getIds())) {
+			List<RoleEntity> roles = new ArrayList<RoleEntity>();
+			if (form.getRoleIds() != null && form.getRoleIds().length() > 0) {
+				for (String roleId : form.getRoleIds().split(",")) {
+					roles.add(this.basedaoRole.get(RoleEntity.class, roleId));
+				}
+			}
+			for (String id : form.getIds().split(",")) {
+				if (id != null && !id.equalsIgnoreCase("")) {
+					UserEntity t = this.basedaoUser.get(UserEntity.class, id);
+					t.setRoles(new HashSet<RoleEntity>(roles));
+				}
+			}
+		}
+		
+		return j;
+	}
+	
+	@Override
 	public DataGrid datagrid(UserForm form) {
 		
 		List<UserForm> forms = new ArrayList<UserForm>();
@@ -239,6 +267,37 @@ public class UserServiceImpl implements UserServiceI {
 			}*/
 		}
 		return hql;
+	}
+
+	@Override
+	public UserForm getPermission(UserForm form) {
+		UserForm r = new UserForm();
+
+		UserEntity t = this.basedaoUser.get("select distinct t from UserEntity t left join fetch t.roles role where t.id = '" + form.getId() + "'");
+
+		if (t != null) {
+			BeanUtils.copyProperties(t, r);
+			Set<RoleEntity> s = t.getRoles();
+			if (s != null && !s.isEmpty()) {
+				boolean b = false;
+				String ids = "";
+				String names = "";
+				for (RoleEntity tr : s) {
+					if (b) {
+						ids += ",";
+						names += ",";
+					} else {
+						b = true;
+					}
+					ids += tr.getId();
+					names += tr.getName();
+				}
+
+				r.setRoleIds(ids);
+				r.setRoleNames(names);
+			}
+		}
+		return r;
 	}
 
 }
