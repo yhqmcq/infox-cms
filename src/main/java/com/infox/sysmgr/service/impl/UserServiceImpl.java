@@ -15,6 +15,7 @@ import com.infox.common.dao.BaseDaoI;
 import com.infox.common.web.page.DataGrid;
 import com.infox.common.web.page.Json;
 import com.infox.sysmgr.entity.CompanyEntity;
+import com.infox.sysmgr.entity.UserDetailEntity;
 import com.infox.sysmgr.entity.UserEntity;
 import com.infox.sysmgr.service.UserServiceI;
 import com.infox.sysmgr.web.form.UserForm;
@@ -39,6 +40,12 @@ public class UserServiceImpl implements UserServiceI {
 			if (form.getDept_id() != null && !"".equalsIgnoreCase(form.getDept_id())) {
 				entity.setDept(this.basedaoCompany.get(CompanyEntity.class, form.getDept_id()));
 			}
+			
+			
+			UserDetailEntity ude = new UserDetailEntity() ;
+			BeanUtils.copyProperties(form, ude, new String[] { "id" });
+			entity.setUser_detail(ude) ;
+			
 			this.basedaoUser.save(entity);
 			
 			j.setMsg("创建成功！") ;
@@ -78,17 +85,23 @@ public class UserServiceImpl implements UserServiceI {
 			if(entity != null) {
 				BeanUtils.copyProperties(form, entity ,new String[]{"created"});
 				
+				UserDetailEntity user_detail = new UserDetailEntity() ;
+				BeanUtils.copyProperties(form, user_detail, new String[] { "id" });
+				
+				entity.setUser_detail(user_detail) ;
+				
 				if (form.getDept_id() != null && !form.getDept_id().equalsIgnoreCase("")) {// 说明前台选中了上级资源
 					entity.setDept(this.basedaoCompany.get(CompanyEntity.class, form.getDept_id()));
 				} else {
 					entity.setDept(null);// 前台没有选中上级资源，所以就置空
 				}
+				this.basedaoUser.update(entity) ;
 			}
 			
-			j.setMsg("删除成功！") ;
+			j.setMsg("编辑成功！") ;
 			j.setStatus(true) ;
 		} catch (BeansException e) {
-			j.setMsg("删除失败！") ;
+			j.setMsg("编辑失败！") ;
 		}
 		return j;
 	}
@@ -105,8 +118,13 @@ public class UserServiceImpl implements UserServiceI {
 		
 		if(null != entity) {
 			BeanUtils.copyProperties(entity, form);
+			if(null != entity.getUser_detail()) {
+				BeanUtils.copyProperties(entity.getUser_detail(), form, new String[] { "id" });
+			}
+			CompanyEntity dept = entity.getDept() ;
 			if (entity.getDept() != null) {
-				
+				form.setDept_id(dept.getId()) ;
+				form.setDept_name(dept.getName()) ;
 			}
 		}
 		return form ;
@@ -122,6 +140,18 @@ public class UserServiceImpl implements UserServiceI {
 		if(null != entity) {
 			UserForm pform = new UserForm();
 			BeanUtils.copyProperties(entity, pform);
+			
+			UserDetailEntity user_detail = entity.getUser_detail() ;
+			if(null != user_detail) {
+				BeanUtils.copyProperties(user_detail, pform, new String[] { "id" });
+			}
+			
+			CompanyEntity dept = entity.getDept() ;
+			if (dept != null) {
+				pform.setDept_id(dept.getId()) ;
+				pform.setDept_name(dept.getName()) ;
+			}
+			
 			return pform;
 		} else {
 			return null ;
@@ -130,25 +160,27 @@ public class UserServiceImpl implements UserServiceI {
 
 	@Override
 	public DataGrid datagrid(UserForm form) {
-		DataGrid datagrid = new DataGrid();
-		datagrid.setTotal(this.total(form));
-		datagrid.setRows(this.changeModel(this.find(form)));
-		return datagrid;
-	}
-
-	
-	private List<UserForm> changeModel(List<UserEntity> UserEntity) {
+		
 		List<UserForm> forms = new ArrayList<UserForm>();
-
-		if (null != UserEntity && UserEntity.size() > 0) {
-			for (UserEntity i : UserEntity) {
+		List<UserEntity> users = this.find(form) ;
+		if (null != users && users.size() > 0) {
+			for (UserEntity i : users) {
 				UserForm uf = new UserForm();
 				BeanUtils.copyProperties(i, uf);
+				if(null != i.getUser_detail()) {
+					BeanUtils.copyProperties(i.getUser_detail(), uf, new String[] { "id" });
+				}
 				forms.add(uf);
 			}
 		}
-		return forms;
+		
+		
+		DataGrid datagrid = new DataGrid();
+		datagrid.setTotal(this.total(form));
+		datagrid.setRows(forms);
+		return datagrid;
 	}
+
 
 	private List<UserEntity> find(UserForm form) {
 		Map<String, Object> params = new HashMap<String, Object>();

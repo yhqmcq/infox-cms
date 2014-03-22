@@ -12,22 +12,22 @@
 		$dg = $("#d1").datagrid({
 			url: siteUtil.basePath+"/sysmgr/userAction/datagrid.do",
 			title: '用户管理', method: "post", idField: 'id', fit: true, border: false,
-			remoteSort: false, toolbar: '#buttonbar', striped:true, pagination: true,
+			remoteSort: false, toolbar: '#buttonbar', striped:true, pagination: true, singleSelect: true,
 			frozenColumns: [[
 			    { field: 'ck', checkbox: true },
 			    { field: 'id', title: 'ID', width: 80, sortable: true }
 			]],
 			columns: [[
-			    { field: 'account', title: '账号', width: 150, sortable: true },
-			    { field: 'truename', title: '姓名', width: 150, sortable: true },
-			    { field: 'status', title: '状态', width: 120, sortable: true, formatter:function(value,row){
-			    	if(value == "Y"){return "<font color='green'>激活</font>";}else{return "<font color='red'>禁用</font>";}
+			    { field: 'account', title: '账号', width: 100, sortable: true },
+			    { field: 'truename', title: '姓名', width: 100, sortable: true },
+			    { field: 'status', title: '状态', width: 60, sortable: true, formatter:function(value,row){
+			    	if(value == "0"){return "<font color='green'>激活</font>";}else{return "<font color='red'>禁用</font>";}
 			    }},
-			    { field: 'sex', title: '性别', width:100, sortable: true, formatter:function(value,row){
+			    { field: 'sex', title: '性别', width:60, sortable: true, formatter:function(value,row){
 			    	if(value == "male"){return "男";}else{return "女";}
 			    }},
 			    { field: 'email', title: '邮箱地址', width: 180, sortable: true },
-			    { field: 'created', title: '日期(date)', width: 140, sortable: true }
+			    { field: 'created', title: '日期', width: 140, sortable: true }
 			]],
 			enableHeaderClickMenu: true, enableHeaderContextMenu: true, selectOnRowContextMenu: false, pagingMenu: { submenu: false }
 	    });
@@ -46,7 +46,7 @@
 		}
 		var $d = $.easyui.showDialog({
 			href: form_url,
-            title: "表单", iniframe: false, width: 650, height: 250, topMost: true,
+            title: "表单", iniframe: false, width: 650, height: 350, topMost: true,
             enableApplyButton: false, enableCloseButton: false,  enableSaveButton: false,
             buttons : [ 
               { text : '保存', iconCls : 'ext_save', handler : function() { $.easyui.parent.submitForm($d, $dg) ; } },

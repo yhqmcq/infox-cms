@@ -41,7 +41,7 @@
 		}
 		var $d = $.easyui.showDialog({
 			href: form_url,
-            title: "表单", iniframe: false, width: 650, height: 250, topMost: true,
+            title: "表单", iniframe: false, width: 650, height: 350, topMost: true,
             enableApplyButton: false, enableCloseButton: false,  enableSaveButton: false,
             buttons : [ 
               { text : '保存', iconCls : 'ext_save', handler : function() { $.easyui.parent.submitForm($d, $tg) ; } },

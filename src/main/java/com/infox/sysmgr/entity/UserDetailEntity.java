@@ -24,8 +24,14 @@ public class UserDetailEntity {
 
 	private String id ;
 	
-	private String name ;
+	private String truename ;
 
+	private String sex ;
+	
+	private String email ;
+	
+	private String tel ;
+	
 	private UserEntity user ;
 	
 	@OneToOne(mappedBy="user_detail")
@@ -49,12 +55,36 @@ public class UserDetailEntity {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getTruename() {
+		return truename;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTruename(String truename) {
+		this.truename = truename;
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
 	}
 	
 }

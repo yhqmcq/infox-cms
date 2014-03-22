@@ -2,13 +2,27 @@
 
 <script type="text/javascript">
 	var form_url = siteUtil.basePath+"/sysmgr/companyAction/add.do" ;
-	
+	var s1 ;
 	$(function() {
-		$("#select1").combotree({
+		s1 = $("#select1").combotree({
 			url : siteUtil.basePath+"/sysmgr/companyAction/treegrid.do",
 			width:157, idFiled:'pid', textFiled:'name', editable: false,
 			lines:true, autoShowPanel: true
 	    });
+		
+		$("#select3").combobox({ 
+			width: 157, valueField: 'label', textField: 'value', value: 'C', required: false,
+			data: [{ label: 'C', value: '公司' },{ label: 'D', value: '部门' }],
+			panelHeight:'auto', editable:false, autoShowPanel: true,
+			onSelect: function(node){
+				if("D" == node.label) {	//是部门，则必填
+					s1.combotree({ required:true, autoShowPanel: true, value: s1.combotree("getValue") }) ;
+				} else {
+					s1.combotree({ required:false }) ;
+				}
+			}
+	    });
+		
 		
 		//编辑，加载表单数据
 		if($('input[name=id]').val().length > 0) {
@@ -54,31 +68,22 @@
 	<div class="form_base">
 		<table>
 			<tr>
-				<th>公司名称：</th>
-				<td><input name="name" class="easyui-validatebox" type="text" data-options="required: true,prompt: '公司名称'" /></td>
-				<th>公司代码：</th>
-				<td><input name="code" class="easyui-validatebox" type="text" data-options="required: true,prompt: '公司代码'" /></td>
+				<th>类型：</th>
+				<td><input id="select3" name="type" /></td>
+				<th>上级：</th>
+				<td><input id="select1" name="pid" /><a onClick="s1.combotree('setValue','');" class="easyui-linkbutton" data-options="plain: true, iconCls: 'ext_remove'"></a></td>
 			</tr>
 			<tr>
-				<th>英文名称：</th>
-				<td><input name="ename" class="easyui-validatebox" type="text" data-options="" /></td>
-				<th>公司简称：</th>
-				<td><input name="sname" class="easyui-validatebox" type="text" data-options="" /></td>
+				<th>名称：</th>
+				<td><input name="name" class="easyui-validatebox" type="text" data-options="required: true,prompt: '名称'" /></td>
+				<th>简称：</th>
+				<td><input name="sname" class="easyui-validatebox" type="text" data-options="prompt: '公司或部门简称'" /></td>
 			</tr>
 			<tr>
 				<th>电话：</th>
 				<td><input name="tel" class="easyui-validatebox" type="text" data-options="" /></td>
 				<th>传真：</th>
 				<td><input name="fax" class="easyui-validatebox" type="text" data-options="" /></td>
-			</tr>
-			<tr>
-				<th>上级公司：</th>
-				<td colspan="3"><input id="select1" name="pid" /></td>
-			</tr>
-			<tr>
-				<td colspan="4">
-					<textarea class="easyui-validatebox" name="description" style="width:98.4%;height:100px;"></textarea>
-				</td>
 			</tr>
 		</table>
 	</div>

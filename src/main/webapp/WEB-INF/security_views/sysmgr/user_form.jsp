@@ -2,12 +2,12 @@
 
 <script type="text/javascript">
 	var form_url = siteUtil.basePath+"/sysmgr/userAction/add.do" ;
-	
+	var s1 ;
 	$(function() {
-		$("#select1").combotree({
+		s1 = $("#select1").combotree({
 			url : siteUtil.basePath+"/sysmgr/companyAction/treegrid.do",
 			width:157, idFiled:'pid', textFiled:'name', editable: false,
-			lines:true, autoShowPanel: true
+			lines:true, autoShowPanel: true,required: true
 	    });
 		
 		//编辑，加载表单数据
@@ -18,10 +18,12 @@
 					$('form').form('load', {
 						'id' : result.id,
 						'account' : result.account,
+						'password' : result.password,
 						'status' : result.status,
 						'truename' : result.truename,
 						'sex' : result.sex,
-						'email' : result.email
+						'email' : result.email,
+						'dept_id' : result.dept_id
 					});
 				}
 			}, 'json');
@@ -82,12 +84,12 @@
 				<th>状态：</th>
 				<td>
 					<input class="easyui-combobox" style="width:157px;" name="status" data-options="
-						valueField: 'label', textField: 'value', editable: false, value : 'Y',
-						data: [{ label: 'Y', value: '激活' },{ label: 'N', value: '禁用' }],
+						valueField: 'label', textField: 'value', editable: false, value : '0',
+						data: [{ label: '0', value: '激活' },{ label: '1', value: '禁用' }],
 						panelHeight:'auto', editable:false" />
 				</td>
-				<th>机构：</th>
-				<td><input id="select1" name="dept_id" /></td>
+				<th>部门：</th>
+				<td><input id="select1" name="dept_id" /><a onClick="s1.combotree('setValue','');" class="easyui-linkbutton" data-options="plain: true, iconCls: 'ext_remove'"></a></td>
 			</tr>
 		</table>
 	</div>

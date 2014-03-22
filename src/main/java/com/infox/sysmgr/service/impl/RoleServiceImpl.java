@@ -17,7 +17,7 @@ import com.infox.common.web.page.DataGrid;
 import com.infox.sysmgr.entity.MenuEntity;
 import com.infox.sysmgr.entity.Role1Entity;
 import com.infox.sysmgr.service.Role1ServiceI;
-import com.infox.sysmgr.web.form.RoleForm;
+import com.infox.sysmgr.web.form.Role1Form;
 
 @Service
 @Transactional
@@ -29,7 +29,7 @@ public class RoleServiceImpl implements Role1ServiceI {
 	private BaseDaoI<MenuEntity> basedaoMenu;
 
 	@Override
-	public void add(RoleForm form) throws Exception {
+	public void add(Role1Form form) throws Exception {
 		Role1Entity entity = new Role1Entity();
 
 		BeanUtils.copyProperties(form, entity);
@@ -56,7 +56,7 @@ public class RoleServiceImpl implements Role1ServiceI {
 	}
 
 	@Override
-	public void edit(RoleForm form) throws Exception {
+	public void edit(Role1Form form) throws Exception {
 
 		Role1Entity entity = basedaoRole.get(Role1Entity.class, form.getId());
 		if (entity != null) {
@@ -92,8 +92,8 @@ public class RoleServiceImpl implements Role1ServiceI {
 	}
 
 	@Override
-	public RoleForm get(String id) throws Exception {
-		RoleForm r = new RoleForm();
+	public Role1Form get(String id) throws Exception {
+		Role1Form r = new Role1Form();
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("id", id);
 		Role1Entity t = basedaoRole.get("select distinct t from Role1Entity t left join fetch t.menus menu where t.id = :id", params);
@@ -126,19 +126,19 @@ public class RoleServiceImpl implements Role1ServiceI {
 	}
 
 	@Override
-	public DataGrid role_datagrid(RoleForm form) throws Exception {
+	public DataGrid role_datagrid(Role1Form form) throws Exception {
 		DataGrid datagrid = new DataGrid();
 		datagrid.setRows(this.changeModel(this.find(form)));
 		datagrid.setTotal(this.total(form));
 		return datagrid;
 	}
 
-	private List<RoleForm> changeModel(List<Role1Entity> entity) {
-		List<RoleForm> roleforms = new ArrayList<RoleForm>();
+	private List<Role1Form> changeModel(List<Role1Entity> entity) {
+		List<Role1Form> roleforms = new ArrayList<Role1Form>();
 
 		if (null != entity && entity.size() > 0) {
 			for (Role1Entity i : entity) {
-				RoleForm uf = new RoleForm();
+				Role1Form uf = new Role1Form();
 				BeanUtils.copyProperties(i, uf);
 				roleforms.add(uf);
 			}
@@ -146,7 +146,7 @@ public class RoleServiceImpl implements Role1ServiceI {
 		return roleforms;
 	}
 
-	private List<Role1Entity> find(RoleForm form) {
+	private List<Role1Entity> find(Role1Form form) {
 		Map<String, Object> params = new HashMap<String, Object>();
 
 		String hql = "select t from Role1Entity t where 1=1";
@@ -154,7 +154,7 @@ public class RoleServiceImpl implements Role1ServiceI {
 		return this.basedaoRole.find(hql, params, form.getPage(), form.getRows());
 	}
 
-	private String addOrdeby(RoleForm form) {
+	private String addOrdeby(Role1Form form) {
 		String orderString = "";
 		if (form.getSort() != null && form.getOrder() != null) {
 			orderString = " order by " + form.getSort() + " " + form.getOrder();
@@ -162,7 +162,7 @@ public class RoleServiceImpl implements Role1ServiceI {
 		return orderString;
 	}
 
-	public Long total(RoleForm form) {
+	public Long total(Role1Form form) {
 		Map<String, Object> params = new HashMap<String, Object>();
 
 		String hql = "select count(*) from Role1Entity t where 1=1";
@@ -172,7 +172,7 @@ public class RoleServiceImpl implements Role1ServiceI {
 		return this.basedaoRole.count(hql, params);
 	}
 
-	private String addWhere(String hql, RoleForm form, Map<String, Object> params) {
+	private String addWhere(String hql, Role1Form form, Map<String, Object> params) {
 		if (null != form) {
 			if (form.getName() != null && !"".equals(form.getName())) {
 				hql += " and t.name like :name";
@@ -225,18 +225,18 @@ public class RoleServiceImpl implements Role1ServiceI {
 	*/
 	
 	@Override
-	public List<RoleForm> treegrid(RoleForm form ,String mode) throws Exception {
+	public List<Role1Form> treegrid(Role1Form form ,String mode) throws Exception {
 		String hql = "select t from Role1Entity t where t.role is null" ;
 		List<Role1Entity> orgs = this.basedaoRole.find(hql) ;
-		List<RoleForm> rolesform = new ArrayList<RoleForm>() ;
+		List<Role1Form> rolesform = new ArrayList<Role1Form>() ;
 		for (Role1Entity menuEntity : orgs) {
 			rolesform.add(recursiveNode(menuEntity ,mode)) ;
 		}
 		return rolesform ;
 	}
 	
-	public RoleForm recursiveNode(Role1Entity entity ,String mode) {
-		RoleForm mf = new RoleForm() ;
+	public Role1Form recursiveNode(Role1Entity entity ,String mode) {
+		Role1Form mf = new Role1Form() ;
 		BeanUtils.copyProperties(entity, mf) ;
 		
 		mf.setText(entity.getName()) ;
@@ -245,16 +245,16 @@ public class RoleServiceImpl implements Role1ServiceI {
 			mf.setState("closed") ;
 			
 			Set<Role1Entity> rs = entity.getRoles() ;
-			List<RoleForm> children = new ArrayList<RoleForm>();
+			List<Role1Form> children = new ArrayList<Role1Form>();
 			for (Role1Entity menuEntity : rs) {
 				
 				//combotree方式显示
 				if("combotree".equalsIgnoreCase(mode)) {
-						RoleForm tn = recursiveNode(menuEntity ,mode) ;
+						Role1Form tn = recursiveNode(menuEntity ,mode) ;
 						BeanUtils.copyProperties(menuEntity ,tn) ;
 						children.add(tn);
 				} else {
-					RoleForm tn = recursiveNode(menuEntity ,mode) ;
+					Role1Form tn = recursiveNode(menuEntity ,mode) ;
 					BeanUtils.copyProperties(menuEntity ,tn) ;
 					children.add(tn);
 				}
@@ -267,7 +267,7 @@ public class RoleServiceImpl implements Role1ServiceI {
 	}
 
 	@Override
-	public void set_grant(RoleForm form) throws Exception {
+	public void set_grant(Role1Form form) throws Exception {
 		
 		Role1Entity Role1Entity = this.basedaoRole.get(Role1Entity.class, form.getId()) ;
 		
@@ -290,9 +290,9 @@ public class RoleServiceImpl implements Role1ServiceI {
 	}
 
 	@Override
-	public RoleForm getPermission(RoleForm form) throws Exception {
+	public Role1Form getPermission(Role1Form form) throws Exception {
 		
-		RoleForm r = new RoleForm() ;
+		Role1Form r = new Role1Form() ;
 		
 		Role1Entity t = this.basedaoRole.get("select distinct t from Role1Entity t left join fetch t.menus menu where t.id = '" + form.getId()+"'") ;
 		

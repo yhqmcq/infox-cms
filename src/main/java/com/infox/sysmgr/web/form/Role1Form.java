@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.infox.common.web.page.PageHelper;
 
-public class RoleForm extends PageHelper{
+public class Role1Form extends PageHelper{
 	
 	private String id ;
 	
@@ -31,7 +31,7 @@ public class RoleForm extends PageHelper{
 	private String state ;// open,closed
 	private boolean checked = false;
 	private Object attributes;
-	private List<RoleForm> children;
+	private List<Role1Form> children;
 
 	public String getText() {
 		return text;
@@ -66,11 +66,11 @@ public class RoleForm extends PageHelper{
 	}
 
 
-	public List<RoleForm> getChildren() {
+	public List<Role1Form> getChildren() {
 		return children;
 	}
 
-	public void setChildren(List<RoleForm> children) {
+	public void setChildren(List<Role1Form> children) {
 		this.children = children;
 	}
 

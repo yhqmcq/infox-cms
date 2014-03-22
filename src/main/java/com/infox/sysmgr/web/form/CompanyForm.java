@@ -10,6 +10,8 @@ public class CompanyForm extends EasyuiTree<CompanyForm> {
 	
 	private String name ;
 	
+	private String type ;
+	
 	private Date created = new Date() ;
 	
 	private String pname ;
@@ -20,6 +22,14 @@ public class CompanyForm extends EasyuiTree<CompanyForm> {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public String getName() {

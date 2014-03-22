@@ -13,7 +13,7 @@ import com.infox.common.util.Constants;
 import com.infox.common.web.BaseController;
 import com.infox.common.web.page.Json;
 import com.infox.sysmgr.service.Role1ServiceI;
-import com.infox.sysmgr.web.form.RoleForm;
+import com.infox.sysmgr.web.form.Role1Form;
 
 @Controller
 @RequestMapping("/sysmgr/role")
@@ -28,7 +28,7 @@ public class Role extends BaseController{
 	}
 	
 	@RequestMapping("/role_form.do")
-	public String role_form(RoleForm form, HttpServletRequest request) throws Exception {
+	public String role_form(Role1Form form, HttpServletRequest request) throws Exception {
 		if(null != form.getId() && !"".equals(form.getId())) {
 			request.setAttribute("id", form.getId()) ;
 		}
@@ -37,13 +37,13 @@ public class Role extends BaseController{
 	
 	@RequestMapping("/get.do")
 	@ResponseBody
-	public RoleForm get(RoleForm form, HttpServletRequest request) throws Exception {
+	public Role1Form get(Role1Form form, HttpServletRequest request) throws Exception {
 		return this.roleservice.get(form.getId()) ;
 	}
 	
 	@RequestMapping("/add.do")
 	@ResponseBody
-	public Json add(RoleForm form) throws Exception {
+	public Json add(Role1Form form) throws Exception {
 		Json json = new Json() ;
 		try {
 			this.roleservice.add(form) ;
@@ -56,7 +56,7 @@ public class Role extends BaseController{
 	
 	@RequestMapping("/edit.do")
 	@ResponseBody
-	public Json edit(RoleForm form) throws Exception {
+	public Json edit(Role1Form form) throws Exception {
 		Json json = new Json() ;
 		try {
 			this.roleservice.edit(form) ;
@@ -82,19 +82,19 @@ public class Role extends BaseController{
 	
 	@RequestMapping("/treegrid.do")
 	@ResponseBody
-	public List<RoleForm> treegrid(RoleForm form ,String mode) throws Exception {
+	public List<Role1Form> treegrid(Role1Form form ,String mode) throws Exception {
 		return this.roleservice.treegrid(form ,mode) ;
 	}
 	
 	@RequestMapping("/getPermission.do")
 	@ResponseBody
-	public RoleForm getPermission(RoleForm form) throws Exception {
+	public Role1Form getPermission(Role1Form form) throws Exception {
 		return this.roleservice.getPermission(form) ;
 	}
 	
 	@RequestMapping("/set_grant.do")
 	@ResponseBody
-	public Json set_grant(RoleForm form) throws Exception {
+	public Json set_grant(Role1Form form) throws Exception {
 		Json j = new Json();
 		try {
 			this.roleservice.set_grant(form) ;

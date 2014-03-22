@@ -32,7 +32,12 @@ public class UserEntity {
 
 	private String id ;
 	
-	private String name ;
+	private String account ;
+	
+	private String password ;
+	
+	/** 账号状态（0，1） */
+	private Integer status = new Integer(0);
 	
 	private Date created = new Date() ;
 	
@@ -92,12 +97,28 @@ public class UserEntity {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getAccount() {
+		return account;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setAccount(String account) {
+		this.account = account;
 	}
-	
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
 }

@@ -30,6 +30,9 @@ public class CompanyEntity {
 	private String id;
 
 	private String name;
+	
+	/** 公司或部门(C,D) */
+	private String type ;
 
 	private Date created = new Date();
 
@@ -65,6 +68,14 @@ public class CompanyEntity {
 	@OrderBy("created desc")
 	public Set<CompanyEntity> getCompanys() {
 		return companys;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public void setCompanys(Set<CompanyEntity> companys) {
