@@ -26,8 +26,8 @@
 		$.post(form_url, $("#form").form("getData"), function(result) {
 			if (result.status) {
 				$dg.datagrid("reload") ;
-				$d.dialog("close") ;
 				$.easyui.messager.show({ icon: "info", msg: result.msg });
+				$.easyui.loaded(); $d.dialog("close") ;
 			} else {
 				$.easyui.messager.show({ icon: "info", msg: result.msg });
 				return false ;
@@ -38,6 +38,7 @@
 	//验证表单
 	var submitForm = function($d, $dg) {
 		if($('#form').form("validate")) {
+			$.easyui.loading({ msg: "数据提交中，请稍等..." });
 			submitNow($d, $dg) ;
 		}
 	};

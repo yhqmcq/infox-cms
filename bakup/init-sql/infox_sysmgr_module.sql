@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50522
 File Encoding         : 65001
 
-Date: 2014-03-20 22:07:11
+Date: 2014-03-23 10:53:23
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -45,4 +45,8 @@ INSERT INTO `infox_sysmgr_module` VALUES ('169104', '2014-03-20 19:10:26', 'Y', 
 INSERT INTO `infox_sysmgr_module` VALUES ('197101', '2014-03-20 18:08:03', 'Y', 'icon-standard-application-xp-terminal', '', null, '系统管理', null, '1', null, 'R', null, null);
 INSERT INTO `infox_sysmgr_module` VALUES ('446937', '2014-03-20 19:08:04', 'Y', 'icon-standard-application-form', 'sysmgr/companyAction/company_main.do', null, '公司管理', null, '1', null, 'F', null, null);
 INSERT INTO `infox_sysmgr_module` VALUES ('446938', '2014-03-20 19:08:46', 'Y', 'icon-standard-user-gray', 'sysmgr/userAction/user_main.do', null, '用户管理', null, '1', null, 'F', null, '197101');
+INSERT INTO `infox_sysmgr_module` VALUES ('468147', '2014-03-23 09:53:27', 'Y', 'icon-standard-bin', 'sysmgr/filemanager/file_main.do', null, '文件管理', null, '1', null, 'F', null, '197101');
+INSERT INTO `infox_sysmgr_module` VALUES ('547696', '2014-03-22 22:50:15', 'Y', 'icon-standard-award-star-gold-2', 'sysmgr/userAction/user_permit_main.do', null, '用户授权', null, '1', null, 'F', null, '197101');
+INSERT INTO `infox_sysmgr_module` VALUES ('607659', '2014-03-22 19:26:58', 'Y', 'icon-standard-application-form', 'sysmgr/roleAction/role_main.do', null, '角色管理', null, '1', null, 'F', null, '197101');
+INSERT INTO `infox_sysmgr_module` VALUES ('693477', '2014-03-23 09:50:29', 'Y', 'icon-standard-basket', 'sysmgr/task/task_main.do', null, '定时作业', null, '1', null, 'F', null, '197101');
 INSERT INTO `infox_sysmgr_module` VALUES ('976482', '2014-03-20 18:07:58', 'Y', 'icon-standard-world', 'sysmgr/moduleAction/module_main.do', null, '模块管理', null, '1', null, 'F', null, '197101');

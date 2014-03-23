@@ -7,7 +7,7 @@
 		s1 = $("#select1").combotree({
 			url : siteUtil.basePath+"/sysmgr/companyAction/treegrid.do",
 			width:157, idFiled:'pid', textFiled:'name', editable: false,
-			lines:true, autoShowPanel: true,required: true
+			lines:true, autoShowPanel: true,required: false
 	    });
 		
 		//编辑，加载表单数据
@@ -37,10 +37,9 @@
 			if (result.status) {
 				$dg.datagrid('reload') ;
 				$.easyui.messager.show({ icon: "info", msg: result.msg });
-				$d.dialog("close") ;
+				$.easyui.loaded(); $d.dialog("close") ;
 			} else {
 				$.easyui.messager.show({ icon: "info", msg: result.msg });
-				return false ;
 			}
 		}, 'json');
 	};
@@ -48,6 +47,7 @@
 	//验证表单
 	var submitForm = function($d, $dg) {
 		if($('#form').form('validate')) {
+			$.easyui.loading({ msg: "数据提交中，请稍等..." });
 			submitNow($d, $dg) ;
 		} 
 	};

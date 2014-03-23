@@ -90,7 +90,7 @@
 		$(":input[name=dirName]").val("");
 		var cd = $("#createDirDialog").show().dialog({
 			title: "&nbsp;创建目录", width: 260, height: 120, modal: true, 
-			closable : false, iconCls: "icon-standard-folder-add",
+			closable : true, iconCls: "icon-standard-folder-add",
 			buttons : [ {
 				text : '&nbsp;&nbsp;创建',
 				iconCls : "icon-standard-folder-add",

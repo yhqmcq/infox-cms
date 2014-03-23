@@ -1,6 +1,7 @@
 package com.infox.sysmgr.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -47,7 +48,7 @@ public class UserServiceImpl implements UserServiceI {
 		Json j = new Json();
 		try {
 			UserEntity entity = new UserEntity();
-			BeanUtils.copyProperties(form, entity, new String[] { "id" });
+			BeanUtils.copyProperties(form, entity, new String[] { "id", "created" });
 
 			if (form.getDept_id() != null && !"".equalsIgnoreCase(form.getDept_id())) {
 				entity.setDept(this.basedaoCompany.get(CompanyEntity.class, form.getDept_id()));
@@ -95,7 +96,8 @@ public class UserServiceImpl implements UserServiceI {
 			UserEntity entity = this.basedaoUser.get(UserEntity.class, form.getId());
 			
 			if(entity != null) {
-				BeanUtils.copyProperties(form, entity ,new String[]{"created"});
+				form.setCreated(new Date()) ;
+				BeanUtils.copyProperties(form, entity);
 				
 				UserDetailEntity user_detail = new UserDetailEntity() ;
 				BeanUtils.copyProperties(form, user_detail, new String[] { "id" });

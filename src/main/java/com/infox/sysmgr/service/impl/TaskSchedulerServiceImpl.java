@@ -31,11 +31,15 @@ public class TaskSchedulerServiceImpl implements TaskSchedulerServiceI {
 	@Override
 	public void add(TaskForm form) throws Exception {
 		try {
-			form.setTask_code(UUIDHexGenerator.generator()) ;
+			String id = UUIDHexGenerator.generator() ;
+			if(null == form.getTask_code() || form.getTask_code().equals("")) {
+				form.setTask_code(id) ;
+			}
 			this.schedulerUtil.scheduler(form) ;
 			
 			TaskEntity entity = new TaskEntity() ;
 			BeanUtils.copyProperties(form, entity) ;
+			entity.setId(id) ;
 			this.basedaoTask.save(entity) ;
 		} catch (Exception e) {
 			throw new Exception(e.getMessage()) ;

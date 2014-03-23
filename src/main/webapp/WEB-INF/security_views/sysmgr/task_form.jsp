@@ -50,27 +50,26 @@
 	});
 	
 	//提交表单数据
-	var submitNow = function($dialog, $datagrid) {
+	var submitNow = function($d, $dg) {
 		var o = {};o=$("#form").form("getData");
 		o["cron_expression"]=$("input[name=cron_expression]").val();
 		$.post(form_url, o, function(result) {
 			if (result.status) {
-				$datagrid.datagrid('reload') ;
+				$dg.datagrid('reload') ;
 				$.easyui.messager.show({ icon: "info", msg: "保存记录成功。" });
+				$.easyui.loaded(); $d.dialog("close") ;
 			} else {
 				$.easyui.messager.show({ icon: "info", msg: "保存记录失败。" });
-				return false ;
 			}
 		}, 'json');
 	};
 	
 	//验证表单
-	var submitForm = function($dialog, $datagrid) {
+	var submitForm = function($d, $dg) {
 		if($('#form').form('validate')) {
-			return submitNow($dialog, $datagrid) ;
-		} else{
-			return false ;
-		}
+			$.easyui.loading({ msg: "数据提交中，请稍等..." });
+			submitNow($d, $dg) ;
+		} 
 	};
 	
 	

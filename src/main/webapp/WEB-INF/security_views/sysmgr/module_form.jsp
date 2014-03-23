@@ -62,7 +62,7 @@
 				$tg.treegrid('reload') ;
 				window.mainpage.refreshNavTab();
 				$.easyui.messager.show({ icon: "info", msg: result.msg });
-				$d.dialog("close") ;
+				$.easyui.loaded(); $d.dialog("close") ;
 			} else {
 				$.easyui.messager.show({ icon: "info", msg: result.msg });
 			}
@@ -72,6 +72,7 @@
 	//验证表单
 	var submitForm = function($d, $tg) {
 		if($('#form').form('validate')) {
+			$.easyui.loading({ msg: "数据提交中，请稍等..." });
 			submitNow($d, $tg) ; ;
 		}
 	};
