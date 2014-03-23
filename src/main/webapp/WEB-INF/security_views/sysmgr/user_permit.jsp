@@ -34,10 +34,10 @@
 			border: false, remoteSort: false, singleSelect:false, toolbar: '#buttonbar2', striped:true,
 			frozenColumns: [[
 			    { field: 'ck', checkbox: true },
-			    { field: 'id', title: 'ID(id)', width: 60, sortable: true }
+			    { field: 'id', title: 'ID', width: 60, sortable: true }
 			]],
 			columns: [[
-			    { field: 'name', title: '名称(name)', width: 170, sortable: true }
+			    { field: 'name', title: '名称', width: 170, sortable: true }
 			]]
 	    });
 	});

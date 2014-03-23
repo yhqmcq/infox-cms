@@ -33,6 +33,36 @@ public class UserForm extends PageHelper {
 	
 	private String roleNames ;
 	
+	private String kaptcha ;
+	
+	private String ip ;
+	
+	private String oldPwd ;
+	
+	public String getOldPwd() {
+		return oldPwd;
+	}
+
+	public void setOldPwd(String oldPwd) {
+		this.oldPwd = oldPwd;
+	}
+
+	public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
+	public String getKaptcha() {
+		return kaptcha;
+	}
+
+	public void setKaptcha(String kaptcha) {
+		this.kaptcha = kaptcha;
+	}
+
 	public String getRoleNames() {
 		return roleNames;
 	}

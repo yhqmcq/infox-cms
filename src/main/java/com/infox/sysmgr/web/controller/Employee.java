@@ -117,7 +117,7 @@ public class Employee extends BaseController {
 						
 						emp.setIp(IpUtil.getIpAddr(request)) ;
 						LoginInfoSession LoginInfo = new LoginInfoSession();
-						LoginInfo.setEmp(emp) ;
+						//LoginInfo.setUser(emp) ;
 						LoginInfo.setResourceList(this.empservice.MyPermission(emp.getId(), emp.getAccount()));
 						request.getSession().setAttribute(Constants.SESSION_INFO_NAME, LoginInfo);
 						

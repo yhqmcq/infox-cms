@@ -16,7 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.infox.common.dao.BaseDaoI;
 import com.infox.common.web.page.DataGrid;
 import com.infox.common.web.page.Json;
+import com.infox.common.web.page.LoginInfoSession;
 import com.infox.sysmgr.entity.CompanyEntity;
+import com.infox.sysmgr.entity.ModuleEntity;
 import com.infox.sysmgr.entity.RoleEntity;
 import com.infox.sysmgr.entity.UserDetailEntity;
 import com.infox.sysmgr.entity.UserEntity;
@@ -35,6 +37,9 @@ public class UserServiceImpl implements UserServiceI {
 	
 	@Autowired
 	private BaseDaoI<RoleEntity> basedaoRole;
+	
+	@Autowired
+	private BaseDaoI<ModuleEntity> basedaoModule;
 	
 
 	@Override
@@ -298,6 +303,66 @@ public class UserServiceImpl implements UserServiceI {
 			}
 		}
 		return r;
+	}
+	
+	@Override
+	public UserForm login(UserForm user) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("account", user.getAccount());
+		params.put("password", user.getPassword());
+		UserEntity t = this.basedaoUser.get("from UserEntity t where t.account = :account and t.password = :password", params);
+		if (t != null) {
+			BeanUtils.copyProperties(t, user);
+		} else {
+			user = null;
+		}
+		return user;
+	}
+	
+	@Override
+	public List<String> MyPermission(String id, String account) throws Exception {
+		List<String> resourceList = new ArrayList<String>();
+		
+		//超级管理员默认拥有所有操作权限
+		if("admin".equals(account)) {
+			String hql = "select t from ModuleEntity t where 1=1 and t.linkUrl != '' " ;
+			List<ModuleEntity> module = this.basedaoModule.find(hql) ;
+			for (ModuleEntity m : module) {
+				resourceList.add(m.getLinkUrl());
+			}
+			
+		} else {
+			Map<String, Object> params = new HashMap<String, Object>();
+			params.put("id", id);
+			UserEntity t = this.basedaoUser.get("from UserEntity t join fetch t.roles role join fetch role.modules menu where t.id = :id", params);
+			if (t != null) {
+				Set<RoleEntity> roles = t.getRoles();
+				if (roles != null && !roles.isEmpty()) {
+					for (RoleEntity role : roles) {
+						Set<ModuleEntity> modules = role.getModules();
+						if (modules != null && !modules.isEmpty()) {
+							for (ModuleEntity resource : modules) {
+								if (resource != null && resource.getLinkUrl() != null && !"".equals(resource.getLinkUrl())) {
+									resourceList.add(resource.getLinkUrl());
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		return resourceList;
+	}
+	
+	@Override
+	public boolean editCurrentUserPwd(LoginInfoSession sessionInfo, String oldPwd, String pwd) {
+		UserEntity u = this.basedaoUser.get(UserEntity.class, sessionInfo.getUser().getId());
+		if (u.getPassword().equalsIgnoreCase(oldPwd)) {
+			u.setPassword(pwd);
+			return true;
+		}
+		return false;
 	}
 
 }

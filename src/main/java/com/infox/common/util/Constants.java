@@ -16,7 +16,7 @@ public class Constants {
 	/**
 	 * 用户登陆的Session Key
 	 */
-	public static final String SESSION_INFO_NAME= "_LOGIN_EMP_KEY";
+	public static final String SESSION_INFO_NAME= "LOGIN_USER_KEY";
 	/**
 	 * 静态站点根目录（服务器启动创建 web project）
 	 */

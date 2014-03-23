@@ -11,7 +11,7 @@
         mainLayout = "#mainLayout", northPanel = "#northPanel", themeSelector = "#themeSelector",
         westLayout = "#westLayout", westCenterLayout = "#westCenterLayout", westFavoLayout = "#westFavoLayout",
         westSouthPanel = "#westSouthPanel", homePanel = "#homePanel", online = "#online",
-        btnContact = "#btnContact", btnFullScreen = "#btnFullScreen", btnLook = "#btnLook", btnExit = "#btnExit";
+        btnContact = "#btnContact", modifyPwd = "#modifyPwd", btnFullScreen = "#btnFullScreen", btnLook = "#btnLook", btnExit = "#btnExit";
 
 
     //按照指定的根节点菜单 id，加载其相应的子菜单树面板数据；该方法定义如下参数：
@@ -203,6 +203,25 @@
 
         $(btnContact).click(function () {
         	$.messager.alert("联系", "<br>先弹个窗吧，有空在搞即时通讯<br><br>邮箱：<font color=red>yanghaoquan@whizen.com</font><br><br>");
+        });
+        
+    	$(modifyPwd).click(function () {
+        	var $dialog = $.easyui.showDialog({
+                title: "修改密码",
+                href: siteUtil.basePath+"/user/modifyPwd.jsp",
+                iniframe: false,
+                width: 350, height: 200,
+                topMost: true,
+                autoVCenter: true,
+                autoHCenter: true,
+                enableApplyButton: false,
+                enableCloseButton: false,
+                enableSaveButton: false,
+                buttons : [ 
+                  { text : '保存', iconCls : 'ext_save', handler : function() {  $.easyui.parent.submitForm($dialog) ; } },
+                  { text : '关闭', iconCls : 'ext_cancel', handler : function() { $dialog.dialog('destroy'); } } 
+               	]
+            });
         });
 
         $(btnFullScreen).click(function () {

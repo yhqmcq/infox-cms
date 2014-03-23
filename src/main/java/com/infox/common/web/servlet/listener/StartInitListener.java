@@ -107,7 +107,7 @@ public class StartInitListener implements ServletContextListener, HttpSessionLis
 				LoginInfoSession sessionInfo = (LoginInfoSession) session.getAttribute(keyName);
 				if (sessionInfo != null) {
 				}
-				logger.info("用户登录成功，将用户会话存入Session[Key:"+keyName+" Account:"+sessionInfo.getEmp().getAccount()+" Name:"+sessionInfo.getEmp().getTruename()+"]");
+				logger.info("用户登录成功，将用户会话存入Session[Key:"+keyName+" Account:"+sessionInfo.getUser().getAccount()+" Name:"+sessionInfo.getUser().getTruename()+"]");
 			}
 		} catch (BeansException e) {
 			e.printStackTrace();
@@ -128,7 +128,7 @@ public class StartInitListener implements ServletContextListener, HttpSessionLis
 				LoginInfoSession sessionInfo = (LoginInfoSession) session.getAttribute(Constants.SESSION_INFO_NAME);
 				if (sessionInfo != null) {
 					
-					logger.info("用户会话失效，将用户从Session中移除[Account:"+sessionInfo.getEmp().getAccount()+" Name:"+sessionInfo.getEmp().getTruename()+"]");
+					logger.info("用户会话失效，将用户从Session中移除[Account:"+sessionInfo.getUser().getAccount()+" Name:"+sessionInfo.getUser().getTruename()+"]");
 				}
 			}
 		} catch (BeansException e) {

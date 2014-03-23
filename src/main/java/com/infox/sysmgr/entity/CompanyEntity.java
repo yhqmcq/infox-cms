@@ -33,6 +33,12 @@ public class CompanyEntity {
 	
 	/** 公司或部门(C,D) */
 	private String type ;
+	
+	private String sname ;
+	
+	private String tel ;
+	
+	private String fax ;
 
 	private Date created = new Date();
 
@@ -91,6 +97,30 @@ public class CompanyEntity {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getSname() {
+		return sname;
+	}
+
+	public void setSname(String sname) {
+		this.sname = sname;
+	}
+
+	public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+
+	public String getFax() {
+		return fax;
+	}
+
+	public void setFax(String fax) {
+		this.fax = fax;
 	}
 
 	public String getName() {

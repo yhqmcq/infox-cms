@@ -13,8 +13,8 @@
 
 <body style="padding: 0px; margin: 0px;">
 	<!-- 
-	<jsp:include page="login_dialog.jsp" />
 	 -->
+	<jsp:include page="user/login_dialog.jsp" />
     
 	<div id="mainLayout" class="easyui-layout hidden" data-options="fit: true">
 	
@@ -40,7 +40,18 @@
                     <span id="loginInfo" class="icon-hamburg-user" style="padding:1px 1px 0px 25px; background-position: left center;"></span>
                 </div>
                 <div id="buttonbar">
-                    <a id="btnContact" class="easyui-linkbutton easyui-tooltip" title="联系杨浩泉" data-options="plain: true, iconCls: 'icon-hamburg-contact'">Mr.Yang</a>
+                	<a href="javascript:;" class="easyui-menubutton" data-options="menu:'#navMenu_toggleMenu',iconCls:'ext_settings'">控制面板</a>
+                    <div id="navMenu_toggleMenu" class="easyui-menu">
+	                    <div data-options="iconCls: 'icon-metro-contract'">
+	                    	<span>个人设置</span>
+	                    	<div>
+		                    	<div id="modifyPwd" data-options="iconCls: 'icon-metro-expand'">修改密码</div>
+	                    	</div>
+	                    </div>
+	                    <div class="menu-sep"></div>
+                    	<div id="btnContact" class="easyui-tooltip" title="联系杨浩泉" data-options="iconCls: 'icon-hamburg-contact'">联系Mr.Yang</div>
+                	</div>
+                
                     <a id="btnFullScreen" class="easyui-linkbutton" data-options="plain: true, iconCls: 'icon-standard-arrow-inout'">全屏切换</a>
                     <a id="btnLook" name="look" class="easyui-linkbutton" data-options="plain: true, iconCls: 'icon-hamburg-sign-out'">锁定</a>
                     <a id="btnExit" name="exit" class="easyui-linkbutton" data-options="plain: true, iconCls: 'icon-hamburg-sign-out'">退出系统</a>

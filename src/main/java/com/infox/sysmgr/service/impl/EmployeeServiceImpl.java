@@ -264,7 +264,7 @@ public class EmployeeServiceImpl implements EmployeeServiceI {
 
 	@Override
 	public boolean editCurrentUserPwd(LoginInfoSession sessionInfo, String oldPwd, String pwd) throws Exception {
-		EmployeeEntity u = this.basedaoEmployee.get(EmployeeEntity.class, sessionInfo.getEmp().getId());
+		EmployeeEntity u = this.basedaoEmployee.get(EmployeeEntity.class, sessionInfo.getUser().getId());
 		if (u.getPassword().equalsIgnoreCase(oldPwd)) {// 说明原密码输入正确
 			u.setPassword(pwd);
 			u.setLastmod(new Date());

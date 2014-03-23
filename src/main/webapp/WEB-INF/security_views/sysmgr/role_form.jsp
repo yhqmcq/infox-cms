@@ -51,12 +51,11 @@
 		<table>
 			<tr>
 				<th>角色名称：</th>
-				<td><input name="name" class="easyui-validatebox" type="text" data-options="required: true, prompt: '菜单名称'" /></td>
+				<td><input name="name" class="easyui-validatebox" type="text" data-options="required: true, prompt: '角色名称'" /></td>
 			</tr>
 			<tr>
-				<td colspan="4">
-					<textarea class="easyui-validatebox" name="description" style="width:98.4%;height:100px;"></textarea>
-				</td>
+				<th>描述：</th>
+				<td><input name="description" class="easyui-validatebox" type="text" data-options="prompt: '角色备注'" /></td>
 			</tr>
 		</table>
 	</div>

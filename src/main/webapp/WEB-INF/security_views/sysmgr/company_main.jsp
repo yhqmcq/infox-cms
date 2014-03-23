@@ -19,12 +19,13 @@
 			    { field: 'id', title: 'ID', width: 80, sortable: true }
 			]],
 			columns: [[
-			    { field: 'name', title: '公司名称', width: 180, sortable: true },
+			    { field: 'name', title: '名称', width: 180, sortable: true },
+			    { field: 'sname', title: '简称', width: 180, sortable: true },
+			    { field: 'tel', title: '电话', width: 180, sortable: true },
+			    { field: 'fax', title: '传真', width: 180, sortable: true },
 			    { field: 'created', title: '日期', width: 140, sortable: true }
 			]],
-			enableHeaderClickMenu: false,
-			enableHeaderContextMenu: true,
-			enableRowContextMenu: true
+			enableHeaderClickMenu: false, enableHeaderContextMenu: true, enableRowContextMenu: true
 	    });
 	});
 	
