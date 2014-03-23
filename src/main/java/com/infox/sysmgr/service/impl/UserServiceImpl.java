@@ -315,6 +315,7 @@ public class UserServiceImpl implements UserServiceI {
 		UserEntity t = this.basedaoUser.get("from UserEntity t where t.account = :account and t.password = :password", params);
 		if (t != null) {
 			BeanUtils.copyProperties(t, user);
+			BeanUtils.copyProperties(t.getUser_detail(), user);
 		} else {
 			user = null;
 		}

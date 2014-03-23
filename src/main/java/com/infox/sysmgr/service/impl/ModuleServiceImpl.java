@@ -137,12 +137,11 @@ public class ModuleServiceImpl implements ModuleServiceI {
 
 			Set<ModuleEntity> rs = me.getModules();
 			List<ModuleForm> children = new ArrayList<ModuleForm>();
-			for (ModuleEntity ModuleEntity : rs) {
-
-				ModuleForm tn = recursiveNaviNode(ModuleEntity);
-				BeanUtils.copyProperties(ModuleEntity, tn, new String[] { "state" });
-				tn.setText(ModuleEntity.getModuleName());
-				children.add(tn);
+			for (ModuleEntity entity : rs) {
+					ModuleForm tn = recursiveNaviNode(entity);
+					BeanUtils.copyProperties(entity, tn, new String[] { "state" });
+					tn.setText(entity.getModuleName());
+					children.add(tn);
 			}
 
 			mf.setChildren(children);
@@ -157,13 +156,11 @@ public class ModuleServiceImpl implements ModuleServiceI {
 		String hql = "select t from ModuleEntity t where t.module is null and t.type='R' order by seq desc";
 		List<ModuleEntity> menus = this.basedaoModule.find(hql);
 		for (ModuleEntity entity : menus) {
-			ModuleForm mf = new ModuleForm();
-			BeanUtils.copyProperties(entity, mf);
-			mf.setText(entity.getModuleName());
-
-			menu.add(mf);
-
-			exportTree(entity.getModules(), entity, sc);
+				ModuleForm mf = new ModuleForm();
+				BeanUtils.copyProperties(entity, mf);
+				mf.setText(entity.getModuleName());
+				menu.add(mf);
+				exportTree(entity.getModules(), entity, sc);
 		}
 		String path = sc.getRealPath("/common/view-index-resource/") + "/nav-menu-data.json";
 		FileUtil.outJson(path, "", menu);
@@ -173,11 +170,41 @@ public class ModuleServiceImpl implements ModuleServiceI {
 		List<ModuleForm> forms = new ArrayList<ModuleForm>();
 		if (null != menus && menus.size() > 0) {
 			for (ModuleEntity entity : menus) {
-				forms.add(recursiveNaviNode(entity));
+				if(!"O".equals(entity.getType())) {
+					forms.add(recursiveNaviNodeExport(entity));
+				}
 			}
 		}
 		String path = sc.getRealPath("/common/view-index-resource/") + "/nav-" + m.getId() + "-menu-data.json";
 		FileUtil.outJson(path, "", forms);
 	}
 
+	
+	public ModuleForm recursiveNaviNodeExport(ModuleEntity me) {
+		ModuleForm mf = new ModuleForm();
+		BeanUtils.copyProperties(me, mf);
+		mf.setText(me.getModuleName());
+
+		Map<String, String> attributes = new HashMap<String, String>();
+		attributes.put("href", me.getLinkUrl());
+		mf.setAttributes(attributes);
+
+		if (null != me.getModules() && me.getModules().size() > 0) {
+
+			Set<ModuleEntity> rs = me.getModules();
+			List<ModuleForm> children = new ArrayList<ModuleForm>();
+			for (ModuleEntity entity : rs) {
+				if(!"O".equals(entity.getType())) {
+					ModuleForm tn = recursiveNaviNode(entity);
+					BeanUtils.copyProperties(entity, tn, new String[] { "state" });
+					tn.setText(entity.getModuleName());
+					children.add(tn);
+				}
+			}
+
+			mf.setChildren(children);
+		}
+		return mf;
+	}
+	
 }
