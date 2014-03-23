@@ -16,7 +16,7 @@
 			remoteSort: false, toolbar: '#buttonbar', striped:true,
 			frozenColumns: [[
 			    { field: 'ck', checkbox: true },
-			    { field: 'id', title: 'ID(id)', width: 80, sortable: true }
+			    { field: 'id', title: 'ID', width: 80, sortable: true }
 			]],
 			columns: [[
 			    { field: 'moduleName', title: '名称', width: 220, sortable: true },
