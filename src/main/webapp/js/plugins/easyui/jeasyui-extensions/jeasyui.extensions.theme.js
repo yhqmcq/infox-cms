@@ -87,23 +87,11 @@
     };
 
     $.easyui.theme.dataSource = [
-        { id: 1, name: "默认(天空蓝,推荐)", path: "default" },
-        { id: 2, name: "金属黑(推荐)", path: "black" },
-        { id: 3, name: "银色(推荐)", path: "bootstrap" },
-        { id: 4, name: "灰霾(推荐)", path: "gray" },
-
-        { id: 5, name: "清泉", path: "jqueryui-cupertino", disabled: false },
-        { id: 6, name: "黑巢", path: "jqueryui-dark-hive", disabled: false },
-        { id: 7, name: "杏黄", path: "jqueryui-pepper-grinder", disabled: false },
-        { id: 8, name: "阳光", path: "jqueryui-sunny", disabled: false },
-
-        { id: 9, name: "磁贴（标准）", path: "metro-standard" },
-        { id: 10, name: "磁贴（蓝）", path: "metro-blue" },
-        { id: 11, name: "磁贴（灰）", path: "metro-gray" },
-        { id: 12, name: "磁贴（绿）", path: "metro-green" },
-        { id: 13, name: "磁贴（橙）", path: "metro-orange" },
-        { id: 14, name: "磁贴（红）", path: "metro-red" }
-    ];
+	     { id: 1, name: "默认(银色,推荐)", path: "bootstrap" },
+	     { id: 2, name: "天空蓝(推荐)", path: "default" },
+	     { id: 3, name: "灰霾(推荐)", path: "gray" },
+	     { id: 4, name: "磁贴（标准）", path: "metro-standard" }
+	 ];
 
 
 

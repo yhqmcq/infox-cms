@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50522
 File Encoding         : 65001
 
-Date: 2014-03-23 15:23:45
+Date: 2014-03-23 15:40:57
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -216,7 +216,7 @@ CREATE TABLE `infox_sysmgr_user` (
 -- Records of infox_sysmgr_user
 -- ----------------------------
 INSERT INTO `infox_sysmgr_user` VALUES ('030759', 'test', '2014-03-23 15:18:32', 'test', '0', null, '719589');
-INSERT INTO `infox_sysmgr_user` VALUES ('9999', 'admin', '2014-03-23 14:22:52', 'admin123', '0', null, null);
+INSERT INTO `infox_sysmgr_user` VALUES ('9999', 'admin', '2014-03-23 15:40:35', 'admin123', '0', null, '511519');
 
 -- ----------------------------
 -- Table structure for `infox_sysmgr_user_detail`
@@ -234,6 +234,7 @@ CREATE TABLE `infox_sysmgr_user_detail` (
 -- ----------------------------
 -- Records of infox_sysmgr_user_detail
 -- ----------------------------
+INSERT INTO `infox_sysmgr_user_detail` VALUES ('511519', 'admin@admin.com', 'male', '', '超级管理员');
 INSERT INTO `infox_sysmgr_user_detail` VALUES ('719589', 'test@admin.com', 'male', '123', 'test');
 
 -- ----------------------------
