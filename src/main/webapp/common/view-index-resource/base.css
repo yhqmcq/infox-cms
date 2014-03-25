@@ -6,6 +6,7 @@ textarea.easyui-validatebox{font-size:13px;}
 .validatebox-text {background-attachment: scroll;background-clip: border-box;background-origin: padding-box;background-size: auto auto;border:1px solid #ddd;height: 19px;line-height: 17px;padding: 1px 3px 2px;}
 .datagrid-toolbar .searchbox{vertical-align: middle;}
 .panel-body  { overflow: hidden; }/*防止iframe滚动条 */
+.combo-panel  { overflow: auto; }/*防止iframe滚动条 */
 .imgIcon{ width:16px; height:16px; padding:2px 0px 2px 16px; }
 
 .form_base{
